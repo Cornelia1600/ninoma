@@ -23,4 +23,16 @@
 
         return $categorie;    
     }
+
+    function getMedecinBySpecialite($idspecialite){
+        $connexion=getConnect();
+
+        $requeteMedecin='SELECT * FROM personnel WHERE IDSP='. $idspecialite;
+        $resultatMedecin=$connexion->query($requeteMedecin); 
+        $resultatMedecin->setFetchMode(PDO::FETCH_OBJ);
+        $medecins = $resultatMedecin->fetchAll();
+        $resultatMedecin->closeCursor();
+
+        return $medecins;
+    }
 ?>

@@ -1,6 +1,8 @@
 <?php
     // on appelle la vue du formulaire
     require_once("./vues/LoginVue.php");
+    
+    // on appelle le mdoèle pour la table personnel
     require_once("./modeles/PersonnelModele.php");
 
 
