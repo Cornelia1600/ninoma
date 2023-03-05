@@ -14,7 +14,7 @@ function afficherPageDirecteur(){
         <input type="submit" Value="Les élements de rdv" name="modif_rdv"/>
     </p>
     <p>
-        <label for="acces">Login ou MDP</label>		
+        <label for="acces">Medecin</label>		
         <input type="submit" Value="Les médecins" name="modif_medecin"/>
     </p>
   
@@ -23,5 +23,11 @@ function afficherPageDirecteur(){
 
     return $form;
 }
+
+function afficherModificationPersonnel(){
+
+
+}
+
 
 ?>

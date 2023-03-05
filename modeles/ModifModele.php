@@ -1,8 +1,8 @@
 <?php 
-    function UpdateLogin($newlogin,$oldlogin){
+    function UpdateLogin($newlogin,$idperso){
         $connexion=getConnect();
 
-        $requetemodiflogin='UPDATE personnel SET LOGIN ="' .$newlogin.'" WHERE LOGIN="' .$oldlogin. '"';
+        $requetemodiflogin='UPDATE personnel SET LOGIN ="' .$newlogin.'" WHERE idperso="' .$idperso. '"';
         $resultatmodiflogin=$connexion->query($requetemodiflogin); 
         $resultatmodiflogin->setFetchMode(PDO::FETCH_OBJ);
         $personnel = $resultatmodiflogin->fetch();
