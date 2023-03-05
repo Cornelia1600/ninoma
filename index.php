@@ -29,7 +29,7 @@ try {
         }
         if($categorie == "DIRECTEUR") {
             // on appelle le controleur des directeurs
-            require_once('./controleurs/MedecinControleur.php');
+            require_once('./controleurs/DirecteurControleur.php');
             $contenu = ctlDirecteur();
         }
     }else {

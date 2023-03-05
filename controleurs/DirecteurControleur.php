@@ -6,8 +6,9 @@
     require_once("./modeles/DirecteurModele.php");
 
     function ctlDirecteur(){
-        
+
         if (isset($_POST["modif_acces"])) {
+
          }
         elseif(isset($_POST["modif_rdv"])){
 
@@ -16,10 +17,11 @@
 
         }
         else {
+
             return afficherPageDirecteur();
         }
 
-        $vueDirecteur = afficherFormulaireConnexion();
+        $vueDirecteur = afficherPageDirecteur();
         return $vueDirecteur;
     }
     
