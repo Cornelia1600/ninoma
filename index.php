@@ -29,6 +29,8 @@ try {
         }
         if($categorie == "DIRECTEUR") {
             // on appelle le controleur des directeurs
+            require_once('./controleurs/MedecinControleur.php');
+            $contenu = ctlDirecteur();
         }
     }else {
         // => pas de session donc formulaire de connexion
