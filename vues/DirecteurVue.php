@@ -29,10 +29,7 @@ function afficherPageDirecteur(){
 }
 
 function afficherModificationAcces(){
-    $form = '
 
-	'
-    return $form;
 
 
 }
