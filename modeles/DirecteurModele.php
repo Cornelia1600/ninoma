@@ -9,7 +9,18 @@
     function UpdateMDP($newMDP,$idperso){
         $connexion=getConnect();
 
-        $requetemodifMDP='UPDATE personnel SET LOGIN ="' .$newlogin.'" WHERE idperso="' .$idperso. '"';
+        $requetemodifMDP='UPDATE personnel SET MDP ="' .$newMDP.'" WHERE idperso="' .$idperso. '"';
        return $resultatmodifMDP=$connexion->query($requetemodifMDP); 
     }
+
+    function UpdateModif($newmo,$RDVcode){
+        $connexion=getConnect();
+
+        $requetemodifMDP='UPDATE personnel SET IDMO ="' .$newmo.'" WHERE IDRDV="' .$RDVcode. '"';
+       return $resultatmodifMDP=$connexion->query($requetemodifMDP); 
+    }
+
+
+
+
 ?>
