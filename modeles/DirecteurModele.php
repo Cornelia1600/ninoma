@@ -16,11 +16,31 @@
     function UpdateModif($newmo,$RDVcode){
         $connexion=getConnect();
 
-        $requetemodifMDP='UPDATE personnel SET IDMO ="' .$newmo.'" WHERE IDRDV="' .$RDVcode. '"';
-       return $resultatmodifMDP=$connexion->query($requetemodifMDP); 
+        $requetemodifmotif='UPDATE motif SET IDMO ="' .$newmo.'" WHERE IDRDV="' .$RDVcode. '"';
+       return $resultatmodifmotif=$connexion->query($requetemodifmotif); 
+    }
+    function UpdatePrix($newprix,$RDVcode){
+        $connexion=getConnect();
+
+        $requetemodifprix='UPDATE motif SET PRIXMO ="' .$newprix.'" WHERE IDRDV="' .$RDVcode. '"';
+       return $resultatmodifprix=$connexion->query($requetemodifprix); 
     }
 
+    function Updatedocument($newpiece,$RDVcode){
+        $connexion=getConnect();
 
+        $requetemodifprix='UPDATE personnel SET IDPI ="' .$newpiece.'" WHERE IDRDV="' .$RDVcode. '"';
+       return $resultatmodifprix=$connexion->query($requetemodifprix); 
+    }
+
+    function CreateMedecin($nommedecin,$prenommedecin,$specmedecin){
+        $connexion=getConnect();
+
+        $requetecreatemed='INSERT INTO PERSONNEL * FROM motif';
+        $resultatcreatemed=$connexion->query($requetecreatemed); 
+        $resultatcreatemed->closeCursor();
+
+    }
 
 
 ?>
