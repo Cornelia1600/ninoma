@@ -42,11 +42,11 @@
 
     }
 
-    function CreateSpecialite($nommedecin,,$prenommedecin,$specmedecin){
+    function CreateSpecialite($nommedecin,$prenommedecin,$specmedecin){
         $connexion=getConnect();
 
         $requetecreatespe='INSERT INTO SPECIALITE (LIBELLESP) VALUES ($specmedecin)
-        select * from PERSONNEL NATURAL JOIN SPECIALITE where NOM=$nommedecin AND PRENOM=$prenommedecin;
+        select * from PERSONNEL NATURAL JOIN SPECIALITE where NOM=$nommedecin AND PRENOM=$prenommedecin';
         $resultatcreatespe=$connexion->query($requetecreatespe); 
         $resultatcreatespe->closeCursor();
 
