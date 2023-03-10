@@ -19,17 +19,17 @@
         $requetemodifmotif='UPDATE motif SET IDMO ="' .$newmo.'" WHERE IDRDV="' .$RDVcode. '"';
        return $resultatmodifmotif=$connexion->query($requetemodifmotif); 
     }
-    function UpdatePrix($newprix,$RDVcode){
+    function UpdatePrix($newprix,$motifcode){
         $connexion=getConnect();
 
-        $requetemodifprix='UPDATE motif SET PRIXMO ="' .$newprix.'" WHERE IDRDV="' .$RDVcode. '"';
+        $requetemodifprix='UPDATE motif SET PRIXMO ="' .$newprix.'" WHERE IDMO="' .$motifcode. '"';
        return $resultatmodifprix=$connexion->query($requetemodifprix); 
     }
 
-    function Updatedocument($newpiece,$RDVcode){
+    function Updatedocument($newpiece,$motifcode){
         $connexion=getConnect();
 
-        $requetemodifprix='UPDATE personnel SET IDPI ="' .$newpiece.'" WHERE IDRDV="' .$RDVcode. '"';
+        $requetemodifprix='UPDATE personnel SET IDPI ="' .$newpiece.'" WHERE IDMO="' .$motifcode. '"';
        return $resultatmodifprix=$connexion->query($requetemodifprix); 
     }
 
