@@ -123,20 +123,25 @@ function afficherRecapRdv($specialite, $medecin){//TODO concatener le rdv
     $contenu = '<form method="POST">
         <h2>Récap du rdv<h2>
         <div>
-            <p>Nom du médecin :'
-            . $medecin->PRENOM . ' ' . $medecin->NOM.
-            '
-
-            <p>
+            <p>Nom du médecin :'. $medecin->PRENOM . ' ' . $medecin->NOM.' '.$specialite->IDSP.'</p>;
+            <p>Date et heure du rendez-vous :'. $date->DATERDV .' ' . $date->IDRDV . ' ' . $date->IDRDV . '</p>;
+            <p>Motif(s) du rendez-vous :' . $motif->LIBELLEMO .' '. $motif->IDMO . '</p>;
+            <p>Consignes du rendez-vous :
+         
+                for ($i=0; $i < count($consigne) ; $i++) {
+                    $contenu .= '<option value ='". $consigne[$i]->IDCO ."'; 
+                    if (isset($_POST["consigne"]) && $_POST["consigne"] == $consigne[$i]->IDCO) {
+                        $contenu .= ' selected="selected"';
+                    }
+                    $contenu .= '>' . $consigne[$i]->LIBELLECO . ' - ' . $consigne[$i]->PRIXMO . '€</option>'; 
+                }
+                    <ul>
+                        <li>' . $consigne->IDCO . '</li>// avec affichage dynamique
+                        <li>' . $consigne->LIBELLECO . '</li>
+                    </ul>   
+            </p>
             
-
-            <p>Consignes : // For pour afficher chaque élément de la liste
-                <ul>
-                    <li></li>// avec affichage dynamique
-                    <li></li>
-                </ul>
-            <p>
-
+        </div>
 
     ';
 
