@@ -26,5 +26,5 @@ function afficherFormulaireConnexion($erreurMdpLogin = false){
     return $form;
 }
 
-
+///test
 ?>
