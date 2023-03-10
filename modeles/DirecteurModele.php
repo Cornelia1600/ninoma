@@ -42,6 +42,15 @@
 
     }
 
+    function CreateCat($nommedecin,$prenommedecin,$specmedecin){
+        $connexion=getConnect();
+
+        $requetecreatespe='INSERT INTO CATEGORIE (IDCAT) VALUES (2)
+        select * from PERSONNEL NATURAL JOIN CATEGORIE where NOM=$nommedecin AND PRENOM=$prenommedecin';
+        $resultatcreatespe=$connexion->query($requetecreatespe); 
+        $resultatcreatespe->closeCursor();
+    }
+
     function CreateSpecialite($nommedecin,$prenommedecin,$specmedecin){
         $connexion=getConnect();
 
@@ -49,7 +58,6 @@
         select * from PERSONNEL NATURAL JOIN SPECIALITE where NOM=$nommedecin AND PRENOM=$prenommedecin';
         $resultatcreatespe=$connexion->query($requetecreatespe); 
         $resultatcreatespe->closeCursor();
-
     }
 
 
