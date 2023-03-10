@@ -33,12 +33,22 @@
        return $resultatmodifprix=$connexion->query($requetemodifprix); 
     }
 
-    function CreateMedecin($nommedecin,$prenommedecin,$specmedecin){
+    function CreateMedecin($nommedecin,$prenommedecin){
         $connexion=getConnect();
 
-        $requetecreatemed='INSERT INTO PERSONNEL * FROM motif';
+        $requetecreatemed='INSERT INTO PERSONNEL(NOM,PRENOM) VALUES ($nommedecin,$prenommedecin)' ;
         $resultatcreatemed=$connexion->query($requetecreatemed); 
         $resultatcreatemed->closeCursor();
+
+    }
+
+    function CreateSpecialite($nommedecin,,$prenommedecin,$specmedecin){
+        $connexion=getConnect();
+
+        $requetecreatespe='INSERT INTO SPECIALITE (LIBELLESP) VALUES ($specmedecin)
+        select * from PERSONNEL NATURAL JOIN SPECIALITE where NOM=$nommedecin AND PRENOM=$prenommedecin;
+        $resultatcreatespe=$connexion->query($requetecreatespe); 
+        $resultatcreatespe->closeCursor();
 
     }
 
