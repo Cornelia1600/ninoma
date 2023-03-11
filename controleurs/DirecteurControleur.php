@@ -4,19 +4,22 @@
     
     // on appelle le modele
     require_once("./modeles/DirecteurModele.php");
+    require_once("./modeles/MotifModele.php");
 
     function ctlDirecteur(){
        
         if (isset($_POST["modif_acces"])) {
-               // appel au Vue Modif acces 
+            // appel au Vue Modif acces 
             $personnels = getAllPersonnel();
             return afficherModificationAcces($personnels);
         }
         elseif(isset($_POST["creation_acces"])){
             // appel au Vue creation acces 
         }   
-        elseif(isset($_POST["modif_rdv"])){
-                // appel au Vue Modif motif 
+        elseif(isset($_POST["modif_motif"])){
+            // appel au Vue Modif motif 
+            $motifs = getAllMotifs();    
+            return afficherModificationMotif($motifs);
         }
         elseif(isset($_POST["modif_prix"])){
             // appel au Vue Modif prix motif 

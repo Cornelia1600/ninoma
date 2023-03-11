@@ -33,16 +33,28 @@ function afficherModificationAcces($personnels){
                 
     for ($i=0; $i < count($personnels) ; $i++) { 
         // Pour chaque personnel, on recrée la table avec les buttons
-        $contenu.='<tr><td>'.$personnels[$i]->PRENOM.'</td><td>'.$personnels[$i]->NOM.'</td></tr>'; 
+        $button1 = '<form method="post"><input type=submit value="Modifier ce login"></form>';
+
+        $contenu.='<tr><td>'.$personnels[$i]->PRENOM.'</td><td>'.$personnels[$i]->NOM.'</td>'.$button1.'</tr>'; 
+        
     }
     
-    $contenu.= '</table></div>';    
+    $contenu.= '</table></div>';  
+    return $contenu;  
 }
 
 
-function afficherModificationRDV(){
-
-
+function afficherModificationMotif($motifs){
+    $contenu = '<h3>Modification Motif</h3><div><table>';
+                
+    for ($i=0; $i < count($motifs) ; $i++) { 
+        // Pour chaque motif, on recrée la table avec les buttons
+        ///$button = '<form method="post"><input type="hidden"'
+        $contenu.='<tr><td>'.$motifs[$i]->IDMO.'</td><td>'.$motifs[$i]->LIBELLEMO.'</td></tr>'; 
+    }
+    
+    $contenu.= '</table></div>';  
+    return $contenu;  
 }
 
 
