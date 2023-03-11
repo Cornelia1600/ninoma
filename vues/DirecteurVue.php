@@ -29,27 +29,15 @@ function afficherPageDirecteur(){
 }
 
 function afficherModificationAcces(){
-    $contenu = '<h2>Modification Acces</h2>';
-                '<div>
-            <label for="specialite">Choisir une spécialité : </label>
-            <select name="specialite" id="specialite"> 
-                <option value="" selected disabled hidden>-</option>
-            ';
-            // On affiche une liste déroulante. 
-             
-            for ($i=0; $i < count($specialites) ; $i++) { 
-                // Pour chaque spécialité, on crée une option dans la liste
-                $contenu.='<option value="' . $specialites[$i]->IDSP .'"';// la valeur renvoyée = IDSPE
-                if(isset($_POST["specialite"]) && $_POST["specialite"] == $specialites[$i]->IDSP) {
-                    $contenu.=' selected="selected"'; 
+    $contenu = '<h3>Modification Acces</h3>';
+                '<div>'
+            for($i=0; $i<$nbmedecin ; $i++) { 
+                // Pour chaque medecin, on recrée la table avec les buttons
+                $contenu.='<tr><td>'.$rowpers[i]->PRENOM.'</td><td>'.$rowpers[i]->NOM.'</td></tr>'; 
                 }
-                $contenu.='>'. $specialites[$i]->LIBELLESP .'</option>'; // La valeur à afficher = libellé
+                $contenu.= '</div>';    
             }
-        
-    $contenu.= '</select></div>';
 
-
-}
 
 function afficherModificationRDV(){
 
