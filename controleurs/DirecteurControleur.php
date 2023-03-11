@@ -6,12 +6,11 @@
     require_once("./modeles/DirecteurModele.php");
 
     function ctlDirecteur(){
-        var_dump($_POST);
-
+       
         if (isset($_POST["modif_acces"])) {
                // appel au Vue Modif acces 
-            $medecins = getAllPersonnel();
-            return afficherModificationAcces($medecins);
+            $personnels = getAllPersonnel();
+            return afficherModificationAcces($personnels);
         }
         elseif(isset($_POST["creation_acces"])){
             // appel au Vue creation acces 

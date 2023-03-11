@@ -2,7 +2,7 @@
 
 function afficherPageDirecteur(){
     $form = '
-	<form id="directeur_form" action="#" method="post">
+	<form id="directeur_form" method="post">
         <fieldset> 
         <legend> Création, Suppression ou Modification </legend>
     <p>
