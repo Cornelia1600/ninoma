@@ -28,14 +28,15 @@ function afficherPageDirecteur(){
     return $form;
 }
 
-function afficherModificationAcces(){
-    $contenu = '<h3>Modification Acces</h3><div>';
+function afficherModificationAcces($personnels){
+    $contenu = '<h3>Modification Acces</h3><div><table>';
                 
-        for ($i=0; $i < count($nbpers) ; $i++) { 
+    for ($i=0; $i < count($personnels) ; $i++) { 
         // Pour chaque personnel, on recrée la table avec les buttons
-        $contenu.='<tr><td>'.$rowpers[i]->PRENOM.'</td><td>'.$rowpers[i]->NOM.'</td></tr>'; 
-        }
-    $contenu.= '</div>';    
+        $contenu.='<tr><td>'.$personnels[$i]->PRENOM.'</td><td>'.$personnels[$i]->NOM.'</td></tr>'; 
+    }
+    
+    $contenu.= '</table></div>';    
 }
 
 

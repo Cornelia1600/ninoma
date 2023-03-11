@@ -11,7 +11,7 @@
         if (isset($_POST["modif_acces"])) {
                // appel au Vue Modif acces 
             $medecins = getAllPersonnel();
-            return afficherModificationAcces();
+            return afficherModificationAcces($medecins);
         }
         elseif(isset($_POST["creation_acces"])){
             // appel au Vue creation acces 

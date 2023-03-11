@@ -77,15 +77,10 @@
         $requetepers='SELECT * FROM personnel';
         $resultatpers=$connexion->query($requetepers); 
         $resultatpers->setFetchMode(PDO::FETCH_OBJ);
-        $personnel = $resultatpers->fetch();
+        $personnels = $resultatpers->fetchAll();
         $resultatpers->closeCursor();
-        $nbpers=mysqli_num_rows($resultatpers);
-        $rowpers=mysqli_fetch_array($resultatpers);
-        if($nbmedecin=0){
-            echo "pas de résultat";  
-        }
-        else {
-        return $resultatpers;}
+
+        return $personnels;
     }
 
     function getMotif(){
