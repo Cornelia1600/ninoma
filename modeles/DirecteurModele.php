@@ -71,7 +71,7 @@
 
   ///Les affichages
 
-    function getAllPerconnel(){
+    function getAllPersonnel(){
         $connexion=getConnect();
 
         $requetepers='SELECT * FROM personnel';
