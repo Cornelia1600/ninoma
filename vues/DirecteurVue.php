@@ -29,14 +29,14 @@ function afficherPageDirecteur(){
 }
 
 function afficherModificationAcces(){
-    $contenu = '<h3>Modification Acces</h3>';
-                '<div>'
-            for($i=0; $i<$nbmedecin ; $i++) { 
-                // Pour chaque medecin, on recrée la table avec les buttons
-                $contenu.='<tr><td>'.$rowpers[i]->PRENOM.'</td><td>'.$rowpers[i]->NOM.'</td></tr>'; 
-                }
-                $contenu.= '</div>';    
-            }
+    $contenu = '<h3>Modification Acces</h3><div>';
+                
+        for ($i=0; $i < count($nbpers) ; $i++) { 
+        // Pour chaque personnel, on recrée la table avec les buttons
+        $contenu.='<tr><td>'.$rowpers[i]->PRENOM.'</td><td>'.$rowpers[i]->NOM.'</td></tr>'; 
+        }
+    $contenu.= '</div>';    
+}
 
 
 function afficherModificationRDV(){
