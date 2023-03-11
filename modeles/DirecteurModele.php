@@ -1,4 +1,7 @@
 <?php 
+
+///Les updates 
+
     function UpdateLogin($newlogin,$idperso){
         $connexion=getConnect();
 
@@ -33,6 +36,8 @@
        return $resultatmodifprix=$connexion->query($requetemodifprix); 
     }
 
+    ///Les créations 
+
     function CreateMedecin($nommedecin,$prenommedecin){
         $connexion=getConnect();
 
@@ -59,6 +64,37 @@
         $resultatcreatespe=$connexion->query($requetecreatespe); 
         $resultatcreatespe->closeCursor();
     }
+  ///Les suppressions
+  
+  
 
 
+  ///Les affichages
+
+    function getAllPerconnel(){
+        $connexion=getConnect();
+
+        $requetepers='SELECT * FROM personnel';
+        $resultatpers=$connexion->query($requetepers); 
+        $resultatpers->setFetchMode(PDO::FETCH_OBJ);
+        $personnel = $resultatpers->fetch();
+        $resultatpers->closeCursor();
+        $nbpers=mysqli_num_rows($resultatpers);
+        $rowpers=mysqli_fetch_array($resultatpers);
+        if($nbmedecin=0){
+            echo "pas de résultat";  
+        }
+        else {
+        return $resultatpers;}
+    }
+
+    function getMotif(){
+        $connexion=getConnect();
+
+        $requetemed='SELECT * FROM personnel WHERE IDCAT=2';
+        $resultatmed=$connexion->query($requetemed); 
+        $resultatmed->setFetchMode(PDO::FETCH_OBJ);
+        $personnel = $resultatmed->fetch();
+        $resultatmed->closeCursor();
+    }
 ?>

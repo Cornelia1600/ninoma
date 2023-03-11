@@ -14,7 +14,7 @@ function afficherPageDirecteur(){
         <label for="acces">Rendez-vous</label>		
         <input type="submit" Value="Motif" name="modif_motif"/>
         <input type="submit" Value="Prix" name="modif_prix"/>
-        <input type="submit" Value="Pièce" name="modif_prix"/>
+        <input type="submit" Value="Pièce" name="modif_piece"/>
     </p>
     <p>
         <label for="acces">Medecin</label>		
@@ -29,7 +29,24 @@ function afficherPageDirecteur(){
 }
 
 function afficherModificationAcces(){
-
+    $contenu = '<h2>Modification Acces</h2>';
+                '<div>
+            <label for="specialite">Choisir une spécialité : </label>
+            <select name="specialite" id="specialite"> 
+                <option value="" selected disabled hidden>-</option>
+            ';
+            // On affiche une liste déroulante. 
+             
+            for ($i=0; $i < count($specialites) ; $i++) { 
+                // Pour chaque spécialité, on crée une option dans la liste
+                $contenu.='<option value="' . $specialites[$i]->IDSP .'"';// la valeur renvoyée = IDSPE
+                if(isset($_POST["specialite"]) && $_POST["specialite"] == $specialites[$i]->IDSP) {
+                    $contenu.=' selected="selected"'; 
+                }
+                $contenu.='>'. $specialites[$i]->LIBELLESP .'</option>'; // La valeur à afficher = libellé
+            }
+        
+    $contenu.= '</select></div>';
 
 
 }
