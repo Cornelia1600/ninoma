@@ -5,20 +5,6 @@
     require_once("./modeles/PersonnelModele.php");
     require_once("./modeles/RdvModele.php");
     require_once("./modeles/MotifModele.php");
-<<<<<<< HEAD
-    require_once("./modeles/agent.php");
-    require_once("./modeles/agentsynthèseVue.php");
-    require_once("./modeles/agentpayerVue.php");
-
-    function ctlAgent(){
-        function pays(){
-            ch='';
-            ch='<p>Pays de naissance <input type="text"/><p/>';
-            
-            document.getElementById('formu').innerHTML=ch;
-        }
-    }
-=======
     require_once("./vues/AgentSyntheseVue.php");
     require_once("./vues/AgentPaiementVue.php");
     require_once("./modeles/ConsigneModele.php");
@@ -29,7 +15,6 @@
     //     $contenu .= ssCtl2();
     //     return $contenu;
     // }
->>>>>>> 347ce285287c8c38b8e7ab0d0b679fb0573a6b98
 
 
     // function ssCtl1(){
@@ -46,7 +31,6 @@
     // }
 
     function ctlAgentRdv(){
-        var_dump($_POST);
         $specialites = getAllSpecialites(); // récupérer les spécialités depuis le modèle
 
         if (isset($_POST["prise_rdv"])) {// si on vient d'envoyer le formulaire (après le rechargement de la page)
@@ -71,7 +55,7 @@
                                 // TODO remplacer l'id patient
                                 $resInsert = insertRdv($_POST["medecin"], 1 , $_POST["motif"], $_POST['date_rdv'], $_POST['heure_rdv']);    
                                 if ($resInsert == TRUE) {
-                                    return "<h2>RDV pris<h2>";
+                                    return reloadPage();
                                 }else {
                                     return "<h2>Erreur dans l'enregistrement du rdv<h2>";
                                 }

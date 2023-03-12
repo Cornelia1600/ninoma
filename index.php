@@ -10,32 +10,33 @@ $contenu = '<p>Page vide</p>';
 
 try {
 
+    var_dump($_POST);
     if (isset($_POST["deconnexion"])) {// tue la session == déconnexion
         session_destroy();// TODO recharger la page;
-    }
-    // require_once('controleur/GestionRdvCtrl.php'); // charge les méthodes du contrôleur
-
-    if (isset($_SESSION["nom_personnel"])) {// Si qlqn est connecté
-        $categorie = $_SESSION["categorie_personnel"];
-        if ($categorie == "MEDECIN") {
-            // on appelle le controleur de medecin
-            require_once('./controleurs/MedecinControleur.php');
-            $contenu = ctlMedecin();
+        $contenu = reloadPage();
+    } else {
+        if (isset($_SESSION["nom_personnel"])) {// Si qlqn est connecté
+            $categorie = $_SESSION["categorie_personnel"];
+            if ($categorie == "MEDECIN") {
+                // on appelle le controleur de medecin
+                require_once('./controleurs/MedecinControleur.php');
+                $contenu = ctlMedecin();
+            }
+            if ($categorie == "AGENT_ACCUEIL") {
+                // on appelle le controleur des agents
+                require_once('./controleurs/AgentControleur.php');
+                $contenu = ctlAgentRdv();    
+            }
+            if($categorie == "DIRECTEUR") {
+                // on appelle le controleur des directeurs
+                require_once('./controleurs/DirecteurControleur.php');
+                $contenu = ctlDirecteur();
+            }
+        }else {
+            // => pas de session donc formulaire de connexion
+            require_once('./controleurs/LoginControleur.php');
+            $contenu = ctlFormLogin();
         }
-        if ($categorie == "AGENT_ACCUEIL") {
-            // on appelle le controleur des agents
-            require_once('./controleurs/AgentControleur.php');
-            $contenu = ctlAgentRdv();    
-        }
-        if($categorie == "DIRECTEUR") {
-            // on appelle le controleur des directeurs
-            require_once('./controleurs/DirecteurControleur.php');
-            $contenu = ctlDirecteur();
-        }
-    }else {
-        // => pas de session donc formulaire de connexion
-        require_once('./controleurs/LoginControleur.php');
-        $contenu = ctlFormLogin();
     }
 
 }

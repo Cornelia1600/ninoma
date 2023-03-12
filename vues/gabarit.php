@@ -2,7 +2,7 @@
 
     // affiche le gabarit du site + le contenu html passé en paramètre
     function gabarit($contenu){
-        echo '
+        $html = '
         <!DOCTYPE html>
         <html lang="fr">
         
@@ -13,17 +13,32 @@
             <link rel="stylesheet" href="style.css">
         </head>
         <body>'.
-        $contenu
-        .'
+        $contenu;
         
-        <form action="#" method="post">
-            <button type="submit" name="deconnexion">Déconnexion</button>
-        </form>
+
+        if (isset($_SESSION["nom_personnel"])) {
+            $html.= ' 
+            <form method="post">
+                <button type="submit" name="deconnexion">Déconnexion</button>
+            </form>
+            ';
+        }
         
-        </body>
-        </html>
-        ';
+        $html .= '</body></html>';
+        echo $html;
     }
+
+    function reloadPage() {
+        // On crée un formulaire que l'on soumet en javascript => ça recharge la page + vide le $_POST
+        // Utile après un changement dans le $_SESSION (ex: connexion et déconnexion)
+        return '
+            <form id="form-reload" method="POST"></form>
+            <script>
+                var form = document.getElementById("form-reload");
+                form.submit();
+            </script>
+        ';
+    }    
 
 ?>
 

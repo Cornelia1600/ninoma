@@ -20,13 +20,11 @@
                     $categorie = getCategorieById($personnel->IDCAT);
                     $_SESSION["categorie_personnel"] = $categorie->LIBELLECAT;
 
-                    return; // TODO recharger la page;
-                }else {
-                    // => message d'erreur dans le formulaire;
-                    return afficherFormulaireConnexion(true);
+                    return reloadPage(); // TODO recharger la page;
                 }
-
             }
+            // => message d'erreur dans le formulaire si on a rien retourner entre temps;
+            return afficherFormulaireConnexion(true);
         }
         $vueFormLogin = afficherFormulaireConnexion();
         return $vueFormLogin;
