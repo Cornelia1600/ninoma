@@ -5,33 +5,13 @@
     require_once("./modeles/PersonnelModele.php");
     require_once("./modeles/RdvModele.php");
     require_once("./modeles/MotifModele.php");
-<<<<<<< HEAD
-    require_once("./modeles/agent.php");
-    require_once("./modeles/agentsynthèseVue.php");
-    require_once("./modeles/agentpayerVue.php");
-
-    function ctlAgent(){
-        function pays(){
-            ch='';
-            ch='<p>Pays de naissance <input type="text"/><p/>';
-            
-            document.getElementById('formu').innerHTML=ch;
-        }
-    }
-=======
-    require_once("./vues/AgentSyntheseVue.php");
-    require_once("./vues/AgentPaiementVue.php");
-    require_once("./modeles/ConsigneModele.php");
-    require_once("./modeles/PieceModele.php");
-    
-    // function ctlAgent(){
-    //     $contenu = ssCtl1();
-    //     $contenu .= ssCtl2();
-    //     return $contenu;
-    // }
->>>>>>> 347ce285287c8c38b8e7ab0d0b679fb0573a6b98
+require_once("./vues/AgentSyntheseVue.php");
+require_once("./vues/AgentPaiementVue.php");
+require_once("./modeles/ConsigneModele.php");
+require_once("./modeles/PieceModele.php");
 
 
+function ctlAgent(){}
     // function ssCtl1(){
     //     $contenu = $mon1erform();
     //     // if(isset($_POST)) ...

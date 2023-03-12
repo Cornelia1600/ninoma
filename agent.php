@@ -8,6 +8,14 @@
  <script type="text/javascript">
 
 	
+
+        function pays(){
+            ch='';
+            ch='<p>Pays de naissance <input type="text"/><p/>';
+            
+            document.getElementById('formu').innerHTML=ch;
+        }
+
 	function verif(){
 	var tlf=document.forms['formu'].elements['numtel'].value;
 		if ( Pattern.matches("[a-zA-Z]+", tlf)  ){
