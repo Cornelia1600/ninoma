@@ -5,6 +5,9 @@
     require_once("./modeles/PersonnelModele.php");
     require_once("./modeles/RdvModele.php");
     require_once("./modeles/MotifModele.php");
+    require_once("./modeles/agent.php");
+    require_once("./modeles/agentsynthèseVue.php");
+    require_once("./modeles/agentpayerVue.php");
 
     // function ctlAgent(){
     //     $contenu = ssCtl1();
