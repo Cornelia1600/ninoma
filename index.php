@@ -25,7 +25,7 @@ try {
         if ($categorie == "AGENT_ACCUEIL") {
             // on appelle le controleur des agents
             require_once('./controleurs/AgentControleur.php');
-            $contenu = ctlAgent();    
+            $contenu = ctlAgentRdv();    
         }
         if($categorie == "DIRECTEUR") {
             // on appelle le controleur des directeurs

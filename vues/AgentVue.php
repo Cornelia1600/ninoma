@@ -67,11 +67,23 @@ function afficherFormPriseRdv($specialites, $medecins = [], $rdvDejaPris = false
         </div>
         <div>
             <label for="date_rdv">Choisir une date : </label>
-            <input type="date" id="date_rdv" name="date_rdv"/>
+            <input type="date" id="date_rdv" name="date_rdv"
+        ';
+        if (isset($_POST["date_rdv"])) {
+            $contenu.= ' value="' .  $_POST["date_rdv"] . '"';
+        }
+        $contenu.='/>
         </div>
         <div>
             <label for="heure_rdv">Choisir une heure : </label>
-            <input type="number" id="heure_rdv" name="heure_rdv" min="8" max="18" value="8" step="1"/>
+            <input type="number" id="heure_rdv" name="heure_rdv" min="8" max="18"  step="1" value="';
+            if (isset($_POST["heure_rdv"])) {
+                $contenu.= $_POST["heure_rdv"];
+            }
+            else {
+                $contenu.='8';
+            }
+        $contenu.= '"/>
         </div>
         ';
 
@@ -119,34 +131,37 @@ Le prix
 
 + un btn "valider le rdv"
 */
-function afficherRecapRdv($specialite, $medecin){//TODO concatener le rdv
+function afficherRecapRdv($specialite, $medecin, $heure, $date, $motif, $consignes, $pieces){//TODO concatener le rdv
+    $dateRdv = new DateTime($date);
     $contenu = '<form method="POST">
-        <h2>Récap du rdv<h2>
+        <h2>Récap du rdv</h2>
         <div>
-            <p>Nom du médecin :'. $medecin->PRENOM . ' ' . $medecin->NOM.' '.$specialite->IDSP.'</p>;
-            <p>Date et heure du rendez-vous :'. $date->DATERDV .' ' . $date->IDRDV . ' ' . $date->IDRDV . '</p>;
-            <p>Motif(s) du rendez-vous :' . $motif->LIBELLEMO .' '. $motif->IDMO . '</p>;
-            <p>Consignes du rendez-vous :
-         
-                for ($i=0; $i < count($consigne) ; $i++) {
-                    $contenu .= '<option value ='". $consigne[$i]->IDCO ."'; 
-                    if (isset($_POST["consigne"]) && $_POST["consigne"] == $consigne[$i]->IDCO) {
-                        $contenu .= ' selected="selected"';
-                    }
-                    $contenu .= '>' . $consigne[$i]->LIBELLECO . ' - ' . $consigne[$i]->PRIXMO . '€</option>'; 
-                }
-                    <ul>
-                        <li>' . $consigne->IDCO . '</li>// avec affichage dynamique
-                        <li>' . $consigne->LIBELLECO . '</li>
-                    </ul>   
+            <p>RDV avec : Dr ' . $medecin->PRENOM . ' ' . $medecin->NOM . ' (' . $specialite->LIBELLESP . ')
             </p>
-            
-        </div>
+            <p>RDV le '. $dateRdv->format('d/m/Y') .' à ' . $heure .'h00</p>
+            <p>Motif du rendez-vous : '. $motif->LIBELLEMO .'</p>
+            <p>Consignes du rendez-vous :<ul>';
+         
+        for ($i=0; $i < count($consignes) ; $i++) {
+            $contenu.='<li>' .  $consignes[$i]->LIBELLECO .'</li>';
+        }
 
-    ';
+        $contenu.='</ul>
+        
+             <p>Pièces à apporter au rendez-vous :<ul>';
+         
+        for ($i=0; $i < count($pieces) ; $i++) {
+            $contenu.='<li>' .  $pieces[$i]->LIBELLEPI .'</li>';
+        }
 
+        $contenu.='</ul>';
+        foreach($_POST as $key => $value){
+            $contenu.= '<input type="hidden" name="'. $key . '" value="' . $value . '"/>';
+        }
+    $contenu.='</div>
 
-    $contenu.='</form>';
+    <button type="submit" name="recap_valide">Valider le rdv</button>
+    </form>';
     return $contenu;
 }
 

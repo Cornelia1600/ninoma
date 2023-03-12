@@ -11,4 +11,15 @@
         return $specialites;
     }
 
+    function getSpecialiteById($id){
+        $connexion=getConnect();
+
+        $requete='SELECT * FROM specialite WHERE IDSP="' . $id . '"';
+        $resultat=$connexion->query($requete); 
+        $resultat->setFetchMode(PDO::FETCH_OBJ);
+        $specialite = $resultat->fetch();
+        $resultat->closeCursor();
+
+        return $specialite;    
+    }
 ?>
