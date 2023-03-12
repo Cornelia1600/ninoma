@@ -1,17 +1,51 @@
 <?php
-    // on appelle la vue du formulaire
+    // VUES
     require_once("./vues/AgentVue.php");
+    require_once("./vues/PatientVue.php");
+    require_once("./vues/AgentSyntheseVue.php");
+    require_once("./vues/AgentPaiementVue.php");
+
+    // MODELES
     require_once("./modeles/SpecialiteModele.php");
     require_once("./modeles/PersonnelModele.php");
     require_once("./modeles/RdvModele.php");
     require_once("./modeles/MotifModele.php");
-    require_once("./vues/AgentSyntheseVue.php");
-    require_once("./vues/AgentPaiementVue.php");
     require_once("./modeles/ConsigneModele.php");
     require_once("./modeles/PieceModele.php");
 
 
-function ctlAgent(){}
+    function ctlAgent(){
+        // 
+        if (isset($_POST["ajouterPatient"])) {
+            $errors_message ='';
+        
+            if(empty($_POST['date']) ||$_POST['date'] > date("Y-m-d")){
+                $errors_message=$errors_message.'<p> Retapez votre date de naissance</p>';
+            }
+            if(empty($_POST['nom']) ||  strlen($_POST['nom']) == 0){
+                $errors_message=$errors_message.'<p> Retapez votre nom</p>';
+            }
+            if(empty($_POST['prenom']) || strlen($_POST['prenom']) == 0){
+                $errors_message=$errors_message.'<p> Retapez votre prénom</p>';
+            }
+            if(empty($_POST['nmr']) || strlen(strval($_POST['nmr']))!=13) {
+                $errors_message=$errors_message.'<p> Retapez votre numéro de sécurité sociale</p>';
+            }
+            if(empty($_POST['tlf']) || strlen(strval($_POST['tlf']))!=10){
+                $errors_message=$errors_message.'<p> Retapez votre numéro de téléphone</p>';
+            }
+            
+            if(strlen($errors_message) > 0){
+                $contenu = afficherFormCreationPatient($errors_message);
+            }else{
+                // Appeler la function creerPatient du modele qui ajoute le patient 
+            }
+        } else {
+            $contenu = afficherFormCreationPatient();
+        }
+
+        return $contenu;
+    }
     // function ssCtl1(){
     //     $contenu = $mon1erform();
     //     // if(isset($_POST)) ...
@@ -35,6 +69,7 @@ function ctlAgent(){}
 
                 if (isset($_POST['medecin'], $_POST['date_rdv'], $_POST['heure_rdv'])) {
                     $rdvDejaPris = getRdvByDate($_POST['medecin'], $_POST['date_rdv'], $_POST['heure_rdv']);
+                    // TODO récupérer indisponibilités
 
                     if(isset($rdvDejaPris->IDRDV)) { // si rdv existe (donc qu'il a un id)
                         // on affiche un message + le patient rentre une autre date (on remet le formulaire de prise de rdv)
