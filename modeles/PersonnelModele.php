@@ -35,4 +35,16 @@
 
         return $medecins;
     }
+
+    function getMedecinById($id){
+        $connexion=getConnect();
+
+        $requete='SELECT * FROM personnel WHERE IDPERS="' . $id . '"';
+        $resultat=$connexion->query($requete); 
+        $resultat->setFetchMode(PDO::FETCH_OBJ);
+        $medecin = $resultat->fetch();
+        $resultat->closeCursor();
+
+        return $medecin;    
+    }
 ?>
