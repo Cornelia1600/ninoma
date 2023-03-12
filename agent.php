@@ -78,7 +78,11 @@
 			</p>
 			
 			<p>
-			<input type="button" value="Ajouter patient"  onclick="verification()" />
+			<input type="button" value="Ajouter patient" name="ajouterPatient" onclick="verification()" />
+			</p>
+			<p>
+			<input type="button" value="Synthèse Patient" name="synthesePatient" />
+			<input type="button" value="Consulter compte patient" name="payer" />
 			</p>
 			
 		</fieldset>
@@ -87,7 +91,7 @@
 	
 		try{
 		
-		if(isset($_POST['Ajouter Patient'])) {
+		if(isset($_POST['ajouterPatient'])) {
 			$errors_message ='';
 		
 			if(empty($_POST['date']) ||$_POST['date'] > date("Y-m-d")){
@@ -112,6 +116,7 @@
 		
 			
 		}
+
 		catch(Exception $e){
 			$msg='ERREUR dans '.$e->getFile().'Ligne'.$e->getLine().':'.$e->getMessage();
 			exit($msg);
