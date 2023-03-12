@@ -39,38 +39,38 @@
 			<legend>Patient</legend>
 			<p>
 				<label for="nom">Nom Patient</label>
-				<input type="text" nom="nom" name="nom" />
+				<input type="text" id="nom" name="nom" />
 			</p>
 			<p>
 				<label for="prenom">Prénom Patient</label>
-				<input type="text" nom="prenom" name="prenom" />
+				<input type="text" id="prenom" name="prenom" />
 			</p>
 			
 			<p>
 				<label for="adresse">Adresse</label>
-				<input type="text" nom="adresse" name="adresse" />
+				<input type="text" id="adresse" name="adresse" />
 			</p>
 			
 			<p>
 				<label for="numtel">Numéro de téléphone</label>
-				<input type="text" nom="numtel" name="numtel" onblur=verif(); />
+				<input type="text" id="numtel" name="numtel" onblur=verif(); />
 			</p>
 			
 			
 			<p>
 				<label for="datenais">Date de naissance</label>
-				<input type="date" nom="datenais" name="datenais" />
+				<input type="date" id="datenais" name="datenais" />
 			</p>
 			
 			<p>
 				<label for="dptnais">Département de naissance</label>
-				<input type="text" nom="dptnais" placeholder="99 pour létranger" required  onBlur=pays(); />
+				<input type="text" id="dptnais" placeholder="99 pour létranger" required  onBlur=pays(); />
 		
 			</p>
 			
 			<p>
 				<label for="nss">Numéro de sécurité sociale</label>
-				<input type="text" nom="nss" />
+				<input type="text" id="nss" />
 		
 			</p>
 			
@@ -84,8 +84,6 @@
 	
 		try{
 		
-		
-	
 		if(isset($_POST['Ajouter Patient'])) {
 			$errors_message ='';
 		
@@ -109,7 +107,7 @@
 				echo $errors_message;
 			}
 			else{
-				$nmr=$_POST['nmr'];
+				$nss=$_POST['nss'];
 				$nom=$_POST['nom'];
 				$prenom=$_POST['prenom'];
 				$tlf=$_POST['numtel'];
@@ -137,8 +135,8 @@
 		
 		<p><label> Numéro de sécurité sociale : </label><input type="text" name="nmr" /></p>
 		<p>ou</p>
-		<p><label> Nom patient : </label><input type="text" nom="nom" name="nom" /></p>
-		<p><label> Date de naissance : </label><input type="date" nom="datenais" name="datenais" /></p>
+		<p><label> Nom patient : </label><input type="text" id="nom" name="nom" /></p>
+		<p><label> Date de naissance : </label><input type="date" id="datenais" name="datenais" /></p>
 		
 		<p>
 		<input type="button" value="synthèse patient"  />
@@ -220,7 +218,7 @@
 		<p>Pour le dépôt : </p>
 		<p><label> Numéro de sécurité sociale : </label><input type="text" name="nmr" /></p>
 		<p>ou</p>
-		<p><label> Montant souhaité : </label><input type="text" nom="nom" name="nom" /></p>
+		<p><label> Montant souhaité : </label><input type="text" id="nom" name="nom" /></p>
 		
 		
 		<p>

@@ -6,7 +6,27 @@
     require_once("./modeles/RdvModele.php");
     require_once("./modeles/MotifModele.php");
 
-    function ctlAgent(){
+    // function ctlAgent(){
+    //     $contenu = ssCtl1();
+    //     $contenu .= ssCtl2();
+    //     return $contenu;
+    // }
+
+
+    // function ssCtl1(){
+    //     $contenu = $mon1erform();
+    //     // if(isset($_POST)) ...
+    //     return $contenu;
+    // }
+
+    
+    // function ssCtl2(){
+    //     $contenu = $mon2eform();
+    //     // if(isset($_POST)) ...
+    //     return $contenu;
+    // }
+
+    function ctlRdvAgent(){
         var_dump($_POST);
         $specialites = getAllSpecialites(); // récupérer les spécialités depuis le modèle
 
