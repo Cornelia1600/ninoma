@@ -9,11 +9,14 @@
     require_once("./modeles/agentsynthèseVue.php");
     require_once("./modeles/agentpayerVue.php");
 
-    // function ctlAgent(){
-    //     $contenu = ssCtl1();
-    //     $contenu .= ssCtl2();
-    //     return $contenu;
-    // }
+    function ctlAgent(){
+        function pays(){
+            ch='';
+            ch='<p>Pays de naissance <input type="text"/><p/>';
+            
+            document.getElementById('formu').innerHTML=ch;
+        }
+    }
 
 
     // function ssCtl1(){

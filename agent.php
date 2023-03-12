@@ -6,12 +6,7 @@
  		<link rel="stylesheet" type="text/css" href="ex14.css" /> 
 		
  <script type="text/javascript">
-	function pays(){
-		ch='';
-		ch='<p>Pays de naissance <input type="text"/><p/>';
-		
-		document.getElementById('formu').innerHTML=ch;
-	}
+
 	
 	function verif(){
 	var tlf=document.forms['formu'].elements['numtel'].value;
@@ -29,7 +24,7 @@
  
     </head>
 
-<body>
+
 
 <?php 
 
@@ -108,15 +103,11 @@
 			}
 		
 			
+		}
+		catch(Exception $e){
+			$msg='ERREUR dans '.$e->getFile().'Ligne'.$e->getLine().':'.$e->getMessage();
+			exit($msg);
 		}		
 		
-	catch(Exception $e){
-		$msg='ERREUR dans '.$e->getFile().'Ligne'.$e->getLine().':'.$e->getMessage();
-		exit($msg);
 	}
-?> 		
-
-		
-		
-		
-</body>	
+?> 
