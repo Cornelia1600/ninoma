@@ -9,14 +9,9 @@
     require_once("./vues/AgentPaiementVue.php");
     require_once("./modeles/ConsigneModele.php");
     require_once("./modeles/PieceModele.php");
-    
-    // function ctlAgent(){
-    //     $contenu = ssCtl1();
-    //     $contenu .= ssCtl2();
-    //     return $contenu;
-    // }
 
 
+function ctlAgent(){}
     // function ssCtl1(){
     //     $contenu = $mon1erform();
     //     // if(isset($_POST)) ...

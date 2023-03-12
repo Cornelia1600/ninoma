@@ -8,6 +8,14 @@
  <script type="text/javascript">
 
 	
+
+        function pays(){
+            ch='';
+            ch='<p>Pays de naissance <input type="text"/><p/>';
+            
+            document.getElementById('formu').innerHTML=ch;
+        }
+
 	function verif(){
 	var tlf=document.forms['formu'].elements['numtel'].value;
 		if ( Pattern.matches("[a-zA-Z]+", tlf)  ){
@@ -70,7 +78,11 @@
 			</p>
 			
 			<p>
-			<input type="button" value="Ajouter patient"  onclick="verification()" />
+			<input type="button" value="Ajouter patient" name="ajouterPatient" onclick="verification()" />
+			</p>
+			<p>
+			<input type="button" value="Synthèse Patient" name="synthesePatient" />
+			<input type="button" value="Consulter compte patient" name="payer" />
 			</p>
 			
 		</fieldset>
@@ -79,7 +91,7 @@
 	
 		try{
 		
-		if(isset($_POST['Ajouter Patient'])) {
+		if(isset($_POST['ajouterPatient'])) {
 			$errors_message ='';
 		
 			if(empty($_POST['date']) ||$_POST['date'] > date("Y-m-d")){
@@ -104,6 +116,7 @@
 		
 			
 		}
+
 		catch(Exception $e){
 			$msg='ERREUR dans '.$e->getFile().'Ligne'.$e->getLine().':'.$e->getMessage();
 			exit($msg);
