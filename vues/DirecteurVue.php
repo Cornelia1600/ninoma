@@ -57,5 +57,18 @@ function afficherModificationMotif($motifs){
     return $contenu;  
 }
 
+function CreationLogin(){
+    $contenu = '<h3>Modification Motif</h3><div>;
+    <form method="post" action="" name="Creation-Login">
+        <label>Login</label>
+        <input type="text" name="Login" pattern="[a-zA-Z0-9]+" required />
+        <label>Password</label>
+        <input type="password" name="password" required />
+    <button type="submit" name="login" value="login">Log In</button>
+    </form>';
+    return $contenu; 
+
+}
+
 
 ?>
