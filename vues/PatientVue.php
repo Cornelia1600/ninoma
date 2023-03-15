@@ -1,13 +1,22 @@
 <?php
 
-    function afficherFormCreationPatient($errors_message = ""){
+    function afficherFormCreationPatient($errors_message = "", $patient = null){
         //TODO afficher les errors message s'il y en a
-        return '<form id="formu" method="POST">
-		<fieldset>
-			<legend>Patient</legend>
-			<p>
+
+		if (isset($patient->IDP)) {
+			$titre = "Modification";
+		}else {
+			$titre = "Création";
+		}
+        $contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Patient</legend>';
+
+		if (strlen($errors_message) > 0) {
+			$contenu.= '<div>'. $errors_message . '</div>';
+		}
+
+		$contenu.='<p>
 				<label for="nom">Nom Patient</label>
-				<input type="text" id="nom" name="nom" />
+				<input type="text" id="nom" name="nom"/>
 			</p>
 			<p>
 				<label for="prenom">Prénom Patient</label>
@@ -22,7 +31,6 @@
 			<p>
 				<label for="numtel">Numéro de téléphone</label>
 				<input type="text" id="numtel" name="numtel" onBlur="verif()" />
-                <span id="error_tlf"></span>
 			</p>
 			
 			
@@ -47,7 +55,7 @@
 			</p>
 			
 			<p>
-			    <button type="submit" name="ajouterPatient"/>Ajouter patient</button>
+			    <button type="submit" name="ajouter_patient"/>Ajouter patient</button>
 			</p>
 			
             </fieldset>
@@ -57,6 +65,16 @@
 			//     <input type="button" value="Synthèse Patient" name="synthesePatient" />
 			//     <input type="button" value="Consulter compte patient" name="payer" />
 			// </p>
+
+
+
+			return $contenu;
     }
+
+	function afficherFormRecherchePatient(){
+		$contenu = "<form><h1>RECHERCHE PATIENT</h1></form>";
+
+		return $contenu;
+	}
 
 ?>
