@@ -28,7 +28,7 @@
             if(empty($_POST['prenom']) || strlen($_POST['prenom']) == 0){
                 $errors_message=$errors_message.'<p> Retapez votre prénom</p>';
             }
-            if(empty($_POST['nmr']) || strlen(strval($_POST['nmr']))!=13) {
+            if(empty($_POST['nss']) || strlen(strval($_POST['nss']))!=13) {
                 $errors_message=$errors_message.'<p> Retapez votre numéro de sécurité sociale</p>';
             }
             if(empty($_POST['tlf']) || strlen(strval($_POST['tlf']))!=10){
@@ -39,8 +39,20 @@
                 $contenu = afficherFormCreationPatient($errors_message);
             }else{
                 // Appeler la function creerPatient du modele qui ajoute le patient 
+                $connexion=getConnect();
+	            $nss=$_POST['nss'];
+	            $nom=$_POST['nom'];
+                $adresse=$_POST['adresse'];
+	            $prenom=$_POST['prenom'];
+	            $tlf=$_POST['numtel'];
+	            $dept=$_POST['dptnais'];
+	            $pays=$_POST['dptnais'];
+	            $requete= "INSERT INTO client (PRENOM, NOMCL, NUMTELCL, ADRESSECL, DEPARTNAISSCL, NSS) VALUES ('$prenom', '$nom', '$tlf','$adresse','$dept','$pays', '$nss')";
+            	return $connexion->query($requete);
+	            echo "<p>L'utilisateur ". $prenom . " " . $nom . " a été créé avec succès</p>";
             }
-        } else {
+        } 
+        else {
             $contenu = afficherFormCreationPatient();
         }
 
