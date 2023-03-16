@@ -9,6 +9,8 @@
     require_once("./vues/AgentPaiementVue.php");
     require_once("./modeles/ConsigneModele.php");
     require_once("./modeles/PieceModele.php");
+    require_once("./modeles/PatientModele.php");
+    require_once("./vues/PatientVue.php");
     
     // function ctlAgent(){
     //     $contenu = ssCtl1();
