@@ -1,6 +1,5 @@
 <?php 
 	function afficherPaiementForm(){
-		if(isset($_POST['payer'])) {
 		echo '<form id="f"><fieldset><legend>Compte interne patient</legend>
 		<p>Pour le dépôt : </p>
 		<p><label> Numéro de sécurité sociale : </label><input type="text" name="nmr" /></p>
@@ -14,7 +13,7 @@
 	
 		</fieldset></form>';
 	}
-}	
+		
 		
 		
 		?>
