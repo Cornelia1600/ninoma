@@ -1,7 +1,7 @@
 <?php 
 
 function afficherSynthese(){
-/*
+	if(isset($_POST['synthesePatient'])) {
 		echo '<form id="f"><fieldset><legend>Synthése patient</legend>
 		
 		<p><label> Numéro de sécurité sociale : </label><input type="text" name="nmr" /></p>
@@ -79,7 +79,6 @@ function afficherSynthese(){
 			</form>";
 			
 		}
-		
-		*/
+	}
 }
 		?>
