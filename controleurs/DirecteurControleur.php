@@ -15,6 +15,7 @@
         }
         elseif(isset($_POST["creation_acces"])){
             // appel au Vue creation acces 
+            return CreationLoginForm();
         }   
         elseif(isset($_POST["modif_motif"])){
             // appel au Vue Modif motif 
@@ -32,6 +33,7 @@
         }
         elseif(isset($_POST["ajout_medecin"])){
             // appel au Vue Modif medecin 
+            return CreationMedecinForm();
         }
         else {
 
