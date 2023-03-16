@@ -49,7 +49,7 @@ INSERT INTO `categorie` (`IDCAT`, `LIBELLECAT`) VALUES
 
 CREATE TABLE `client` (
   `IDCL` int(11) NOT NULL,
-  `PRENOM` varchar(32) NOT NULL,
+  `PRENOMCL` varchar(32) NOT NULL,
   `NOMCL` varchar(32) NOT NULL,
   `NUMTELCL` varchar(32) NOT NULL,
   `ADRESSECL` varchar(32) NOT NULL,
