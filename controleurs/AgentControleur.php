@@ -15,8 +15,56 @@
     //     $contenu .= ssCtl2();
     //     return $contenu;
     // }
+    function ctlAgent(){
+        if (isset($_POST["rechercher_patient"])) {
+            // recherche avec nss ou datenaiss et nom 
+            // requete vers modele patient soit par nss (getPatientByNSS) ou par nom/date (getPatientByNom) 
+            
+            // SI patient existe alors on l'affiche dans le formulaire de modification
+        }
+        if (isset($_POST["ajouter_patient"])) {
+            $errors_message ='';
+        
+            if(empty($_POST['datenais']) || $_POST['datenais'] > date("Y-m-d")){
+                $errors_message=$errors_message.='<p> Retapez votre date de naissance</p>';
+            }
+            if(empty($_POST['nom']) ||  strlen($_POST['nom']) == 0){
+                $errors_message=$errors_message.='<p> Retapez votre nom</p>';
+            }
+            if(empty($_POST['prenom']) || strlen($_POST['prenom']) == 0){
+                $errors_message=$errors_message.='<p> Retapez votre prénom</p>';
+            }
+            if(empty($_POST['nss']) || strlen(strval($_POST['nss']))!=13) {
+                $errors_message=$errors_message.='<p> Retapez votre numéro de sécurité sociale</p>';
+            }
+            if(empty($_POST['numtel']) || strlen(strval($_POST['numtel']))!=10){
+                $errors_message=$errors_message.='<p> Retapez votre numéro de téléphone</p>';
+            }
+            if(strlen($errors_message) > 0){
+                $contenu = afficherFormCreationPatient($errors_message);
+            }else{
+                // Appeler la function creerPatient du modele qui ajoute le patient 
+                if (isset($_POST["paysnais"]) && strlen($_POST["paysnais"]) > 0){
+                    $pays = $_POST["paysnais"];
+                } else {
+                    $pays = "FRANCE";
+                }
+                $resCreation = creerPatient($_POST['nss'], $_POST['nom'], $_POST["adresse"], $_POST["prenom"], $_POST["numtel"], $_POST["dptnais"], $pays, $_POST["datenais"]);
+                if ($resCreation == TRUE) {
+                    return reloadPage();
+                }else {
+                    return "<h2>Erreur dans l'enregistrement du patient<h2>";
+                }
+            }
+        } 
+        else {
+            $contenu = afficherFormCreationPatient();
+        }
+        $contenu .= afficherFormRecherchePatient();
+        return $contenu;
+    }
 
-
+    
     // function ssCtl1(){
     //     $contenu = $mon1erform();
     //     // if(isset($_POST)) ...
