@@ -72,6 +72,10 @@
 			<p>
 			<input type="button" value="Ajouter patient"  onclick="verification()" />
 			</p>
+
+			<p>
+			<input type="button" value="Ajouter patient"  onclick="verification()" />
+			</p>
 			
 		</fieldset>
 		</form>'; 
@@ -109,5 +113,10 @@
 			exit($msg);
 		}		
 		
+	
 	}
+
+	
+	
+	
 ?> 
