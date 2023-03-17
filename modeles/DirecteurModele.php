@@ -59,14 +59,43 @@
     function CreateSpecialite($nommedecin,$prenommedecin,$specmedecin){
         $connexion=getConnect();
 
-        $requetecreatespe='INSERT INTO SPECIALITE (LIBELLESP) VALUES ($specmedecin)
-        select * from PERSONNEL NATURAL JOIN SPECIALITE where NOM=$nommedecin AND PRENOM=$prenommedecin';
-        $resultatcreatespe=$connexion->query($requetecreatespe); 
-        $resultatcreatespe->closeCursor();
+        $requetecreatespe='UPDATE SPECIALITE SET LIBELLESP="'.$specmedecin.'"
+        where NOM="'.$nommedecin.'". AND PRENOM="'.$prenommedecin.'"';
+        echo $requetecreatespe;
+		return $connexion->query($requetecreatespe);
     }
+
+    function Createlogin($prenom,$nom,$login,$MDP){
+		$connexion=getConnect();
+
+		$requetecreatelogin= 'UPDATE PERSONNEL SET LOGIN="'.$login.'", MDP="'.$MDP.'"
+        WHERE NOM="'.$nom.'" AND PRENOM="'.$prenom.'"';
+		echo $requetecreatelogin;
+		return $connexion->query($requetecreatelogin);
+	}
+    function CreateMotif($prenom,$nom,$login,$MDP){
+	
+    }
+        
   ///Les suppressions
   
-  
+    function DeleteMedecin($prenom,$nom){
+        $connexion=getConnect();
+
+        $reqdeletemed='DELETE from PERSONNEL WHERE NOM="'.$nom.'" AND PRENOM="'.$prenom.'"'
+        $resultatdeletemed=$connexion->query($reqdeletemed); 
+        $resultatdeletemed->closeCursor();
+    }
+
+
+    function DeleteMotif($nommedecin,$prenommedecin){
+        $connexion=getConnect();
+
+        $requetecreatemed='INSERT INTO PERSONNEL(NOM,PRENOM) VALUES ($nommedecin,$prenommedecin)' ;
+        $resultatcreatemed=$connexion->query($requetecreatemed); 
+        $resultatcreatemed->closeCursor();
+
+    }
 
 
   ///Les affichages

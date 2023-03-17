@@ -17,6 +17,7 @@ function afficherSynthese(){
 
 
 		try{
+			/////POURQUOI ON FAIT LES CONTROLES DANS LA VUE? QUESTION DE NIKI 
 		
 			if(isset($_POST['Ajouter patient'])) {
 				$errors_message ='';

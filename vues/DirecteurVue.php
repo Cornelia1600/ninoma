@@ -28,21 +28,114 @@ function afficherPageDirecteur(){
     return $form;
 }
 
-function afficherModificationAcces($personnels){
-    $contenu = '<h3>Modification Acces</h3><div><table>';
-                
-    for ($i=0; $i < count($personnels) ; $i++) { 
-        // Pour chaque personnel, on recrée la table avec les buttons
-        $button1 = '<form method="post"><input type=submit value="Modifier ce login"></form>';
+function afficherGestionAccess($errors_message = "", $personnel = null){
+        //afficher les errors message s'il y en a
 
-        $contenu.='<tr><td>'.$personnels[$i]->PRENOM.'</td><td>'.$personnels[$i]->NOM.'</td>'.$button1.'</tr>'; 
-        
-    }
-    
-    $contenu.= '</table></div>';  
-    return $contenu;  
-}
+		if (isset($personnel->IDPERS)) {
+			$titre = "Modification";
+		}else {
+			$titre = "Création";
+		}
+        $contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Acces</legend>';
 
+		if (strlen($errors_message) > 0) {
+			$contenu.= '<div>'. $errors_message . '</div>';
+		}
+
+		$contenu.='<p>
+				<label for="nom">Nom Personnel</label>
+				<input type="text" id="nom" name="nom"/>
+			</p>
+			<p>
+				<label for="prenom">Prénom Personnel</label>
+				<input type="text" id="prenom" name="prenom" />
+			</p>
+			
+			<p>
+				<label for="login">login</label>
+				<input type="text" id="login" name="login" />
+			</p>
+			
+			<p>
+				<label for="MDP">MDP</label>
+				<input type="text" id="MDP" name="MDP"/>
+			</p>';
+			
+				if($titre == "Modification"){
+					$contenu.='<p>
+					<label for="newlogin">Nouveau login</label>
+					<input type="text" id="newlogin" name="newlogin" />
+					</p>
+					<p>
+					<label for="newMDP">Nouveau MDP</label>
+					<input type="text" id="newMDP" name="newMDP"/>
+					</p>
+					<p>
+			    	<button type="submit" name="changer_acces"/>Modifier Acces</button>
+					</p>';
+				}
+				else { 
+					$contenu.='<p>
+			    	<button type="submit" name="ajouter_acces"/>Ajouter Acces</button>
+					</p>';
+				}
+
+			$contenu.='
+            </fieldset>
+            </form>';
+
+			return $contenu;
+    }  
+
+	function afficherRechercheAccess($errors_message = "", $personnel = null){
+        //afficher les errors message s'il y en a
+
+		if (isset($personnel->IDPERS)) {
+			$titre = "Modification";
+		}else {
+			$titre = "Création";
+		}
+        $contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Acces</legend>';
+
+		if (strlen($errors_message) > 0) {
+			$contenu.= '<div>'. $errors_message . '</div>';
+		}
+
+		$contenu.='<p>
+				<label for="nom">Nom Personnel</label>
+				<input type="text" id="nom" name="nom"/>
+			</p>
+			<p>
+				<label for="prenom">Prénom Personnel</label>
+				<input type="text" id="prenom" name="prenom" />
+			</p>
+			
+			<p>
+				<label for="login">login</label>
+				<input type="text" id="login" name="login" />
+			</p>
+			
+			<p>
+				<label for="MDP">MDP</label>
+				<input type="text" id="MDP" name="MDP"/>
+			</p>
+			<p>
+				<label for="newlogin">Nouveau login</label>
+				<input type="text" id="newlogin" name="newlogin" />
+			</p>
+		
+			<p>
+				<label for="newMDP">Nouveau MDP</label>
+				<input type="text" id="newMDP" name="newMDP"/>
+			</p>
+			<p>
+			    <button type="submit" name="ajouter_acces"/>Ajouter Acces</button>
+			</p>
+            </fieldset>
+            </form>';
+
+			return $contenu;
+    }  
 
 function afficherModificationMotif($motifs){
     $contenu = '<h3>Modification Motif</h3><div><table>';
@@ -57,18 +150,6 @@ function afficherModificationMotif($motifs){
     return $contenu;  
 }
 
-function CreationLogin(){
-    $contenu = '<h3>Modification Motif</h3><div>;
-    <form method="post" action="" name="Creation-Login">
-        <label>Login</label>
-        <input type="text" name="Login" pattern="[a-zA-Z0-9]+" required />
-        <label>Password</label>
-        <input type="password" name="password" required />
-    <button type="submit" name="login" value="login">Log In</button>
-    </form>';
-    return $contenu; 
-
-}
 
 
 ?>
