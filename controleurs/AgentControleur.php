@@ -24,15 +24,13 @@
             
             // SI patient existe alors on l'affiche dans le formulaire de modification
         }
-<<<<<<< Updated upstream
-=======
+
 
         if (isset($_POST["prendre_rdv"])) {
             return ctlAgentRdv();
         }
 
 
->>>>>>> Stashed changes
         if (isset($_POST["ajouter_patient"])) {
             $errors_message ='';
         
