@@ -131,7 +131,7 @@ Le prix
 
 + un btn "valider le rdv"
 */
-function afficherRecapRdv($specialite, $medecin, $heure, $date, $motif, $consignes, $pieces){//TODO concatener le rdv
+function afficherRecapRdv($specialite, $medecin, $heure, $date, $motif, $consignes, $pieces){
     $dateRdv = new DateTime($date);
     $contenu = '<form method="POST">
         <h2>Récap du rdv</h2>

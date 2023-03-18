@@ -35,6 +35,13 @@
 
 
         }
+
+
+        if (isset($_POST["prendre_rdv"])) {
+            return ctlAgentRdv();
+        }
+
+
         if (isset($_POST["ajouter_patient"])) {
             $errors_message ='';
         
@@ -151,14 +158,5 @@
         
         return $vueFormRdv;
 }
-
-
-
-
-
-
-
-
-
 
 ?>

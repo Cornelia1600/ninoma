@@ -2,21 +2,15 @@
 
 ///Les updates 
 
-    function UpdateLogin($newlogin,$idperso){
+    function UpdateAccess($prenom,$nom,$newlogin,$newMDP){
         $connexion=getConnect();
 
-        $requetemodiflogin='UPDATE personnel SET LOGIN ="' .$newlogin.'" WHERE idperso="' .$idperso. '"';
+        $requetemodiflogin='UPDATE personnel SET LOGIN ="' .$newlogin.'", MDP= "' .$newMDP.'"
+        WHERE PRENOM="' .$prenom. '" AND NOM="' .$nom. '"';
        return $resultatmodiflogin=$connexion->query($requetemodiflogin); 
     }
 
-    function UpdateMDP($newMDP,$idperso){
-        $connexion=getConnect();
-
-        $requetemodifMDP='UPDATE personnel SET MDP ="' .$newMDP.'" WHERE idperso="' .$idperso. '"';
-       return $resultatmodifMDP=$connexion->query($requetemodifMDP); 
-    }
-
-    function UpdateModif($newmo,$RDVcode){
+    function UpdateModif($newmo){
         $connexion=getConnect();
 
         $requetemodifmotif='UPDATE motif SET IDMO ="' .$newmo.'" WHERE IDRDV="' .$RDVcode. '"';
@@ -41,9 +35,9 @@
     function CreateMedecin($nommedecin,$prenommedecin){
         $connexion=getConnect();
 
-        $requetecreatemed='INSERT INTO PERSONNEL(NOM,PRENOM) VALUES ($nommedecin,$prenommedecin)' ;
-        $resultatcreatemed=$connexion->query($requetecreatemed); 
-        $resultatcreatemed->closeCursor();
+        $requetecreatemed='INSERT INTO PERSONNEL(NOM,PRENOM) VALUES ("'.$nommedecin.'","'.$prenommedecin.'")' ;
+        echo $requetecreatemed;
+		return $connexion->query($requetecreatemed);
 
     }
 
@@ -68,8 +62,8 @@
     function Createlogin($prenom,$nom,$login,$MDP){
 		$connexion=getConnect();
 
-		$requetecreatelogin= 'UPDATE PERSONNEL SET LOGIN="'.$login.'", MDP="'.$MDP.'"
-        WHERE NOM="'.$nom.'" AND PRENOM="'.$prenom.'"';
+		$requetecreatelogin= 'INSERT INTO PERSONNEL(PRENOM,NOM,LOGIN,MDP)
+        VALUES ('. $prenom . '", "' . $nom . '", "' . $login . '","' . $MDP . '")';
 		echo $requetecreatelogin;
 		return $connexion->query($requetecreatelogin);
 	}
@@ -82,9 +76,9 @@
     function DeleteMedecin($prenom,$nom){
         $connexion=getConnect();
 
-        $reqdeletemed='DELETE from PERSONNEL WHERE NOM="'.$nom.'" AND PRENOM="'.$prenom.'"'
-        $resultatdeletemed=$connexion->query($reqdeletemed); 
-        $resultatdeletemed->closeCursor();
+        $requetedeletemed='DELETE from PERSONNEL WHERE NOM="'.$nom.'" AND PRENOM="'.$prenom.'"';
+        $resultatdeletemedecin=$connexion->query($requetedeletemed); 
+        $resultatdeletemedecin->closeCursor();
     }
 
 

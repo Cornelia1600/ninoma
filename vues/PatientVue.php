@@ -5,8 +5,10 @@
 
 		if (isset($patient->IDP)) {
 			$titre = "Modification";
+			$modif = true;
 		}else {
 			$titre = "Création";
+			$modif = false;
 		}
         $contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Patient</legend>';
 
@@ -16,11 +18,17 @@
 
 		$contenu.='<p>
 				<label for="nom">Nom Patient</label>
-				<input type="text" id="nom" name="nom"/>
+				<input type="text" id="nom" name="nom" value="Doe"/>
 			</p>
 			<p>
 				<label for="prenom">Prénom Patient</label>
-				<input type="text" id="prenom" name="prenom" />
+				<input type="text" id="prenom" name="prenom"';
+
+			if ($modif) {
+				$contenu.= ' value"'. $patient->PRENOMCL . '"';
+			}
+				
+			$contenu.='/>
 			</p>
 			
 			<p>
@@ -54,9 +62,16 @@
 				<input type="text" id="nss" name="nss" />
 			</p>
 			
-			<p>
-			    <button type="submit" name="ajouter_patient"/>Ajouter patient</button>
-			</p>
+			<p>';
+			if ($modif) {
+				$contenu.= '
+				<button type="submit" name="modifer_patient" value="'. $patient->IDCL . '"/>Modifier patient</button>
+				<button type="submit" name="prendre_rdv" value="'. $patient->IDCL . '"/>Prendre rdv</button>	
+			';
+			} else {
+				$contenu.= '<button type="submit" name="ajouter_patient"/>Ajouter patient</button>';
+			}
+			$contenu .='</p>
 			
             </fieldset>
             </form>
