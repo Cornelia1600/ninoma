@@ -69,7 +69,15 @@ function afficherGestionAccess($errors_message = "", $titre){
 					</p>';
 				}
 				else { 
-					$contenu.='<p>
+					$contenu.='
+					<p>Categorie de personnel </br>
+					<select name="categorie">
+					<option value="medecin">Médecin<option/>
+					<option value="directeur">Directeur<option/>
+					<option value="agent">Agent Acceuil<option/>
+					</select>
+					</p>
+					<p>
 			    	<button type="submit" name="ajouter_acces"/>Ajouter Acces</button>
 					</p>';
 				}
@@ -81,14 +89,48 @@ function afficherGestionAccess($errors_message = "", $titre){
 			return $contenu;
     }  
 
-	function afficherRechercheAccess(){
+	function afficherGestionMedecin($errors_message = "", $titre){
         //afficher les errors message s'il y en a
+        $contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Acces</legend>';
 
-		$contenu='<p>';
-		return $contenu;
-    }  
+		if (strlen($errors_message) > 0) {
+			$contenu.= '<div>'. $errors_message . '</div>';
+		}
 
-function afficherModificationMotif($motifs){
+		$contenu.='<p>
+				<label for="nom">Nom Médecin</label>
+				<input type="text" id="nom" name="nom"/>
+			</p>
+			<p>
+				<label for="prenom">Prénom Médecin</label>
+				<input type="text" id="prenom" name="prenom" />
+			</p>';
+			
+				if($titre == "Suppression"){
+					$contenu.='<p>
+			    	<button type="submit" name="gestion_medecin_delete"/>Supprimer Médecin</button>
+					</p>';
+				}
+				else { 
+					$titre == "Ajout";
+					$contenu.='<p>
+					<label for="specialite">Specialite de Médecin</label>
+					<input type="text" id="specialite" name="specialite" />
+					</p>
+					<p>
+			    	<button type="submit" name="gestion_medecin_add"/>Ajouter Medécin</button>
+					</p>';
+				}
+
+			$contenu.='
+            </fieldset>
+            </form>';
+
+			return $contenu;
+    } 
+
+
+function afficherGestionMotif($errors_message = "", $titre, $motifs ){
     $contenu = '<h3>Modification Motif</h3><div><table>';
                 
     for ($i=0; $i < count($motifs) ; $i++) { 
