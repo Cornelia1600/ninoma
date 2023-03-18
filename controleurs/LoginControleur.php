@@ -17,6 +17,7 @@
                 $personnel = getPersonnelByUsername($_POST["login"], $_POST["MDP"]);
                 if(isset($personnel->NOM)){
                     $_SESSION["nom_personnel"] = $personnel->NOM;
+                    $_SESSION["id_personnel"] = $personnel->IDPERS;
                     $categorie = getCategorieById($personnel->IDCAT);
                     $_SESSION["categorie_personnel"] = $categorie->LIBELLECAT;
 
