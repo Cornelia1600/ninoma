@@ -82,9 +82,9 @@
     function DeleteMedecin($prenom,$nom){
         $connexion=getConnect();
 
-        $reqdeletemed='DELETE from PERSONNEL WHERE NOM="'.$nom.'" AND PRENOM="'.$prenom.'"'
-        $resultatdeletemed=$connexion->query($reqdeletemed); 
-        $resultatdeletemed->closeCursor();
+        $requetedeletemed='DELETE from PERSONNEL WHERE NOM="'.$nom.'" AND PRENOM="'.$prenom.'"';
+        $resultatdeletemedecin=$connexion->query($requetedeletemed); 
+        $resultatdeletemedecin->closeCursor();
     }
 
 

@@ -8,9 +8,12 @@
 
     function ctlDirecteur(){
        
-        if (isset($_POST["modif_acces"])) { 
-            if (isset($_POST["ajouter_access"])) {
-                $errors_message ='';
+        if (isset($_POST["ajout_acces"])) { 
+            $titre="Création";
+            $errors_message ='';
+            $contenu = afficherGestionAccess($errors_message, $titre);
+            return  $contenu;
+            if (isset($_POST["ajouter_acces"])) { 
                 if(empty($_POST['prenom'])||  strlen($_POST['prenom']) == 0){
                     $errors_message=$errors_message.='<p> Retapez le prénom</p>';
                 }
@@ -23,11 +26,8 @@
                 if(empty($_POST['MDP'])||  strlen($_POST['MDP']) == 0){
                     $errors_message=$errors_message.='<p> Retapez le MDP</p>';
                 }
-                if(empty($_POST['newlogin'])||  strlen($_POST['newlogin'])==0 || $_POST['newMDP']||  strlen($_POST['newMDP'])){
-                    $errors_message=$errors_message.='<p> Retapez le Nouveau Login et ou MDP</p>';
-                }
                 if(strlen($errors_message) > 0){
-                    $contenu = afficherGestionAccess($errors_message);
+                    $contenu = afficherGestionAccess($errors_message, $titre);    
                 }
                 else{
                     $resCreation = Createlogin($_POST['prenom'], $_POST['nom'], $_POST["login"], $_POST["MDP"]);
@@ -37,19 +37,38 @@
                         return "<h2>Erreur dans creation d'access<h2>";
                     }
                 }
-            }
-            elseif (isset($_POST["modif_acces"])){
-
-
-            }
-            else {
-                $contenu = afficherGestionAccess();
-            }
-            $contenu .= afficherRechercheAccess();
-            return $contenu;
+                $contenu = afficherGestionAccess($errors_message, $titre);
+                return  $contenu;
+             }
         }
-        
-        
+        elseif(isset($_POST["modif_acces"])) {
+            $titre="Modification";
+            $errors_message ='';
+            $contenu = afficherGestionAccess($errors_message, $titre);
+            return  $contenu;
+            if(empty($_POST['login'])||  strlen($_POST['login']) == 0){
+                $errors_message=$errors_message.='<p> Retapez le login</p>';
+            }
+            if(empty($_POST['MDP'])||  strlen($_POST['MDP']) == 0){
+                $errors_message=$errors_message.='<p> Retapez le MDP</p>';
+            }
+            if(empty($_POST['newlogin'])||  strlen($_POST['newlogin'])==0 || $_POST['newMDP']||  strlen($_POST['newMDP'])){
+                $errors_message=$errors_message.='<p> Retapez le Nouveau Login et ou MDP</p>';
+            }
+            if(strlen($errors_message) > 0){
+                $contenu = afficherGestionAccess($errors_message, $titre);    
+            }
+            else{
+                $resModification = Createlogin($_POST['prenom'], $_POST['nom'], $_POST["login"], $_POST["MDP"]);
+                if ($resModification == TRUE) {
+                    return reloadPage();
+                }else {
+                    return "<h2>Erreur dans modification d'access<h2>";
+                }
+            }
+            $contenu = afficherGestionAccess($errors_message, $titre);
+            return  $contenu;
+        }    
         elseif(isset($_POST["modif_motif"])){
             // appel au Vue Modif motif 
             $motifs = getAllMotifs();    

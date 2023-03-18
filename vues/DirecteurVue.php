@@ -7,7 +7,7 @@ function afficherPageDirecteur(){
         <legend> Création, Suppression ou Modification </legend>
     <p>
         <label for="acces">Login ou MDP</label>		
-        <input type="submit" Value="Créer Acces" name="creation_acces"/>
+		<input type="submit" Value="Ajouter Acces" name="ajout_acces"/>
         <input type="submit" Value="Modifier Acces" name="modif_acces"/>
     </p>
     <p>
@@ -28,14 +28,8 @@ function afficherPageDirecteur(){
     return $form;
 }
 
-function afficherGestionAccess($errors_message = "", $personnel = null){
+function afficherGestionAccess($errors_message = "", $titre){
         //afficher les errors message s'il y en a
-
-		if (isset($personnel->IDPERS)) {
-			$titre = "Modification";
-		}else {
-			$titre = "Création";
-		}
         $contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Acces</legend>';
 
 		if (strlen($errors_message) > 0) {
@@ -87,54 +81,11 @@ function afficherGestionAccess($errors_message = "", $personnel = null){
 			return $contenu;
     }  
 
-	function afficherRechercheAccess($errors_message = "", $personnel = null){
+	function afficherRechercheAccess(){
         //afficher les errors message s'il y en a
 
-		if (isset($personnel->IDPERS)) {
-			$titre = "Modification";
-		}else {
-			$titre = "Création";
-		}
-        $contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Acces</legend>';
-
-		if (strlen($errors_message) > 0) {
-			$contenu.= '<div>'. $errors_message . '</div>';
-		}
-
-		$contenu.='<p>
-				<label for="nom">Nom Personnel</label>
-				<input type="text" id="nom" name="nom"/>
-			</p>
-			<p>
-				<label for="prenom">Prénom Personnel</label>
-				<input type="text" id="prenom" name="prenom" />
-			</p>
-			
-			<p>
-				<label for="login">login</label>
-				<input type="text" id="login" name="login" />
-			</p>
-			
-			<p>
-				<label for="MDP">MDP</label>
-				<input type="text" id="MDP" name="MDP"/>
-			</p>
-			<p>
-				<label for="newlogin">Nouveau login</label>
-				<input type="text" id="newlogin" name="newlogin" />
-			</p>
-		
-			<p>
-				<label for="newMDP">Nouveau MDP</label>
-				<input type="text" id="newMDP" name="newMDP"/>
-			</p>
-			<p>
-			    <button type="submit" name="ajouter_acces"/>Ajouter Acces</button>
-			</p>
-            </fieldset>
-            </form>';
-
-			return $contenu;
+		$contenu='<p>';
+		return $contenu;
     }  
 
 function afficherModificationMotif($motifs){
