@@ -17,9 +17,10 @@ function afficherPageDirecteur(){
         <input type="submit" Value="Pièce" name="modif_piece"/>
     </p>
     <p>
-        <label for="acces">Medecin</label>		
+        <label for="acces">Medecin</label>
+		<input type="submit" Value="Ajouter" name="ajout_medecin"/>		
         <input type="submit" Value="Supprimer" name="delete_medecin"/>
-        <input type="submit" Value="Ajouter" name="ajout_medecin"/>
+        
     </p>
   
     </fieldset>
@@ -89,7 +90,7 @@ function afficherGestionAccess($errors_message = "", $titre){
 			return $contenu;
     }  
 
-	function afficherGestionMedecin($errors_message = "", $titre){
+	function afficherGestionMedecin($errors_message = "", $titre,$specialites){
         //afficher les errors message s'il y en a
         $contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Médecin</legend>';
 
@@ -108,26 +109,35 @@ function afficherGestionAccess($errors_message = "", $titre){
 			
 				if($titre == "Suppression"){
 					$contenu.='<p>
-			    	<button type="submit" name="gestion_medecin_delete"/>Supprimer Médecin</button>
+			    	<button type="submit" name="delete_medecin"/>Supprimer Médecin</button>
 					</p>';
 				}
 				else { 
-					// TODO Spécialité en liste déroulante/select 
-					$contenu.='<p>
-					<label for="specialite">Specialite de Médecin</label>
-					<input type="text" id="specialite" name="specialite" />
-					</p>
+					$contenu.='<div>
+					<label for="specialite">Spécialité de Médecin </label>
+					<select name="specialite" required> 
+					<option value="" selected disabled hidden>-</option>';
+           
+					for ($i=0; $i < count($specialites) ; $i++) { 
+						// Pour chaque spécialité, on crée une option dans la liste
+						$contenu.='<option value="' . $specialites[$i]->IDSP .'"';// la valeur renvoyée = IDSPE
+
+                		if(isset($_POST["specialite"]) && $_POST["specialite"] == $specialites[$i]->IDSP) {
+                    	$contenu.=' selected="selected"'; 
+                		}
+                		$contenu.='>'. $specialites[$i]->LIBELLESP .'</option>'; // La valeur à afficher = libellé
+            		}
+        
+    			$contenu.= '</select></div>
 					<p>
 			    	<button type="submit" name="ajout_medecin"/>Ajouter Medécin</button>
-					</p>';
-				}
+					</p>
+            	</fieldset>
+            	</form>';
 
-			$contenu.='
-            </fieldset>
-            </form>';
-
-			return $contenu;
-    } 
+				return $contenu;}
+    			 
+	}		
 
 
 function afficherGestionMotif($errors_message = "", $titre, $motifs ){

@@ -5,6 +5,7 @@
     // on appelle le modele
     require_once("./modeles/DirecteurModele.php");
     require_once("./modeles/MotifModele.php");
+    require_once("./modeles/SpecialiteModele.php");
 
     function ctlDirecteur(){
        
@@ -87,8 +88,8 @@
             // appel au Vue Modif medecin 
             $titre="Suppression";
             $errors_message ='';
-            $contenu = afficherGestionMedecin($errors_message, $titre);
-            return  $contenu;
+            $specialites = NULL;
+            if(isset($_POST["prenom"], $_POST["nom"])){
                 if(empty($_POST['prenom'])||  strlen($_POST['prenom']) == 0){
                     $errors_message=$errors_message.='<p> Retapez le prénom</p>';
                 }
@@ -96,24 +97,26 @@
                     $errors_message=$errors_message.='<p> Retapez le nom</p>';
                 }
                 if(strlen($errors_message) > 0){
-                    $contenu = afficherGestionMedecin($errors_message, $titre);    
+                    $contenu = afficherGestionMedecin($errors_message, $titre, $specialites);    
                 }
-                elseif(isset($_POST["gestion_medecin_delete"])){
+                else{
                     $resdeletemed = DeleteMedecin($_POST['prenom'], $_POST['nom']);
+                    var_dump($resdeletemed);
                     if ($resdeletemed == TRUE) {
                         return reloadPage();
                     }else {
                         return "<h2>Erreur dans la suppression de médecin<h2>";
                     }
                 }
-            $contenu = afficherGestionMedecin($errors_message, $titre);
+            }    
+            $contenu = afficherGestionMedecin($errors_message, $titre, $specialites);
             return  $contenu;
         }
         elseif(isset($_POST["ajout_medecin"])){
             // appel au Vue Modif medecin 
             $titre="Ajout";
             $errors_message ='';
-
+            $specialites = getAllSpecialites();
             // TODO récupérer les spécialités
 
             if(isset($_POST["prenom"], $_POST["nom"], $_POST["specialite"])){
@@ -123,17 +126,11 @@
                 if(empty($_POST['nom'])||  strlen($_POST['nom']) == 0){
                     $errors_message=$errors_message.='<p> Retapez le nom</p>';
                 }
-                // if(empty($_POST['specialite'])||  strlen($_POST['specialite']) == 0){
-                //     $errors_message=$errors_message.='<p> Retapez le nom</p>';
-                // }
-
-
                 if(strlen($errors_message) > 0){
-                    $contenu = afficherGestionMedecin($errors_message, $titre);    
+                    $contenu = afficherGestionMedecin($errors_message, $titre,$specialites);    
                 }
                 else{
                     $resaddmed = CreateMedecin($_POST['nom'],$_POST['prenom'], 2);
-                    var_dump($resaddmed);
                     if ($resaddmed == TRUE) {
                         return reloadPage();
                     }else {
@@ -141,7 +138,7 @@
                     }
                 }
             }   
-            $contenu = afficherGestionMedecin($errors_message, $titre);// TODO Passer les spécialités
+            $contenu = afficherGestionMedecin($errors_message, $titre,$specialites);// TODO Passer les spécialités
             return  $contenu;
         }
         else {
