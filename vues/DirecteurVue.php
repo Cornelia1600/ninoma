@@ -91,7 +91,7 @@ function afficherGestionAccess($errors_message = "", $titre){
 
 	function afficherGestionMedecin($errors_message = "", $titre){
         //afficher les errors message s'il y en a
-        $contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Acces</legend>';
+        $contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Médecin</legend>';
 
 		if (strlen($errors_message) > 0) {
 			$contenu.= '<div>'. $errors_message . '</div>';
@@ -112,13 +112,13 @@ function afficherGestionAccess($errors_message = "", $titre){
 					</p>';
 				}
 				else { 
-					$titre == "Ajout";
+					// TODO Spécialité en liste déroulante/select 
 					$contenu.='<p>
 					<label for="specialite">Specialite de Médecin</label>
 					<input type="text" id="specialite" name="specialite" />
 					</p>
 					<p>
-			    	<button type="submit" name="gestion_medecin_add"/>Ajouter Medécin</button>
+			    	<button type="submit" name="ajout_medecin"/>Ajouter Medécin</button>
 					</p>';
 				}
 

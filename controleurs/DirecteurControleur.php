@@ -113,41 +113,41 @@
             // appel au Vue Modif medecin 
             $titre="Ajout";
             $errors_message ='';
-            if(isset($_POST["gestion_medecin_add"])){
+
+            // TODO récupérer les spécialités
+
+            if(isset($_POST["prenom"], $_POST["nom"], $_POST["specialite"])){
                 if(empty($_POST['prenom'])||  strlen($_POST['prenom']) == 0){
                     $errors_message=$errors_message.='<p> Retapez le prénom</p>';
                 }
                 if(empty($_POST['nom'])||  strlen($_POST['nom']) == 0){
                     $errors_message=$errors_message.='<p> Retapez le nom</p>';
                 }
-                if(empty($_POST['specialite'])||  strlen($_POST['specialite']) == 0){
-                    $errors_message=$errors_message.='<p> Retapez le nom</p>';
-                }
+                // if(empty($_POST['specialite'])||  strlen($_POST['specialite']) == 0){
+                //     $errors_message=$errors_message.='<p> Retapez le nom</p>';
+                // }
+
+
                 if(strlen($errors_message) > 0){
                     $contenu = afficherGestionMedecin($errors_message, $titre);    
                 }
                 else{
-                    $resaddmed = CreateMedecin($_POST['nom'],$_POST['prenom']);
-                    $resaddspec = CreateSpecialite($_POST['nom'],$_POST['prenom'],$_POST['specialite']);
-                    if ($resaddmed == TRUE && $resaddspec==TRUE) {
+                    $resaddmed = CreateMedecin($_POST['nom'],$_POST['prenom'], 2);
+                    var_dump($resaddmed);
+                    if ($resaddmed == TRUE) {
                         return reloadPage();
                     }else {
                         return "<h2>Erreur dans la suppression de médecin<h2>";
                     }
                 }
             }   
-            $contenu = afficherGestionMedecin($errors_message, $titre);
+            $contenu = afficherGestionMedecin($errors_message, $titre);// TODO Passer les spécialités
             return  $contenu;
         }
-
-
         else {
 
             return afficherPageDirecteur();
         }
-
-        $vueDirecteur = afficherPageDirecteur();
-        return $vueDirecteur;
     }
     
 

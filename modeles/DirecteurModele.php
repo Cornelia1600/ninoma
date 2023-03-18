@@ -32,11 +32,10 @@
 
     ///Les créations 
 
-    function CreateMedecin($nommedecin,$prenommedecin){
+    function CreateMedecin($nommedecin,$prenommedecin, $idspemedecin){
         $connexion=getConnect();
 
-        $requetecreatemed='INSERT INTO PERSONNEL(NOM,PRENOM) VALUES ("'.$nommedecin.'","'.$prenommedecin.'")' ;
-        echo $requetecreatemed;
+        $requetecreatemed='INSERT INTO personnel(NOM,PRENOM,IDSP,IDCAT) VALUES ("'.$nommedecin.'","'.$prenommedecin.'", ' . $idspemedecin .', 2)' ;
 		return $connexion->query($requetecreatemed);
 
     }
