@@ -18,11 +18,22 @@
     //     return $contenu;
     // }
     function ctlAgent(){
-        if (isset($_POST["rechercher_patient"])) {
-            // recherche avec nss ou datenaiss et nom 
-            // requete vers modele patient soit par nss (getPatientByNSS) ou par nom/date (getPatientByNom) 
-            
+        if (isset($_POST["rechercherpatient"])) {
+            // recherche avec nss 
+            // requete vers modele patient soit nss (getPatientByNSS) 
             // SI patient existe alors on l'affiche dans le formulaire de modification
+
+            $rslt=synthesePatient();
+            if ($rslt) {
+                // le nss existe déjà
+                return 'yes';
+            } else {
+                // le nss n'existe pas
+                return 'no';
+            } 
+
+
+
         }
 
 

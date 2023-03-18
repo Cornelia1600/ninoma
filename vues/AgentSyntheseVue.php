@@ -15,54 +15,11 @@ function afficherSynthese(){
 	
 		</fieldset></form>';
 
-
-		try{
-			/////POURQUOI ON FAIT LES CONTROLES DANS LA VUE? QUESTION DE NIKI 
-		
-			if(isset($_POST['Ajouter patient'])) {
-				$errors_message ='';
-			
-				if(empty($_POST['date']) ||$_POST['date'] > date("Y-m-d")){
-					$errors_message=$errors_message.'<p> Retapez votre date de naissance</p>';
-				}
-				if(empty($_POST['nom']) ||  strlen($_POST['nom']) == 0){
-					$errors_message=$errors_message.'<p> Retapez votre nom</p>';
-				}
-				if(empty($_POST['prenom']) || strlen($_POST['prenom']) == 0){
-					$errors_message=$errors_message.'<p> Retapez votre prénom</p>';
-				}
-				if(empty($_POST['nmr']) || strlen(strval($_POST['nmr']))!=13) {
-					$errors_message=$errors_message.'<p> Retapez votre numéro de sécurité sociale</p>';
-				}
-				if(empty($_POST['tlf']) || strlen(strval($_POST['tlf']))!=10){
-					$errors_message=$errors_message.'<p> Retapez votre numéro de téléphone</p>';
-				}
-				
-				if(strlen($errors_message) > 0){
-					echo $errors_message;
-				}else{
-					$nmr=$_POST['nmr'];
-					$nom=$_POST['nom'];
-					$prenom=$_POST['prenom'];
-					$tlf=$_POST['tlf'];
-					$date=$_POST['date'];
-					$requete= "INSERT INTO patient (nss, nom, prenom, numtel, datenais) VALUES ('$nmr', '$nom', '$prenom', '$tlf', '$date')";
-					$resultat=$connexion->query($requete);
-					$resultat->closeCursor();
-					echo "<p>L'utilisateur ". $prenom . " " . $nom . " a été créé avec succès</p>";
-				}
-			}		
-		}	
-		
-				
-		catch(Exception $e){
-			$msg='ERREUR dans '.$e->getFile().'Ligne'.$e->getLine().':'.$e->getMessage();
-			exit($msg);
-		}
+	}
+}			/////POURQUOI ON FAIT LES CONTROLES DANS LA VUE? QUESTION DE NIKI / C'est ma faute -_- : Nour 
 
 		
-			
-		if (isset($_POST['find_specialite'])) {
+			if (isset($_POST['find_specialite'])) {
 			$NSS= $_POST['specialite'];
 			$requeteMedecin = "SELECT * FROM client WHERE idspecialite=" . $id_specialite;
 			$resultatMedecin=$connexion->query($requeteMedecin); 
@@ -80,6 +37,5 @@ function afficherSynthese(){
 			</form>";
 			
 		}
-	}
-}
+	
 		?>

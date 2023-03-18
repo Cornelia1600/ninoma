@@ -75,6 +75,11 @@
 			
             </fieldset>
             </form>
+
+			<p>
+			    <button type="submit" name="synthese_patient"/>Synthèse patient</button>
+			</p>
+			
             <script src="./scripts/creationPatient.js"></script>'; 
 			// <p>
 			//     <input type="button" value="Synthèse Patient" name="synthesePatient" />
@@ -87,9 +92,26 @@
     }
 
 	function afficherFormRecherchePatient(){
-		$contenu = "<form><h1>RECHERCHE PATIENT</h1></form>";
+		
 
-		return $contenu;
-	}
+			echo'<form id="formu" method="POST"><fieldset><legend>Synthèse Patient</legend>
+			<p><label> Numéro de sécurité sociale : </label><input type="text" name="nmr" />
+			<button type="submit" name="recherchepatient"/>Recherche patient</button></p>
+			  
+			
+
+			<fieldset>
+			<p><label> Nom patient : </label><input type="text" id="nom" name="nom" /></p>
+			<p><label> Date de naissance : </label><input type="date" id="datenais" name="datenais" /></p>
+			
+			<p>
+			<input type="button" value="GO"  />
+			</p>
+			</fieldset>
+			</fieldset></form>';
+	
+		}
+
+	
 
 ?>
