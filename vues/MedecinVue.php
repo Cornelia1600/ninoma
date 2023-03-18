@@ -20,7 +20,7 @@
             <fieldset> 
             <legend> Saisissez le nombre de créneau </legend>
         <p>
-            <label for="creneau"> Créneau</label>		
+            <label for="creneau">Créneau</label>		
             <input type="text" id="creneau" name="creneau"  onBlur="verif()"/>
         </p>
         <button type="submit" value="continuer" name="continuer" />

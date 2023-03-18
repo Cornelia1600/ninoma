@@ -1,9 +1,14 @@
-function creneau(){
+// div*X (X étant le nombre du 1er input) => dans le js
+
+function tache(){
     var tache = document.getElementById("libelleta").value;
     var inputTache = document.getElementById('libelleta');
-    if (libelleta) {
-        inputTache.style.display="block";
-    }else {
-        inputTache.style.display="none";
-    }
+    <div>
+            <input type="date">  </input>  
+            <input type="number"> </input> 
+            <input type="text"> </input>
+           
+           <button type="submit"> </button>
+    </div>
+
 }
