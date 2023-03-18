@@ -21,11 +21,21 @@
             $patient=getPatientByNSS($_POST["nss"]);
             if (isset($patient->IDCL)) {
                 // le nss existe déjà => afficher la synthèse
-                return 'yes';
+                // créer une function afficher synthèse dans la vue et lui passer en param le patient ,avec return
+               // echo '<p> Nom patient : ',$patient->NOMCL,'</p><p> Prénom patient : ',$patient->PRENOMCL,' </p><p>Date de naissance patient : ', $patient->DATENAISSCL,'</p><p> Numéro de téléphone patient  : ', $patient->NUMTELCL,'</p><p> Adresse patient : ',$patient->ADRESSECL,'</p><p> Département patient : ',$patient->DEPARTNAISSCL, '</p><p> Pays patient : ',$patient->PAYSNAISSCL,'</p>';
+               $contenu = afficherPatient($patient);
+
+
+
             } else {
                 // le nss n'existe pas => afficher un message dans le formulaire
-                return 'no';
-            } 
+                $errors_message='Numéro de sécurité sociale inconnu';
+                if(strlen($errors_message) > 0){
+                  // echo $contenu = $errors_message;
+                  $contenu = afficherFormRecherchePatient($errors_message);
+                }
+
+            }return $contenu; 
 
 
 
@@ -139,5 +149,5 @@
         
         return $vueFormRdv;
 }
-
+       
 ?>

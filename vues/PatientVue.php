@@ -115,6 +115,11 @@
 	
 		}
 
-	
+	function afficherPatient($patient){
+		return '<p> Nom patient : '.$patient->NOMCL.'</p><p> Prénom patient : '.$patient->PRENOMCL.' </p><p>Date de naissance patient : '. $patient->DATENAISSCL.'</p><p> Numéro de téléphone patient  : '. $patient->NUMTELCL.'</p><p> Adresse patient : '.$patient->ADRESSECL.'</p><p> Département patient : '.$patient->DEPARTNAISSCL. '</p><p> Pays patient : '.$patient->PAYSNAISSCL.'</p>';
+
+
+
+	}
 
 ?>
