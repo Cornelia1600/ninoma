@@ -20,7 +20,7 @@
                     $categorie = getCategorieById($personnel->IDCAT);
                     $_SESSION["categorie_personnel"] = $categorie->LIBELLECAT;
 
-                    return reloadPage(); // TODO recharger la page;
+                    return reloadPage();
                 }
             }
             // => message d'erreur dans le formulaire si on a rien retourner entre temps;

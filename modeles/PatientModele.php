@@ -12,11 +12,16 @@
 		return $connexion->query($requete);
 	}
 
-	function synthesePatient(){
-		$nmr = $_POST['nmr'];
-		$stmt = $pdo->prepare("SELECT * FROM client WHERE NSS=?");
-		$stmt->execute([$nmr]); 
-		$nmr = $stmt->fetch();	
+	function getPatientByNSS($nss){
+		$connexion=getConnect();
+		
+		$requete = 'SELECT * FROM client WHERE NSS="'. $nss . '"';
+        $resultat=$connexion->query($requete); 
+        $resultat->setFetchMode(PDO::FETCH_OBJ);
+        $patient = $resultat->fetch();
+        $resultat->closeCursor();
+
+		return $patient;
 	}
 
 

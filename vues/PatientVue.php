@@ -94,9 +94,12 @@
 	function afficherFormRecherchePatient(){
 		
 
-			echo'<form id="formu" method="POST"><fieldset><legend>Synthèse Patient</legend>
-			<p><label> Numéro de sécurité sociale : </label><input type="text" name="nmr" />
-			<button type="submit" name="recherchepatient"/>Recherche patient</button></p>
+			return '<form id="formu" method="POST"><fieldset><legend>Synthèse Patient</legend>
+			<p>
+				<label> Numéro de sécurité sociale : </label>
+				<input type="text" name="nss" />
+				<button type="submit" name="rechercher_patient"/>Recherche patient</button>
+			</p>
 			  
 			
 

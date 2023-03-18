@@ -11,24 +11,19 @@
     require_once("./modeles/PieceModele.php");
     require_once("./modeles/PatientModele.php");
     require_once("./vues/PatientVue.php");
-    
-    // function ctlAgent(){
-    //     $contenu = ssCtl1();
-    //     $contenu .= ssCtl2();
-    //     return $contenu;
-    // }
+
     function ctlAgent(){
-        if (isset($_POST["rechercherpatient"])) {
+        if (isset($_POST["rechercher_patient"])) {
             // recherche avec nss 
             // requete vers modele patient soit nss (getPatientByNSS) 
             // SI patient existe alors on l'affiche dans le formulaire de modification
 
-            $rslt=synthesePatient();
-            if ($rslt) {
-                // le nss existe déjà
+            $patient=getPatientByNSS($_POST["nss"]);
+            if (isset($patient->IDCL)) {
+                // le nss existe déjà => afficher la synthèse
                 return 'yes';
             } else {
-                // le nss n'existe pas
+                // le nss n'existe pas => afficher un message dans le formulaire
                 return 'no';
             } 
 
@@ -83,20 +78,6 @@
         $contenu .= afficherFormRecherchePatient();
         return $contenu;
     }
-
-    
-    // function ssCtl1(){
-    //     $contenu = $mon1erform();
-    //     // if(isset($_POST)) ...
-    //     return $contenu;
-    // }
-
-
-    // function ssCtl2(){
-    //     $contenu = $mon2eform();
-    //     // if(isset($_POST)) ...
-    //     return $contenu;
-    // }
 
     function ctlAgentRdv(){
         $specialites = getAllSpecialites(); // récupérer les spécialités depuis le modèle
