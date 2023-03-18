@@ -90,30 +90,40 @@ function afficherGestionAccess($errors_message = "", $titre){
 			return $contenu;
     }  
 
-	function afficherGestionMedecin($errors_message = "", $titre,$specialites){
+	function afficherGestionMedecin($errors_message = "", $titre,$Medecins, $specialites){
         //afficher les errors message s'il y en a
         $contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Médecin</legend>';
 
 		if (strlen($errors_message) > 0) {
 			$contenu.= '<div>'. $errors_message . '</div>';
-		}
+		}			
+			if($titre == "Suppression"){
+				$contenu.='<form action= method="POST">
+				<table>
+				<th>Prénom Médecin</th>
+				<th>Nom Médecin</th>
+				<th>Spécialité Médecin</th>';
 
-		$contenu.='<p>
-				<label for="nom">Nom Médecin</label>
-				<input type="text" id="nom" name="nom"/>
-			</p>
-			<p>
-				<label for="prenom">Prénom Médecin</label>
-				<input type="text" id="prenom" name="prenom" />
-			</p>';
-			
-				if($titre == "Suppression"){
-					$contenu.='<p>
-			    	<button type="submit" name="delete_medecin"/>Supprimer Médecin</button>
-					</p>';
+				for ($i=0; $i < count($Medecins) ; $i++){
+					$contenu.=
+					'<tr>
+					<td>"'. $Medecins[$i]->PRENOM .'"</td>
+					<td>"'. $Medecins[$i]->NOM .'"</td>
+					<td>"'. $Medecins[$i]->SPECIALITE .'"</td>
+					<button type="submit" value="' . $Medecins->IDPERS . '" name="delete_medecin">Supprimer Médecin</button></tr>';	
+				}
+				$contenu.='</table></form>';
 				}
 				else { 
-					$contenu.='<div>
+					$contenu.='<p>
+					<label for="nom">Nom Médecin</label>
+					<input type="text" id="nom" name="nom"/>
+					</p>
+					<p>
+					<label for="prenom">Prénom Médecin</label>
+					<input type="text" id="prenom" name="prenom" />
+					</p>
+					<div>
 					<label for="specialite">Spécialité de Médecin </label>
 					<select name="specialite" required> 
 					<option value="" selected disabled hidden>-</option>';
