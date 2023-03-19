@@ -4,10 +4,10 @@
 
 
 		if (isset($patient->IDCL)) {
-			$titre = "Modification";
+			$titre = "Synthèse";
 			$modif = true;
 		}else {
-			$titre = "Création";
+			$titre = "Créer";
 			$modif = false;
 		}
         $contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Patient</legend>';
@@ -133,7 +133,7 @@
     }
 
 	function afficherFormRecherchePatient(){
-		return '<form id="formu" method="POST"><fieldset><legend>Synthèse Patient</legend>
+		return '<form id="formu" method="POST"><fieldset><legend>Rechercher Patient</legend>
 		<p>
 			<label> Numéro de sécurité sociale : </label>
 			<input type="text" name="nss" />
