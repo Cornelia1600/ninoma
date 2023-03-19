@@ -1,13 +1,13 @@
 <?php
 
     function afficherFormCreationPatient($errors_message = "", $patient = null){
-        //TODO afficher les errors message s'il y en a
 
-		if (isset($patient->IDP)) {
-			$titre = "Modification";
+
+		if (isset($patient->IDCL)) {
+			$titre = "Synthèse";
 			$modif = true;
 		}else {
-			$titre = "Création";
+			$titre = "Créer";
 			$modif = false;
 		}
         $contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Patient</legend>';
@@ -18,54 +18,102 @@
 
 		$contenu.='<p>
 				<label for="nom">Nom Patient</label>
-				<input type="text" id="nom" name="nom" value="Doe"/>
+				<input type="text" id="nom" name="nom" value="';
+				
+		if ($modif) {
+			$contenu .= $patient->NOMCL;
+		}
+				
+		$contenu .= '"/>
 			</p>
 			<p>
 				<label for="prenom">Prénom Patient</label>
-				<input type="text" id="prenom" name="prenom"';
-
+				<input type="text" id="prenom" name="prenom" value="';
+				
 			if ($modif) {
-				$contenu.= ' value"'. $patient->PRENOMCL . '"';
+				$contenu.= $patient->PRENOMCL;
 			}
 				
-			$contenu.='/>
+			$contenu.='"/>
 			</p>
 			
 			<p>
 				<label for="adresse">Adresse</label>
-				<input type="text" id="adresse" name="adresse" />
+				<input type="text" id="adresse" name="adresse" value="';
+				
+				if ($modif) {
+					$contenu.= $patient->ADRESSECL;
+				}
+					
+				$contenu.='" />
 			</p>
 			
 			<p>
 				<label for="numtel">Numéro de téléphone</label>
-				<input type="text" id="numtel" name="numtel" onBlur="verif()" />
+				<input type="text" id="numtel" name="numtel" onBlur="verif()" value="';
+				
+				if ($modif) {
+					$contenu.= $patient->NUMTELCL;
+				}
+					
+				$contenu.='" /><span id="error_tlf"></span>
 			</p>
 			
 			
 			<p>
 				<label for="datenais">Date de naissance</label>
-				<input type="date" id="datenais" name="datenais" />
+				<input type="date" id="datenais" name="datenais"  value="';
+				
+				if ($modif) {
+					$contenu.= date_format(new DateTime($patient->DATENAISSCL), "Y-m-d");
+				}
+					
+				$contenu.='"/>
 			</p>
 			
 			<p>
 				<label for="dptnais">Département de naissance</label>
-				<input type="text" id="dptnais" name="dptnais" placeholder="99 pour l\'étranger" required  onBlur=pays(); />
+				<input type="text" id="dptnais" name="dptnais" placeholder="99 pour l\'étranger" required  onBlur=pays();  value="';
+				
+				if ($modif) {
+					$contenu.= $patient->DEPARTNAISSCL;
+				}
+					
+				$contenu.='"/>
 			</p>
 			
-			<p id="paysnaiscontainer" style="display:none;">
+			<p id="paysnaiscontainer" style="'; 
+			
+			if (!$modif || intval($patient->DEPARTNAISSCL) != 99) {
+				$contenu .= "display:none"; 
+			}
+			
+			$contenu .= '">
 				<label for="paysnais">Pays de naissance</label>
-				<input type="text" id="paysnais" name="paysnais"/>
+				<input type="text" id="paysnais" name="paysnais"  value="';
+				
+				if ($modif) {
+					$contenu.= $patient->PAYSNAISSCL;
+				}
+					
+				$contenu.='"/>
 			</p>
 
 			<p>
 				<label for="nss">Numéro de sécurité sociale</label>
-				<input type="text" id="nss" name="nss" />
+				<input type="text" id="nss" name="nss" value="';
+				
+				if ($modif) {
+					$contenu.= $patient->NSS;
+				}
+					
+				$contenu.='"/>
 			</p>
 			
 			<p>';
 			if ($modif) {
 				$contenu.= '
-				<button type="submit" name="modifer_patient" value="'. $patient->IDCL . '"/>Modifier patient</button>
+				<button type="submit" name="modifier_patient" value="'. $patient->IDCL . '"/>Modifier patient</button>
 				<button type="submit" name="prendre_rdv" value="'. $patient->IDCL . '"/>Prendre rdv</button>	
 			';
 			} else {
@@ -81,19 +129,20 @@
 			</p>
 			
             <script src="./scripts/creationPatient.js"></script>'; 
-			// <p>
-			//     <input type="button" value="Synthèse Patient" name="synthesePatient" />
-			//     <input type="button" value="Consulter compte patient" name="payer" />
-			// </p>
-
-
-
 			return $contenu;
     }
 
 	function afficherFormRecherchePatient(){
+		return '<form id="formu" method="POST"><fieldset><legend>Rechercher Patient</legend>
+		<p>
+			<label> Numéro de sécurité sociale : </label>
+			<input type="text" name="nss" />
+			<button type="submit" name="rechercher_patient"/>Recherche patient</button>
+		</p>
+			
 		
 
+<<<<<<< HEAD
 			return '<form id="formu" method="POST"><fieldset><legend>Synthèse Patient</legend>
 			<p>
 				<label> Numéro de sécurité sociale : </label>
@@ -112,14 +161,18 @@
 			</p>
 			</fieldset>
 			</fieldset></form>';
+=======
+		<fieldset>
+		<p><label> Nom patient : </label><input type="text" id="nom" name="nom" /></p>
+		<p><label> Date de naissance : </label><input type="date" id="datenais" name="datenais" /></p>
+		
+		<p>
+		<input type="button" value="GO"  />
+		</p>
+		</fieldset>
+		</fieldset></form>';
+>>>>>>> d490f97681ab36bf69e6be1e95d2c272b280a87b
 	
-		}
-
-	function afficherPatient($patient){
-		return '<p> Nom patient : '.$patient->NOMCL.'</p><p> Prénom patient : '.$patient->PRENOMCL.' </p><p>Date de naissance patient : '. $patient->DATENAISSCL.'</p><p> Numéro de téléphone patient  : '. $patient->NUMTELCL.'</p><p> Adresse patient : '.$patient->ADRESSECL.'</p><p> Département patient : '.$patient->DEPARTNAISSCL. '</p><p> Pays patient : '.$patient->PAYSNAISSCL.'</p>';
-
-
-
 	}
 	
 	/*function afficherFormNSS($trouve, $nss=""){

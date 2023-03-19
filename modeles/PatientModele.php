@@ -8,7 +8,13 @@
 		$connexion=getConnect();
 		$requete= 'INSERT INTO client (PRENOMCL, NOMCL, NUMTELCL, ADRESSECL, DEPARTNAISSCL, PAYSNAISSCL, NSS, DATENAISSCL) 
 		VALUES ("'. $prenom . '", "' . $nom . '", "' . $tlf . '","' . $adresse . '", ' . $dept . ',"' . $pays . '", "' . $nss . '", "' . formatDateNais($datenais) .'")';
-		echo $requete;
+		return $connexion->query($requete);
+	}
+
+	
+	function modifierPatient($id, $nss, $nom,$adresse,$prenom,$tlf,$dept,$pays,$datenais){
+		$connexion=getConnect();
+		$requete= 'UPDATE client SET NSS="'. $nss .'", NOMCL="' . $nom . '", PRENOMCL="' . $prenom . '", NUMTELCL="' . $tlf . '", ADRESSECL="' . $adresse . '", DEPARTNAISSCL="' . $dept . '", PAYSNAISSCL="' . $pays . '", DATENAISSCL="' . formatDateNais($datenais) . '" WHERE IDCL='. $id;
 		return $connexion->query($requete);
 	}
 	

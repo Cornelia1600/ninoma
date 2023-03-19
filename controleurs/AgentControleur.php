@@ -20,8 +20,8 @@
 
             $patient=getPatientByNSS($_POST["nss"]);
             if (isset($patient->IDCL)) {
-                // le nss existe déjà => afficher la synthèse à la fin de la page en  passant par la variable $patientaaffiche
-               $patientaaffiche = $patient;
+                // le nss existe déjà => afficher la synthèse à la fin de la page en  passant par la variable $patientaafficher
+               $patientaafficher = $patient;
             } else {
                 // le nss n'existe pas => afficher un message dans le formulaire
                 $errors_message='Numéro de sécurité sociale inconnu';
@@ -60,6 +60,42 @@
             return ctlAgentRdv();
         }
 
+        if (isset($_POST["modifier_patient"])) {
+            $errors_message ='';
+        
+            if(empty($_POST['datenais']) || $_POST['datenais'] > date("Y-m-d")){
+                $errors_message=$errors_message.='<p> Retapez votre date de naissance</p>';
+            }
+            if(empty($_POST['nom']) ||  strlen($_POST['nom']) == 0){
+                $errors_message=$errors_message.='<p> Retapez votre nom</p>';
+            }
+            if(empty($_POST['prenom']) || strlen($_POST['prenom']) == 0){
+                $errors_message=$errors_message.='<p> Retapez votre prénom</p>';
+            }
+            if(empty($_POST['nss']) || strlen(strval($_POST['nss']))!=13) {
+                $errors_message=$errors_message.='<p> Retapez votre numéro de sécurité sociale</p>';
+            }
+            if(empty($_POST['numtel']) || strlen(strval($_POST['numtel']))!=10){
+                $errors_message=$errors_message.='<p> Retapez votre numéro de téléphone</p>';
+            }
+            if(strlen($errors_message) > 0){
+                $contenu = afficherFormCreationPatient($errors_message, $patient);
+            }else{
+                echo "là";
+                // Appeler la function modifierPatient du modele qui modifie le patient 
+                if (isset($_POST["paysnais"]) && strlen($_POST["paysnais"]) > 0){
+                    $pays = $_POST["paysnais"];
+                } else {
+                    $pays = "FRANCE";
+                }
+                $resModification = modifierPatient($_POST["modifier_patient"], $_POST['nss'], $_POST['nom'], $_POST["adresse"], $_POST["prenom"], $_POST["numtel"], $_POST["dptnais"], $pays, $_POST["datenais"]);
+                if ($resModification == TRUE) {
+                    $patientaafficher=getPatientByNSS($_POST["nss"]);
+                }else {
+                    return "<h2>Erreur dans l'enregistrement du patient<h2>";
+                }
+            }
+        }
 
         if (isset($_POST["ajouter_patient"])) {
             $errors_message ='';
@@ -90,16 +126,20 @@
                 }
                 $resCreation = creerPatient($_POST['nss'], $_POST['nom'], $_POST["adresse"], $_POST["prenom"], $_POST["numtel"], $_POST["dptnais"], $pays, $_POST["datenais"]);
                 if ($resCreation == TRUE) {
-                    return reloadPage();
+                    $patientaafficher=getPatientByNSS($_POST["nss"]);
                 }else {
                     return "<h2>Erreur dans l'enregistrement du patient<h2>";
                 }
             }
         } 
+        if (isset($patientaafficher)) {
+            $contenu = afficherFormCreationPatient("", $patientaafficher);
+        }
         else {
             $contenu = afficherFormCreationPatient();
         }
         $contenu .= afficherFormRecherchePatient();
+<<<<<<< HEAD
        // afficherFormNSS(bool, "nss");
        $contenu .= afficherFormNSS($NSSPATIENT);
         // test si trouvé ou non (bool) et une qui est le nss 
@@ -107,6 +147,8 @@
             $contenu .= afficherPatient($patientaaffiche);
             $contenu = $contenu . afficherPatient($patientaaffiche);
         }
+=======
+>>>>>>> d490f97681ab36bf69e6be1e95d2c272b280a87b
         
         return $contenu;
     }
