@@ -11,7 +11,7 @@
 		echo $requete;
 		return $connexion->query($requete);
 	}
-
+	
 	function getPatientByNSS($nss){
 		$connexion=getConnect();
 		
@@ -24,7 +24,18 @@
 		return $patient;
 	}
 
+	function getNSS($nomCL, $datenaissCL){
+		$connexion=getConnect();
+		
+		$requete = 'SELECT NSS FROM client WHERE NOMCL="'. $nomCL . '"';
+        $resultat=$connexion->query($requete); 
+        $resultat->setFetchMode(PDO::FETCH_OBJ);
+        $ss = $resultat->fetch();
+        $resultat->closeCursor();
 
+		return $ss;
+	}
 
+	
 
 ?>

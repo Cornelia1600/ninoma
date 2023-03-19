@@ -36,6 +36,25 @@
 
         }
 
+        if (isset($_POST["affnss"])) {
+            // recherche du nss avec nomCL et datenaissCL
+            // requete vers modele patient (getNSS)
+            // SI nss existe alors on l'affiche 
+
+            $NSSPATIENT=getNSS($_POST["nom"], $_POST["datenais"] );
+            if (isset($NSSPATIENT->IDCL)) {
+                // le patient existe déjà => afficher son nss à la fin de la page en  passant par la variable $NSSaffiche
+               $NSSaffiche = $NSSPATIENT;
+            } else {
+                // le patient n'existe pas => afficher un message dans le formulaire
+                $errors_message='Personne inconnue';
+                if(strlen($errors_message) > 0){
+                  // echo $contenu = $errors_message;
+                  $contenu = afficherFormRecherchePatient($errors_message);
+                }
+                return $contenu; 
+            }}
+
 
         if (isset($_POST["prendre_rdv"])) {
             return ctlAgentRdv();
@@ -81,6 +100,9 @@
             $contenu = afficherFormCreationPatient();
         }
         $contenu .= afficherFormRecherchePatient();
+       // afficherFormNSS(bool, "nss");
+       $contenu .= afficherFormNSS($NSSPATIENT);
+        // test si trouvé ou non (bool) et une qui est le nss 
         if (isset($patientaaffiche)) {
             $contenu .= afficherPatient($patientaaffiche);
             $contenu = $contenu . afficherPatient($patientaaffiche);

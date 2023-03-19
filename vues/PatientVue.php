@@ -108,7 +108,7 @@
 			<p><label> Date de naissance : </label><input type="date" id="datenais" name="datenais" /></p>
 			
 			<p>
-			<input type="button" value="GO"  />
+			<input type="button" value="Afficher le numéro se sécurité sociale" name="affnss"  />
 			</p>
 			</fieldset>
 			</fieldset></form>';
@@ -120,6 +120,22 @@
 
 
 
+	}
+	
+	/*function afficherFormNSS($trouve, $nss=""){
+		if ($trouve){
+			//trouve
+		}else{
+			//message 
+		}
+	}*/
+
+	function afficherFormNSS($ss){
+		if (strlen($ss)){
+			return "yess";
+		}else{
+			//message 
+		}
 	}
 
 ?>
