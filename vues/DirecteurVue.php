@@ -31,88 +31,7 @@ function afficherPageDirecteur(){
     return $form;
 }
 
-function afficherFormCreationAccess($errors_message = "", $personnel = null){
-
-
-	if (isset($personnel->IDPERS)) {
-		$titre = "Modifier";
-		$modif = true;
-	}else {
-		$titre = "Créer";
-		$modif = false;
-	}
-	$contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Acces Personnel</legend>';
-
-	if (strlen($errors_message) > 0) {
-		$contenu.= '<div>'. $errors_message . '</div>';
-	}
-
-	$contenu.='<p>
-			<label for="nom">Nom Personnel</label>
-			<input type="text" id="nom" name="nom" value="';
-			
-	if ($modif) {
-		$contenu .= $personnel->NOM;
-	}
-			
-	$contenu .= '"/>
-		</p>
-		<p>
-			<label for="prenom">Prénom Patient</label>
-			<input type="text" id="prenom" name="prenom" value="';
-			
-		if ($modif) {
-			$contenu.= $personnel->PRENOM;
-		}
-			
-		$contenu.='"/>
-		</p>
-		
-		<p>
-			<label for="login">login</label>
-			<input type="text" id="login" name="login" value="';
-			
-			if ($modif) {
-				$contenu.= $personnel->LOGIN;
-			}
-				
-			$contenu.='" />
-		</p>
-		
-		<p>
-			<label for="MDP">Mot de Passe</label>
-			<input type="text" id="MDP" name="MDP" value="';
-			
-			if ($modif) {
-				$contenu.= $personnel->MDP;
-			}
-				
-			$contenu.='
-		
-			<p>
-			<label for="Cat">Catégorie</label>
-			<input type="text" id="Cat" name="Cat"  value="';
-			
-			if ($modif) {
-				$contenu.= $personnel->IDCAT;
-			}
-			
-		
-		if ($modif) {
-			$contenu.= '
-			<button type="submit" name="modifier_login" value="'. $personnel->IDPERS . '"/>Modifier Access</button>';
-		} else {
-			$contenu.= '<button type="submit" name="ajout_acces"/>Ajouter Access</button>';
-		}
-		$contenu .='</p>
-		
-		</fieldset>
-		</form>';
-		
-		return $contenu;
-	}
-
-function afficherAjoutAccess($errors_message = "", $cat){
+function afficherAjoutAccess($errors_message = "", $cat, $personnel = null){
         //afficher les errors message s'il y en a
         $contenu = '<form id="formu" method="POST"><fieldset><legend>Ajouter Acces</legend>';
 
@@ -149,7 +68,7 @@ function afficherAjoutAccess($errors_message = "", $cat){
 					$contenu.='<option value="' . $cat[$i]->IDCAT .'"';// la valeur renvoyée = IDSPE
 
 					if(isset($_POST["Categorie"]) && $_POST["Categorie"] == $cat[$i]->IDCAT) {
-					$contenu.=' selected="selected"'; 
+						$contenu.=' selected="selected"'; 
 					}
 					$contenu.='>'. $cat[$i]->LIBELLECAT .'</option>'; // La valeur à afficher = libellé
 				}

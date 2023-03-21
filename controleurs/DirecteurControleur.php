@@ -9,6 +9,20 @@
     require_once("./modeles/PersonnelModele.php");
     require_once("./modeles/medecinModele.php");
 
+    		
+
+	/*
+	-> si user clique sur le ajout_acces => fomrulaire (vide) de gestion de login (mode: création)
+    -> liste de tous les médecins -> 1 colonne avec un bouton modif_acces => formulaire (prérempli) de gestion de login (mode: modif) 
+    <table>
+        ...
+
+        <td><btn value="X" name="modif_acces">Modifier médecin n°X</btn></td>
+
+    </table>
+    <btn name="ajout_acces">Ajouter medecin</btn>
+	*/
+
     function ctlDirecteur(){
        
         if (isset($_POST["ajout_acces"])) { 
@@ -29,7 +43,7 @@
                     $errors_message=$errors_message.='<p> Retapez le MDP</p>';
                 }
                 if(strlen($errors_message) > 0){
-                    $contenu = afficherFormCreationAccess($$errors_message, $personnel);    
+                    $contenu = afficherAjoutAccess($errors_message, $cat);    
                 }
                 else{
                     $resCreation = Createlogin($_POST['prenom'], $_POST['nom'], $_POST["login"], $_POST["MDP"],($_POST["Categorie"]));
@@ -40,13 +54,14 @@
                     }
                 }
             }    
-                $contenu = afficherFormCreationAccess($$errors_message, $personnel); 
+                $contenu = afficherAjoutAccess("", $cat); 
                 return  $contenu;
              }
         elseif(isset($_POST["modif_acces"])) {
             $errors_message ='';
-            $personnel=getAllPersonnel(); 
-            $contenu = afficherFormCreationAccess($$errors_message, $personnel); 
+            $personnel=getAllPersonnel();// getById => avec comme id $_POST["modif_acces"]
+            $cat=getAllCategories();
+            $contenu = afficherAjoutAccess($$errors_message, $cat, $personnel); 
             return  $contenu;
         }      
         elseif(isset($_POST["ajout_motif"])){
