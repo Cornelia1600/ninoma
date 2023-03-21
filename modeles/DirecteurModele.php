@@ -47,7 +47,11 @@
         VALUES ('. $prenom . '", "' . $nom . '", "' . $login . '","' . $MDP . '","' . $Cat . '")';
 		return $connexion->query($requetecreatelogin);
 	}
-    function CreateMotif($prenom,$nom,$login,$MDP){
+    function CreateMotif($libelle,$prix){
+        $connexion=getConnect();
+
+        $requetecreatemot='INSERT INTO motif(LIBELLEMO,PRIXMO) VALUES ("'.$libelle.'","'.$prix.'")' ;
+		return $connexion->query($requetecreatemot);
 	
     }
         
@@ -85,7 +89,7 @@
         return $personnels;
     }
 
-    function getMotif(){
+    function getallMotif(){
         $connexion=getConnect();
 
         $requetemed='SELECT * FROM personnel WHERE IDCAT=2';

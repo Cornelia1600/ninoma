@@ -11,14 +11,12 @@
     function ctlDirecteur(){
        
         if (isset($_POST["ajout_acces"])) { 
+            ///ERROR :  count(): Parameter must be an array or 
+            ///an object that implements Countable in C:\xampp\htdocs\ninoma\ninoma\vues\DirecteurVue.php on line 64
             $errors_message ='';
-<<<<<<< Updated upstream
             $Personnel=getAllPersonnel();
             $cat=getallcat();
             if (isset($_POST["ajouter_acces"])) { 
-=======
-            if(isset($_POST["prenom"], $_POST["nom"], $_POST["login"])){
->>>>>>> Stashed changes
                 if(empty($_POST['prenom'])||  strlen($_POST['prenom']) == 0){
                     $errors_message=$errors_message.='<p> Retapez le prénom</p>';
                 }
@@ -32,70 +30,61 @@
                     $errors_message=$errors_message.='<p> Retapez le MDP</p>';
                 }
                 if(strlen($errors_message) > 0){
-<<<<<<< Updated upstream
-                    $contenu = afficherGestionAccess($errors_message = "", $titre,$Personnel, $cat);    
-=======
-                    $contenu = afficherAjoutAccess($errors_message);    
->>>>>>> Stashed changes
+                    $contenu = afficherAjoutAccess($errors_message = "", $cat);    
                 }
                 else{
-                    $resCreation = Createlogin($_POST['prenom'], $_POST['nom'], $_POST["login"], $_POST["MDP"],intval(($_POST["categorie"])));
+                    $resCreation = Createlogin($_POST['prenom'], $_POST['nom'], $_POST["login"], $_POST["MDP"],($_POST["Categorie"]));
                     if ($resCreation == TRUE) {
                         return reloadPage();
                     }else {
                         return "<h2>Erreur dans creation d'access<h2>";
                     }
                 }
-<<<<<<< Updated upstream
-                $contenu = afficherGestionAccess($errors_message, $titre,$Personnel, $cat);
-=======
             }    
-                $contenu = afficherAjoutAccess($errors_message);
->>>>>>> Stashed changes
+                $contenu = afficherAjoutAccess($errors_message = "", $cat);
                 return  $contenu;
              }
         elseif(isset($_POST["modif_acces"])) {
-<<<<<<< Updated upstream
-            $titre="Modification";
-            $errors_message ='';
-            $Personnel=getAllPersonnel();
-            $cat=getallcat();
-                if(empty($_POST['login'])||  strlen($_POST['login']) == 0){
-                    $errors_message=$errors_message.='<p> Retapez le login</p>';
-                }
-                if(empty($_POST['MDP'])||  strlen($_POST['MDP']) == 0){
-                    $errors_message=$errors_message.='<p> Retapez le MDP</p>';
-                }
-                if(empty($_POST['newlogin'])||  strlen($_POST['newlogin'])==0 || $_POST['newMDP']||  strlen($_POST['newMDP'])){
-                    $errors_message=$errors_message.='<p> Retapez le Nouveau Login et ou MDP</p>';
-                }
-                if(strlen($errors_message) > 0){
-                    $contenu = afficherGestionAccess($errors_message = "", $titre,$Personnel, $cat);    
-                }
-                else{
-                    $resModification = UpdateAccess($_POST['prenom'], $_POST['nom'], $_POST["newlogin"], $_POST["newMDP"]);
-                    if ($resModification == TRUE) {
-                        return reloadPage();
-                    }else {
-                        return "<h2>Erreur dans modification d'access<h2>";
-                    }
-                }
-            $contenu = afficherGestionAccess($errors_message = "", $titre,$Personnel, $cat);
-            return  $contenu;
-=======
-                $personnel=getAllPersonnel(); 
-                $contenu = afficherModificationAccess($personnel);
-                return  $contenu;
->>>>>>> Stashed changes
-        }    
-        elseif(isset($_POST["changer_access"])) {
-            $idpers=$_POST["changer_access"];
+            $personnel=getAllPersonnel(); 
             $contenu = afficherModificationAccess($personnel);
             return  $contenu;
+        }    
+        elseif(isset($_POST["changer_access"])) {
+            $idpersonnel=$_POST["changer_access"];
+            var_dump($idpersonnel);
+            ////Quoi faire ici? ajouter un autre formulaire pour saisir les nouveau login et MDP? 
+            ///$resdeletemed = DeleteMedecin($idmeds);
+            ///if ($resdeletemed == TRUE) {
+           ///     return reloadPage();
+            ///}else {
+            ///    return "<h2>Erreur dans la suppression de médecin<h2>";
+           /// }
         }   
-        elseif(isset($_POST["modif_motif"])){
+        elseif(isset($_POST["ajout_motif"])){
             // appel au Vue Modif motif 
-            $motifs = getAllMotifs();    
+            $errors_message ='';
+            if(isset($_POST["libelle"], $_POST["prix"])){
+
+                if(empty($_POST['libelle'])||  strlen($_POST['libelle']) == 0){
+                $errors_message=$errors_message.='<p> Retapez le libelle</p>';
+                }
+                if(empty($_POST['prix'])||  is_nan($_POST['prix'])){
+                    $errors_message=$errors_message.='<p> Retapez le prix</p>';
+                }
+                if(strlen($errors_message) > 0){
+                    $contenu = afficherAjoutMotif($errors_message);    
+                }
+                else{
+                    $resaddmotif = CreateMotif($_POST['libelle'],$_POST['prix']);
+                    if ($resaddmotif == TRUE) {
+                        return reloadPage();
+                    }else {
+                        return "<h2>Erreur dans l'ajout de motif<h2>";
+                    }
+                }
+            }   
+            $contenu = afficherAjoutMotif($errors_message);
+            return  $contenu;
             
         }
         elseif(isset($_POST["modif_prix"])){
@@ -117,46 +106,8 @@
             }
         }
         elseif(isset($_POST["delete_medecin"])){
-<<<<<<< Updated upstream
-            $titre="Suppression";
-            $errors_message ='';
-            $specialites = NULL;
-            $Medecins=getAllMedecins();
-            $contenu = afficherGestionMedecin($errors_message, $titre ,$Medecins, $specialites);
-            return  $contenu;
-        }
-        elseif(isset($_POST["supprime_medecin"])){
-            // appel au Vue Modif medecin 
-            $titre="Suppression";
-            $errors_message ='';
-            $specialites = NULL;
-            $Medecins=getAllMedecins();
-
-            if(isset($_POST["prenom"], $_POST["nom"])){
-                if(empty($_POST['prenom'])||  strlen($_POST['prenom']) == 0){
-                    $errors_message=$errors_message.='<p> Retapez le prénom</p>';
-                }
-                if(empty($_POST['nom'])||  strlen($_POST['nom']) == 0){
-                    $errors_message=$errors_message.='<p> Retapez le nom</p>';
-                }
-                if(strlen($errors_message) > 0){
-                    $contenu = afficherGestionMedecin($errors_message, $titre, $Medecins, $specialites);    
-                }
-                else{
-                    $resdeletemed = DeleteMedecin($_POST['prenom'], $_POST['nom']);
-                    var_dump($resdeletemed);
-                    if ($resdeletemed == TRUE) {
-                        return reloadPage();
-                    }else {
-                        return "<h2>Erreur dans la suppression de médecin<h2>";
-                    }
-                }
-            }    
-            $contenu = afficherGestionMedecin($errors_message, $titre ,$Medecins, $specialites);
-=======
             $Medecins=getAllMedecinswithspecialite(); 
             $contenu = afficherSuppressionMedecin($Medecins);
->>>>>>> Stashed changes
             return  $contenu;
         }
         elseif(isset($_POST["ajout_medecin"])){

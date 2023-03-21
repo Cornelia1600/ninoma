@@ -12,7 +12,9 @@ function afficherPageDirecteur(){
     </p>
     <p>
         <label for="acces">Rendez-vous</label>		
-        <input type="submit" Value="Motif" name="modif_motif"/>
+        <input type="submit" Value="Ajouter Motif" name="ajout_motif"/>
+		<input type="submit" Value="Modifier Motif" name="modif_motif"/>
+		<input type="submit" Value="Supprimer Motif" name="modif_motif"/>
         <input type="submit" Value="Prix" name="modif_prix"/>
         <input type="submit" Value="Pièce" name="modif_piece"/>
     </p>
@@ -29,38 +31,15 @@ function afficherPageDirecteur(){
     return $form;
 }
 
-<<<<<<< Updated upstream
-function afficherGestionAccess($errors_message = "", $titre,$Personnel, $cat){
-=======
-function afficherAjoutAccess($errors_message = ""){
->>>>>>> Stashed changes
+function afficherAjoutAccess($errors_message = "", $cat){
         //afficher les errors message s'il y en a
         $contenu = '<form id="formu" method="POST"><fieldset><legend>Ajouter Acces</legend>';
 
 		if (strlen($errors_message) > 0) {
 			$contenu.= '<div>'. $errors_message . '</div>';
 		}
-			if($titre == "Modification"){
-				$contenu.='<form action= method="POST">
-				<table>
-				<th>Prénom Personnel</th>
-				<th>Nom Personnel</th>
-				<th>Login</th>
-				<th>MDP</th>';
-
-				for ($i=0; $i < count($Personnel) ; $i++){
-					$contenu.=
-					'<tr>
-					<td>"'. $Medecins[$i]->PRENOM .'"</td>
-					<td>"'. $Medecins[$i]->NOM .'"</td>
-					<td>"'. $Medecins[$i]->LOGIN .'"</td>
-					<td>"'. $Medecins[$i]->MDP .'"</td>
-					<button type="submit" value="' . $Medecins->IDPERS . '" name="modification_access">Modifier Acces</button></tr>';	
-				}
-					$contenu.='</table></form>';
-			}
-			else { 
-					$contenu.='<p>
+		else{
+				$contenu.='<p>
 				<label for="nom">Nom Personnel</label>
 				<input type="text" id="nom" name="nom"/>
 				</p>
@@ -77,46 +56,31 @@ function afficherAjoutAccess($errors_message = ""){
 				<p>
 				<label for="MDP">MDP</label>
 				<input type="text" id="MDP" name="MDP"/>
-<<<<<<< Updated upstream
-				</p>';
-					for ($i=0; $i < count($cat) ; $i++) { 
-						// Pour chaque spécialité, on crée une option dans la liste
-						$contenu.='<option value="' . $cat[$i]->IDCAT .'"';// la valeur renvoyée = IDCategorie
+				</p>
 
-                		if(isset($_POST["specialite"]) && $_POST["specialite"] == $specialites[$i]->IDCAT) {
-                    	$contenu.=' selected="selected"'; 
-                		}
-                		$contenu.='>'. $specialites[$i]->LIBELLECAT .'</option>'; // La valeur à afficher = libellé
-            		}
-					$contenu.='</select>
-					</p>
-					<p>
-			    	<button type="submit" name="ajouter_acces"/>Ajouter Acces</button>
-					</p></fieldset>
-					</form>';
+				<div>
+				<label for="Categorie">Categorie de Personnel </label>
+				<select name="Categorie" required> 
+				<option value="" selected disabled hidden>-</option>';
+		
+				for ($i=0; $i < count($cat) ; $i++) { 
+					// Pour chaque spécialité, on crée une option dans la liste
+					$contenu.='<option value="' . $cat[$i]->IDCAT .'"';// la valeur renvoyée = IDSPE
+
+					if(isset($_POST["Categorie"]) && $_POST["Categorie"] == $cat[$i]->IDCAT) {
+					$contenu.=' selected="selected"'; 
+					}
+					$contenu.='>'. $cat[$i]->LIBELLECAT .'</option>'; // La valeur à afficher = libellé
+				}
 	
-			}
-			
-=======
-			</p>
-
-			<p>Categorie de personnel </br><select name="categorie">';
-			$idmed=2;
-			$idagent=1;
-			$iddir=3;
-			$contenu.='<option value=."'.$idmed.'">Médecin<option/>
-			<option value=."'.$iddir.'">Directeur<option/>
-			<option value=."'.$idagent.'">Agent Acceuil<option/>
-			</select>
-			</p>
-			<p>
-			<button type="submit" name="ajout_acces"/>Ajouter Acces</button>
-			</p></fieldset>
-            </form>';
->>>>>>> Stashed changes
+				$contenu.='</div></select><button type="submit" name="ajout_acces"/>Ajouter Acces</button>
+				</p></fieldset>
+				</form>';
 			return $contenu;
 
-			}
+		}		
+	}
+		
 
 
 	function afficherModificationAccess($personnel){
@@ -130,8 +94,10 @@ function afficherAjoutAccess($errors_message = ""){
 				for ($i=0; $i < count($personnel) ; $i++){
 					$contenu.=
 					'<tr>
-					<td>"'. $$personnel[$i]->PRENOM .'"</td>
-					<td>"'. $$personnel[$i]->NOM .'"</td>
+					<td>"'. $personnel[$i]->PRENOM .'"</td>
+					<td>"'. $personnel[$i]->NOM .'"</td>
+					<td>"'. $personnel[$i]->LOGIN .'"</td>
+					<td>"'. $personnel[$i]->MDP .'"</td>
 					<td><button type="submit" value="' . $personnel[$i]->IDPERS . '" name="changer_access">Modification Access</button></td></tr>';	
 				}
 			$contenu.='</table></form>
@@ -139,6 +105,28 @@ function afficherAjoutAccess($errors_message = ""){
 			</form>';
 			return $contenu;
 		} 
+		function NewChangedAccess($personnel){
+        
+			$contenu = '<form id="formu" method="POST"><fieldset><legend>Ajouter Access</legend>
+				<form action= method="POST">
+				<table>
+				<th>Prénom Personnel</th>
+				<th>Nom Personnel</th>';
+	
+					for ($i=0; $i < count($personnel) ; $i++){
+						$contenu.=
+						'<tr>
+						<td>"'. $personnel[$i]->PRENOM .'"</td>
+						<td>"'. $personnel[$i]->NOM .'"</td>
+						<td>"'. $personnel[$i]->LOGIN .'"</td>
+						<td>"'. $personnel[$i]->MDP .'"</td>
+						<td><button type="submit" value="' . $personnel[$i]->IDPERS . '" name="changer_access">Modification Access</button></td></tr>';	
+					}
+				$contenu.='</table></form>
+				</fieldset>
+				</form>';
+				return $contenu;
+			} 
 
 	function afficherAjoutMedecin($errors_message = "", $specialites){
         //afficher les errors message s'il y en a
@@ -197,11 +185,7 @@ function afficherAjoutAccess($errors_message = ""){
 					<td>"'. $Medecins[$i]->PRENOM .'"</td>
 					<td>"'. $Medecins[$i]->NOM .'"</td>
 					<td>"'. $Medecins[$i]->LIBELLESP .'"</td>
-<<<<<<< Updated upstream
-					<button type="submit" value="' . $Medecins[$i]->IDPERS . '" name="supprime_medecin">Supprimer Médecin</button></tr>';	
-=======
 					<td><button type="submit" value="' . $Medecins[$i]->IDPERS . '" name="supprime_medecin">Supprimer Médecin</button></td></tr>';	
->>>>>>> Stashed changes
 				}
 			$contenu.='</table></form>
 			</fieldset>
@@ -212,19 +196,29 @@ function afficherAjoutAccess($errors_message = ""){
 
 
 
-function afficherGestionMotif($errors_message = "", $titre, $motifs ){
-    $contenu = '<h3>Modification Motif</h3><div><table>';
-                
-    for ($i=0; $i < count($motifs) ; $i++) { 
-        // Pour chaque motif, on recrée la table avec les buttons
-        ///$button = '<form method="post"><input type="hidden"'
-        $contenu.='<tr><td>'.$motifs[$i]->IDMO.'</td><td>'.$motifs[$i]->LIBELLEMO.'</td></tr>'; 
-    }
-    
-    $contenu.= '</table></div>';  
-    return $contenu;  
-}
+	function afficherAjoutMotif($errors_message = ""){
+		//afficher les errors message s'il y en a
+		$contenu = '<form id="formu" method="POST"><fieldset><legend>Ajouter Motif</legend>';
 
+		if (strlen($errors_message) > 0) {
+			$contenu.= '<div>'. $errors_message . '</div>';
+		}			
+				$contenu.='<p>
+				<label for="libelle">Libelle Motif</label>
+				<input type="text" id="libelle" name="libelle"/>
+				</p>
+				<p>
+				<label for="prix">Prix motif</label>
+				<input type="number" id="prix" name="prix" />
+				</p>
+				<p>
+				<button type="submit" name="ajout_motif"/>Ajouter Motif</button>
+				</p>
+			</fieldset>
+			</form>';
+
+			return $contenu;
+		}
 
 
 ?>
