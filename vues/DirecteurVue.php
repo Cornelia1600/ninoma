@@ -56,18 +56,23 @@ function afficherGestionAccess($errors_message = "", $titre){
 				<input type="text" id="MDP" name="MDP"/>
 			</p>';
 			
+				
 				if($titre == "Modification"){
-					$contenu.='<p>
-					<label for="newlogin">Nouveau login</label>
-					<input type="text" id="newlogin" name="newlogin" />
-					</p>
-					<p>
-					<label for="newMDP">Nouveau MDP</label>
-					<input type="text" id="newMDP" name="newMDP"/>
-					</p>
-					<p>
-			    	<button type="submit" name="changer_acces"/>Modifier Acces</button>
-					</p>';
+						$contenu.='<form action= method="POST">
+						<table>
+						<th>Prénom Médecin</th>
+						<th>Nom Médecin</th>
+						<th>Spécialité Médecin</th>';
+		
+						for ($i=0; $i < count($Medecins) ; $i++){
+							$contenu.=
+							'<tr>
+							<td>"'. $Medecins[$i]->PRENOM .'"</td>
+							<td>"'. $Medecins[$i]->NOM .'"</td>
+							<td>"'. $Medecins[$i]->SPECIALITE .'"</td>
+							<button type="submit" value="' . $Medecins->IDPERS . '" name="delete_medecin">Supprimer Médecin</button></tr>';	
+						}
+						$contenu.='</table></form>';
 				}
 				else { 
 					$contenu.='
