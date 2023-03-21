@@ -133,7 +133,7 @@
     }
 
 	function afficherFormRecherchePatient(){
-		return '<form id="formu" method="POST"><fieldset><legend>Rechercher Patient</legend>
+		return '<form id="formu" method="POST"><fieldset><legend>Synthèse Patient</legend>
 		<p>
 			<label> Numéro de sécurité sociale : </label>
 			<input type="text" name="nss" />
@@ -142,36 +142,15 @@
 			
 		
 
-<<<<<<< HEAD
-			return '<form id="formu" method="POST"><fieldset><legend>Synthèse Patient</legend>
-			<p>
-				<label> Numéro de sécurité sociale : </label>
-				<input type="text" name="nss" />
-				<button type="submit" name="rechercher_patient"/>Recherche patient</button>
-			</p>
-			  
-			
-
-			<fieldset>
-			<p><label> Nom patient : </label><input type="text" id="nom" name="nom" /></p>
-			<p><label> Date de naissance : </label><input type="date" id="datenais" name="datenais" /></p>
-			
-			<p>
-			<input type="button" value="Afficher le numéro se sécurité sociale" name="affnss"  />
-			</p>
-			</fieldset>
-			</fieldset></form>';
-=======
 		<fieldset>
 		<p><label> Nom patient : </label><input type="text" id="nom" name="nom" /></p>
 		<p><label> Date de naissance : </label><input type="date" id="datenais" name="datenais" /></p>
 		
 		<p>
-		<input type="button" value="GO"  />
+		<input type="button" value="Afficher le numéro se sécurité sociale" name="affnss"  />
 		</p>
 		</fieldset>
 		</fieldset></form>';
->>>>>>> d490f97681ab36bf69e6be1e95d2c272b280a87b
 	
 	}
 	

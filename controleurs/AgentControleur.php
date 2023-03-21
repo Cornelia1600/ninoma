@@ -139,16 +139,6 @@
             $contenu = afficherFormCreationPatient();
         }
         $contenu .= afficherFormRecherchePatient();
-<<<<<<< HEAD
-       // afficherFormNSS(bool, "nss");
-       $contenu .= afficherFormNSS($NSSPATIENT);
-        // test si trouvé ou non (bool) et une qui est le nss 
-        if (isset($patientaaffiche)) {
-            $contenu .= afficherPatient($patientaaffiche);
-            $contenu = $contenu . afficherPatient($patientaaffiche);
-        }
-=======
->>>>>>> d490f97681ab36bf69e6be1e95d2c272b280a87b
         
         return $contenu;
     }
