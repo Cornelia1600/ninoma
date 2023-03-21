@@ -6,17 +6,15 @@
     require_once("./modeles/DirecteurModele.php");
     require_once("./modeles/MotifModele.php");
     require_once("./modeles/SpecialiteModele.php");
+    require_once("./modeles/PersonnelModele.php");
     require_once("./modeles/medecinModele.php");
 
     function ctlDirecteur(){
        
         if (isset($_POST["ajout_acces"])) { 
-            ///ERROR :  count(): Parameter must be an array or 
-            ///an object that implements Countable in C:\xampp\htdocs\ninoma\ninoma\vues\DirecteurVue.php on line 64
             $errors_message ='';
-            $Personnel=getAllPersonnel();
-            $cat=getallcat();
-            if (isset($_POST["ajouter_acces"])) { 
+            $cat=getAllCategories();
+            if (isset($_POST['prenom'], $_POST['nom'], $_POST['login'], $_POST['MDP'])) {
                 if(empty($_POST['prenom'])||  strlen($_POST['prenom']) == 0){
                     $errors_message=$errors_message.='<p> Retapez le prénom</p>';
                 }
@@ -30,7 +28,7 @@
                     $errors_message=$errors_message.='<p> Retapez le MDP</p>';
                 }
                 if(strlen($errors_message) > 0){
-                    $contenu = afficherAjoutAccess($errors_message = "", $cat);    
+                    $contenu = afficherAjoutAccess($errors_message, $cat);    
                 }
                 else{
                     $resCreation = Createlogin($_POST['prenom'], $_POST['nom'], $_POST["login"], $_POST["MDP"],($_POST["Categorie"]));

@@ -24,6 +24,18 @@
         return $categorie;    
     }
 
+    function getAllCategories(){
+        $connexion=getConnect();
+
+        $requetecategorie='SELECT * FROM categorie';
+        $resultatcategorie=$connexion->query($requetecategorie); 
+        $resultatcategorie->setFetchMode(PDO::FETCH_OBJ);
+        $categories = $resultatcategorie->fetchAll();
+        $resultatcategorie->closeCursor();
+
+        return $categories;    
+    }
+
     function getMedecinBySpecialite($idspecialite){
         $connexion=getConnect();
 

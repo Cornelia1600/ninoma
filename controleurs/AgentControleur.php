@@ -81,7 +81,6 @@
             if(strlen($errors_message) > 0){
                 $contenu = afficherFormCreationPatient($errors_message, $patient);
             }else{
-                echo "là";
                 // Appeler la function modifierPatient du modele qui modifie le patient 
                 if (isset($_POST["paysnais"]) && strlen($_POST["paysnais"]) > 0){
                     $pays = $_POST["paysnais"];

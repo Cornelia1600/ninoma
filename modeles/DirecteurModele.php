@@ -44,7 +44,7 @@
 		$connexion=getConnect();
 
 		$requetecreatelogin= 'INSERT INTO PERSONNEL(PRENOM,NOM,LOGIN,MDP,IDCAT)
-        VALUES ('. $prenom . '", "' . $nom . '", "' . $login . '","' . $MDP . '","' . $Cat . '")';
+        VALUES ("'. $prenom . '", "' . $nom . '", "' . $login . '","' . $MDP . '",' . $Cat . ')';
 		return $connexion->query($requetecreatelogin);
 	}
     function CreateMotif($libelle,$prix){
@@ -89,22 +89,4 @@
         return $personnels;
     }
 
-    function getallMotif(){
-        $connexion=getConnect();
-
-        $requetemed='SELECT * FROM personnel WHERE IDCAT=2';
-        $resultatmed=$connexion->query($requetemed); 
-        $resultatmed->setFetchMode(PDO::FETCH_OBJ);
-        $personnel = $resultatmed->fetch();
-        $resultatmed->closeCursor();
-    }
-    function getallcat(){
-        $connexion=getConnect();
-
-        $requetecat='SELECT * FROM categorie';
-        $resultatcat=$connexion->query($requetecat); 
-        $resultatcat->setFetchMode(PDO::FETCH_OBJ);
-        $cat = $resultatcat->fetch();
-        $resultatcat->closeCursor();
-    }
 ?>
