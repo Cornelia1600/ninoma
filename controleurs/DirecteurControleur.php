@@ -13,6 +13,7 @@
        
         if (isset($_POST["ajout_acces"])) { 
             $errors_message ='';
+            $personnel=getAllPersonnel(); 
             $cat=getAllCategories();
             if (isset($_POST['prenom'], $_POST['nom'], $_POST['login'], $_POST['MDP'])) {
                 if(empty($_POST['prenom'])||  strlen($_POST['prenom']) == 0){
@@ -28,7 +29,7 @@
                     $errors_message=$errors_message.='<p> Retapez le MDP</p>';
                 }
                 if(strlen($errors_message) > 0){
-                    $contenu = afficherAjoutAccess($errors_message, $cat);    
+                    $contenu = afficherFormCreationAccess($$errors_message, $personnel);    
                 }
                 else{
                     $resCreation = Createlogin($_POST['prenom'], $_POST['nom'], $_POST["login"], $_POST["MDP"],($_POST["Categorie"]));
@@ -39,25 +40,15 @@
                     }
                 }
             }    
-                $contenu = afficherAjoutAccess($errors_message = "", $cat);
+                $contenu = afficherFormCreationAccess($$errors_message, $personnel); 
                 return  $contenu;
              }
         elseif(isset($_POST["modif_acces"])) {
+            $errors_message ='';
             $personnel=getAllPersonnel(); 
-            $contenu = afficherModificationAccess($personnel);
+            $contenu = afficherFormCreationAccess($$errors_message, $personnel); 
             return  $contenu;
-        }    
-        elseif(isset($_POST["changer_access"])) {
-            $idpersonnel=$_POST["changer_access"];
-            var_dump($idpersonnel);
-            ////Quoi faire ici? ajouter un autre formulaire pour saisir les nouveau login et MDP? 
-            ///$resdeletemed = DeleteMedecin($idmeds);
-            ///if ($resdeletemed == TRUE) {
-           ///     return reloadPage();
-            ///}else {
-            ///    return "<h2>Erreur dans la suppression de médecin<h2>";
-           /// }
-        }   
+        }      
         elseif(isset($_POST["ajout_motif"])){
             // appel au Vue Modif motif 
             $errors_message ='';
