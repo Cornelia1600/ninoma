@@ -17,6 +17,18 @@
 		$requete= 'UPDATE client SET NSS="'. $nss .'", NOMCL="' . $nom . '", PRENOMCL="' . $prenom . '", NUMTELCL="' . $tlf . '", ADRESSECL="' . $adresse . '", DEPARTNAISSCL="' . $dept . '", PAYSNAISSCL="' . $pays . '", DATENAISSCL="' . formatDateNais($datenais) . '" WHERE IDCL='. $id;
 		return $connexion->query($requete);
 	}
+		
+	function getPatientById($id){
+		$connexion=getConnect();
+		
+		$requete = 'SELECT * FROM client WHERE IDCL="'. $id . '"';
+        $resultat=$connexion->query($requete); 
+        $resultat->setFetchMode(PDO::FETCH_OBJ);
+        $patient = $resultat->fetch();
+        $resultat->closeCursor();
+
+		return $patient;
+	}
 	
 	function getPatientByNSS($nss){
 		$connexion=getConnect();

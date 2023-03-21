@@ -1,11 +1,12 @@
 <?php
 
-function afficherFormPriseRdv($specialites, $medecins = [], $rdvDejaPris = false, $motifs = []){
+function afficherFormPriseRdv($idpatientrdv, $specialites, $medecins = [], $rdvDejaPris = false, $motifs = []){
     $contenu = '<form method="POST"><fieldset><legend>Prise de rendez-vous</legend>';
         if ($rdvDejaPris) {
             $contenu.= '<h3 style="color:red;">RDV déjà pris. Choisissez une autre date</h3>';
         }
-        $contenu.='<div>
+        $contenu.='<input type="hidden" name="idpatientrdv" value="' . $idpatientrdv .'">
+        <div>
             <label for="specialite">Choisir une spécialité : </label>
             <select name="specialite" id="specialite"> 
                 <option value="" selected disabled hidden>-</option>
@@ -91,7 +92,7 @@ function afficherFormPriseRdv($specialites, $medecins = [], $rdvDejaPris = false
 
     }
 
-    if(count($motifs) > 0){ // Si il existe un motif, alors afficher (avec le select) //TODO
+    if(count($motifs) > 0){ // Si il existe un motif, alors afficher (avec le select)
         $contenu.='<div>
         <label for="motif">Choisir un motif : </label>
         <select name="motif" id="motif">
@@ -112,7 +113,9 @@ function afficherFormPriseRdv($specialites, $medecins = [], $rdvDejaPris = false
 
     $contenu.='
             <button type="submit" name="prise_rdv">Continuer</button>
-    </fieldset></form>';
+    </fieldset>
+    <button type="submit" name="retour_accueil"/>Retour à l\'accueil</button>
+    </form>';
     // --> ajouter les valeurs des champs du formulaire dans la supervariable $_POST à la clé du nom du champ 
     // ==> $_POST["name_input"] = "value_input"
     // => + recharge la page
@@ -121,8 +124,8 @@ function afficherFormPriseRdv($specialites, $medecins = [], $rdvDejaPris = false
 }
 
 /* A afficher 
-Le nom du patient // TODO après
 Le nom du médecin avec sa spécialité
+Le nom du patient
 La date et l'heure du rdv
 Le motif 
 Les consignes
@@ -131,10 +134,10 @@ Le prix
 
 + un btn "valider le rdv"
 */
-function afficherRecapRdv($specialite, $medecin, $heure, $date, $motif, $consignes, $pieces){
+function afficherRecapRdv($specialite, $medecin, $patient, $heure, $date, $motif, $consignes, $pieces){
     $dateRdv = new DateTime($date);
     $contenu = '<form method="POST">
-        <h2>Récap du rdv</h2>
+        <h2>Récap du rdv pour ' . $patient->PRENOMCL . ' '. $patient->NOMCL . '</h2>
         <div>
             <p>RDV avec : Dr ' . $medecin->PRENOM . ' ' . $medecin->NOM . ' (' . $specialite->LIBELLESP . ')
             </p>
@@ -161,6 +164,7 @@ function afficherRecapRdv($specialite, $medecin, $heure, $date, $motif, $consign
     $contenu.='</div>
 
     <button type="submit" name="recap_valide">Valider le rdv</button>
+    <button type="submit" name="retour_accueil"/>Retour à l\'accueil</button>
     </form>';
     return $contenu;
 }

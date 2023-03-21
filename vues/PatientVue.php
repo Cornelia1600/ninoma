@@ -124,7 +124,7 @@
             </fieldset>';
 			
 			if ($modif) {
-				$contenu .= '<button type="submit" name="retour_form_creation"/>Créer un nouveau patient</button>';
+				$contenu .= '<button type="submit" name="retour_accueil"/>Créer un nouveau patient</button>';
 			}
 
 
