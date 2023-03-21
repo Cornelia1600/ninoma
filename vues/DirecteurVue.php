@@ -29,69 +29,69 @@ function afficherPageDirecteur(){
     return $form;
 }
 
-function afficherGestionAccess($errors_message = "", $titre){
+function afficherGestionAccess($errors_message = "", $titre,$Personnel, $cat){
         //afficher les errors message s'il y en a
         $contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Acces</legend>';
 
 		if (strlen($errors_message) > 0) {
 			$contenu.= '<div>'. $errors_message . '</div>';
 		}
+			if($titre == "Modification"){
+				$contenu.='<form action= method="POST">
+				<table>
+				<th>Prénom Personnel</th>
+				<th>Nom Personnel</th>
+				<th>Login</th>
+				<th>MDP</th>';
 
-		$contenu.='<p>
+				for ($i=0; $i < count($Personnel) ; $i++){
+					$contenu.=
+					'<tr>
+					<td>"'. $Medecins[$i]->PRENOM .'"</td>
+					<td>"'. $Medecins[$i]->NOM .'"</td>
+					<td>"'. $Medecins[$i]->LOGIN .'"</td>
+					<td>"'. $Medecins[$i]->MDP .'"</td>
+					<button type="submit" value="' . $Medecins->IDPERS . '" name="modification_access">Modifier Acces</button></tr>';	
+				}
+					$contenu.='</table></form>';
+			}
+			else { 
+					$contenu.='<p>
 				<label for="nom">Nom Personnel</label>
 				<input type="text" id="nom" name="nom"/>
-			</p>
-			<p>
+				</p>
+				<p>
 				<label for="prenom">Prénom Personnel</label>
 				<input type="text" id="prenom" name="prenom" />
-			</p>
+				</p>
 			
-			<p>
+				<p>
 				<label for="login">login</label>
 				<input type="text" id="login" name="login" />
-			</p>
+				</p>
 			
-			<p>
+				<p>
 				<label for="MDP">MDP</label>
 				<input type="text" id="MDP" name="MDP"/>
-			</p>';
-			
-				
-				if($titre == "Modification"){
-						$contenu.='<form action= method="POST">
-						<table>
-						<th>Prénom Médecin</th>
-						<th>Nom Médecin</th>
-						<th>Spécialité Médecin</th>';
-		
-						for ($i=0; $i < count($Medecins) ; $i++){
-							$contenu.=
-							'<tr>
-							<td>"'. $Medecins[$i]->PRENOM .'"</td>
-							<td>"'. $Medecins[$i]->NOM .'"</td>
-							<td>"'. $Medecins[$i]->SPECIALITE .'"</td>
-							<button type="submit" value="' . $Medecins->IDPERS . '" name="delete_medecin">Supprimer Médecin</button></tr>';	
-						}
-						$contenu.='</table></form>';
-				}
-				else { 
-					$contenu.='
-					<p>Categorie de personnel </br>
-					<select name="categorie">
-					<option value="medecin">Médecin<option/>
-					<option value="directeur">Directeur<option/>
-					<option value="agent">Agent Acceuil<option/>
-					</select>
+				</p>';
+					for ($i=0; $i < count($cat) ; $i++) { 
+						// Pour chaque spécialité, on crée une option dans la liste
+						$contenu.='<option value="' . $cat[$i]->IDCAT .'"';// la valeur renvoyée = IDCategorie
+
+                		if(isset($_POST["specialite"]) && $_POST["specialite"] == $specialites[$i]->IDCAT) {
+                    	$contenu.=' selected="selected"'; 
+                		}
+                		$contenu.='>'. $specialites[$i]->LIBELLECAT .'</option>'; // La valeur à afficher = libellé
+            		}
+					$contenu.='</select>
 					</p>
 					<p>
 			    	<button type="submit" name="ajouter_acces"/>Ajouter Acces</button>
-					</p>';
-				}
-
-			$contenu.='
-            </fieldset>
-            </form>';
-
+					</p></fieldset>
+					</form>';
+	
+			}
+			
 			return $contenu;
     }  
 
@@ -114,8 +114,8 @@ function afficherGestionAccess($errors_message = "", $titre){
 					'<tr>
 					<td>"'. $Medecins[$i]->PRENOM .'"</td>
 					<td>"'. $Medecins[$i]->NOM .'"</td>
-					<td>"'. $Medecins[$i]->SPECIALITE .'"</td>
-					<button type="submit" value="' . $Medecins->IDPERS . '" name="delete_medecin">Supprimer Médecin</button></tr>';	
+					<td>"'. $Medecins[$i]->LIBELLESP .'"</td>
+					<button type="submit" value="' . $Medecins[$i]->IDPERS . '" name="supprime_medecin">Supprimer Médecin</button></tr>';	
 				}
 				$contenu.='</table></form>';
 				}

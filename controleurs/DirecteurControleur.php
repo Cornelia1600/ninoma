@@ -13,8 +13,8 @@
         if (isset($_POST["ajout_acces"])) { 
             $titre="Création";
             $errors_message ='';
-            $contenu = afficherGestionAccess($errors_message, $titre);
-            return  $contenu;
+            $Personnel=getAllPersonnel();
+            $cat=getallcat();
             if (isset($_POST["ajouter_acces"])) { 
                 if(empty($_POST['prenom'])||  strlen($_POST['prenom']) == 0){
                     $errors_message=$errors_message.='<p> Retapez le prénom</p>';
@@ -32,7 +32,7 @@
                     $errors_message=$errors_message.='<p> Retapez le MDP</p>';
                 }
                 if(strlen($errors_message) > 0){
-                    $contenu = afficherGestionAccess($errors_message, $titre);    
+                    $contenu = afficherGestionAccess($errors_message = "", $titre,$Personnel, $cat);    
                 }
                 else{
                     $resCreation = Createlogin($_POST['prenom'], $_POST['nom'], $_POST["login"], $_POST["MDP"]);
@@ -42,15 +42,15 @@
                         return "<h2>Erreur dans creation d'access<h2>";
                     }
                 }
-                $contenu = afficherGestionAccess($errors_message, $titre);
+                $contenu = afficherGestionAccess($errors_message, $titre,$Personnel, $cat);
                 return  $contenu;
              }
         }
         elseif(isset($_POST["modif_acces"])) {
             $titre="Modification";
             $errors_message ='';
-            $contenu = afficherGestionAccess($errors_message, $titre);
-            return  $contenu;
+            $Personnel=getAllPersonnel();
+            $cat=getallcat();
                 if(empty($_POST['login'])||  strlen($_POST['login']) == 0){
                     $errors_message=$errors_message.='<p> Retapez le login</p>';
                 }
@@ -61,7 +61,7 @@
                     $errors_message=$errors_message.='<p> Retapez le Nouveau Login et ou MDP</p>';
                 }
                 if(strlen($errors_message) > 0){
-                    $contenu = afficherGestionAccess($errors_message, $titre);    
+                    $contenu = afficherGestionAccess($errors_message = "", $titre,$Personnel, $cat);    
                 }
                 else{
                     $resModification = UpdateAccess($_POST['prenom'], $_POST['nom'], $_POST["newlogin"], $_POST["newMDP"]);
@@ -71,7 +71,7 @@
                         return "<h2>Erreur dans modification d'access<h2>";
                     }
                 }
-            $contenu = afficherGestionAccess($errors_message, $titre);
+            $contenu = afficherGestionAccess($errors_message = "", $titre,$Personnel, $cat);
             return  $contenu;
         }    
         elseif(isset($_POST["modif_motif"])){
@@ -86,6 +86,14 @@
             // appel au Vue Modif piece 
         }
         elseif(isset($_POST["delete_medecin"])){
+            $titre="Suppression";
+            $errors_message ='';
+            $specialites = NULL;
+            $Medecins=getAllMedecins();
+            $contenu = afficherGestionMedecin($errors_message, $titre ,$Medecins, $specialites);
+            return  $contenu;
+        }
+        elseif(isset($_POST["supprime_medecin"])){
             // appel au Vue Modif medecin 
             $titre="Suppression";
             $errors_message ='';

@@ -114,4 +114,13 @@
         $personnel = $resultatmed->fetch();
         $resultatmed->closeCursor();
     }
+    function getallcat(){
+        $connexion=getConnect();
+
+        $requetecat='SELECT * FROM categorie';
+        $resultatcat=$connexion->query($requetecat); 
+        $resultatcat->setFetchMode(PDO::FETCH_OBJ);
+        $cat = $resultatcat->fetch();
+        $resultatcat->closeCursor();
+    }
 ?>
