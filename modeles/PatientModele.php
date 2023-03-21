@@ -30,16 +30,16 @@
 		return $patient;
 	}
 
-	function getNSS($nomCL, $datenaissCL){
+	function getNSS($nomCL, $datenaiss){
 		$connexion=getConnect();
-		
-		$requete = 'SELECT NSS FROM client WHERE NOMCL="'. $nomCL . '"';
+				
+		$requete = 'SELECT NSS FROM client WHERE NOMCL="'. $nomCL . '" AND DATENAISSCL="' . formatDateNais($datenaiss) . '"';
         $resultat=$connexion->query($requete); 
         $resultat->setFetchMode(PDO::FETCH_OBJ);
-        $ss = $resultat->fetch();
+        $nss = $resultat->fetch();
         $resultat->closeCursor();
 
-		return $ss;
+		return $nss;
 	}
 
 	

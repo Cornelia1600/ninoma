@@ -121,53 +121,55 @@
 			}
 			$contenu .='</p>
 			
-            </fieldset>
-            </form>
-
-			<p>
-			    <button type="submit" name="synthese_patient"/>Synthèse patient</button>
-			</p>
+            </fieldset>';
 			
-            <script src="./scripts/creationPatient.js"></script>'; 
+			if ($modif) {
+				$contenu .= '<button type="submit" name="retour_form_creation"/>Créer un nouveau patient</button>';
+			}
+
+
+            $contenu.='</form><script src="./scripts/creationPatient.js"></script>'; 
 			return $contenu;
     }
 
-	function afficherFormRecherchePatient(){
-		return '<form id="formu" method="POST"><fieldset><legend>Synthèse Patient</legend>
+	function afficherFormRecherchePatient($errors_message = ""){
+		
+		$contenu = '<form method="POST"><fieldset><legend>Rechercher Patient</legend>';
+		if (strlen($errors_message) > 0) {
+			$contenu.= '<div>'. $errors_message . '</div>';
+		}
+
+		$contenu .= '
 		<p>
 			<label> Numéro de sécurité sociale : </label>
 			<input type="text" name="nss" />
 			<button type="submit" name="rechercher_patient"/>Recherche patient</button>
-		</p>
-			
-		
-
-		<fieldset>
-		<p><label> Nom patient : </label><input type="text" id="nom" name="nom" /></p>
-		<p><label> Date de naissance : </label><input type="date" id="datenais" name="datenais" /></p>
-		
-		<p>
-		<input type="button" value="Afficher le numéro se sécurité sociale" name="affnss"  />
-		</p>
-		</fieldset>
+		</p>	
 		</fieldset></form>';
-	
-	}
-	
-	/*function afficherFormNSS($trouve, $nss=""){
-		if ($trouve){
-			//trouve
-		}else{
-			//message 
-		}
-	}*/
 
-	function afficherFormNSS($ss){
-		if (strlen($ss)){
-			return "yess";
-		}else{
-			//message 
+		return $contenu;
+	}
+
+	function afficherFormNSS($errors_message = "", $nss = ""){
+		$contenu = '<form method="POST"><fieldset><legend>Rechercher Numéro de Sécurité Sociale</legend>';
+
+		if (strlen($errors_message) > 0) {
+			$contenu.= '<div>'. $errors_message . '</div>';
 		}
+
+		if (strlen($nss) > 0) {
+			$contenu.= '<div>'. $nss . '</div>';
+		}
+		
+		$contenu.='<p><label> Nom patient : </label><input type="text" id="nom" name="nom_nss" /></p>
+		<p><label> Date de naissance : </label><input type="date" id="datenais" name="datenais_nss" /></p>
+
+		<p>
+			<button type="submit" name="affnss">Afficher le numéro de sécurité sociale</button>
+		</p>
+		</fieldset></form>';
+
+		return $contenu;
 	}
 
 ?>

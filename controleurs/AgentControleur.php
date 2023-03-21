@@ -5,14 +5,17 @@
     require_once("./modeles/PersonnelModele.php");
     require_once("./modeles/RdvModele.php");
     require_once("./modeles/MotifModele.php");
-    require_once("./vues/AgentSyntheseVue.php");
-    require_once("./vues/AgentPaiementVue.php");
     require_once("./modeles/ConsigneModele.php");
     require_once("./modeles/PieceModele.php");
     require_once("./modeles/PatientModele.php");
     require_once("./vues/PatientVue.php");
 
     function ctlAgent(){
+        if (isset($_POST["retour_form_creation"])) {
+            return reloadPage();
+        }
+
+
         if (isset($_POST["rechercher_patient"])) {
             // recherche avec nss 
             // requete vers modele patient soit nss (getPatientByNSS) 
@@ -24,12 +27,7 @@
                $patientaafficher = $patient;
             } else {
                 // le nss n'existe pas => afficher un message dans le formulaire
-                $errors_message='Numéro de sécurité sociale inconnu';
-                if(strlen($errors_message) > 0){
-                  // echo $contenu = $errors_message;
-                  $contenu = afficherFormRecherchePatient($errors_message);
-                }
-                return $contenu; 
+                $errorpatientaafficher = 'Numéro de sécurité sociale inconnu';
             }
 
 
@@ -37,24 +35,14 @@
         }
 
         if (isset($_POST["affnss"])) {
-            // recherche du nss avec nomCL et datenaissCL
-            // requete vers modele patient (getNSS)
-            // SI nss existe alors on l'affiche 
-
-            $NSSPATIENT=getNSS($_POST["nom"], $_POST["datenais"] );
-            if (isset($NSSPATIENT->IDCL)) {
-                // le patient existe déjà => afficher son nss à la fin de la page en  passant par la variable $NSSaffiche
-               $NSSaffiche = $NSSPATIENT;
-            } else {
-                // le patient n'existe pas => afficher un message dans le formulaire
-                $errors_message='Personne inconnue';
-                if(strlen($errors_message) > 0){
-                  // echo $contenu = $errors_message;
-                  $contenu = afficherFormRecherchePatient($errors_message);
-                }
-                return $contenu; 
-            }}
-
+            $patient=getNSS($_POST["nom_nss"], $_POST["datenais_nss"]);
+            if (isset($patient->NSS)) {
+                // afficher le nss
+                $affichernss = $patient->NSS;
+            }else {
+                $erroraffichernss = 'Pas de numéro de sécurité de sociale pour ses informations';
+            }
+        }
 
         if (isset($_POST["prendre_rdv"])) {
             return ctlAgentRdv();
@@ -133,11 +121,23 @@
         } 
         if (isset($patientaafficher)) {
             $contenu = afficherFormCreationPatient("", $patientaafficher);
-        }
-        else {
+        } else {
             $contenu = afficherFormCreationPatient();
         }
-        $contenu .= afficherFormRecherchePatient();
+
+        if(isset($errorpatientaafficher)) {
+            $contenu .= afficherFormRecherchePatient($errorpatientaafficher);
+        }else {
+            $contenu .= afficherFormRecherchePatient();
+        }
+
+        if (isset($affichernss)) {
+            $contenu .= afficherFormNSS("", $affichernss);
+        }else if (isset($erroraffichernss)) {
+            $contenu .= afficherFormNSS($erroraffichernss);
+        } else {
+            $contenu .= afficherFormNSS();
+        }
         
         return $contenu;
     }
