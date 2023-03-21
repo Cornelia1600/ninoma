@@ -13,7 +13,7 @@
     function UpdateModif($newmo){
         $connexion=getConnect();
 
-        $requetemodifmotif='UPDATE motif SET IDMO ="' .$newmo.'" WHERE IDRDV="' .$RDVcode. '"';
+        $requetemodifmotif='UPDATE motif SET IDMO ="' .$newmo.'"';
        return $resultatmodifmotif=$connexion->query($requetemodifmotif); 
     }
     function UpdatePrix($newprix,$motifcode){
@@ -40,30 +40,11 @@
 
     }
 
-    function CreateCat($nommedecin,$prenommedecin,$specmedecin){
-        $connexion=getConnect();
-
-        $requetecreatespe='INSERT INTO CATEGORIE (IDCAT) VALUES (2)
-        select * from PERSONNEL NATURAL JOIN CATEGORIE where NOM=$nommedecin AND PRENOM=$prenommedecin';
-        $resultatcreatespe=$connexion->query($requetecreatespe); 
-        $resultatcreatespe->closeCursor();
-    }
-
-    function CreateSpecialite($nommedecin,$prenommedecin,$specmedecin){
-        $connexion=getConnect();
-
-        $requetecreatespe='UPDATE SPECIALITE SET LIBELLESP="'.$specmedecin.'"
-        where NOM="'.$nommedecin.'". AND PRENOM="'.$prenommedecin.'"';
-        echo $requetecreatespe;
-		return $connexion->query($requetecreatespe);
-    }
-
-    function Createlogin($prenom,$nom,$login,$MDP){
+    function Createlogin($prenom,$nom,$login,$MDP,$Cat){
 		$connexion=getConnect();
 
-		$requetecreatelogin= 'INSERT INTO PERSONNEL(PRENOM,NOM,LOGIN,MDP)
-        VALUES ('. $prenom . '", "' . $nom . '", "' . $login . '","' . $MDP . '")';
-		echo $requetecreatelogin;
+		$requetecreatelogin= 'INSERT INTO PERSONNEL(PRENOM,NOM,LOGIN,MDP,IDCAT)
+        VALUES ('. $prenom . '", "' . $nom . '", "' . $login . '","' . $MDP . '","' . $Cat . '")';
 		return $connexion->query($requetecreatelogin);
 	}
     function CreateMotif($prenom,$nom,$login,$MDP){
@@ -72,12 +53,11 @@
         
   ///Les suppressions
   
-    function DeleteMedecin($prenom,$nom){
+    function DeleteMedecin($idmeds){
         $connexion=getConnect();
 
-        $requetedeletemed='DELETE from PERSONNEL WHERE NOM="'.$nom.'" AND PRENOM="'.$prenom.'"';
-        $resultatdeletemedecin=$connexion->query($requetedeletemed); 
-        $resultatdeletemedecin->closeCursor();
+        $requetedeletemed='DELETE from PERSONNEL WHERE IDPERS="'.$idmeds.'"';
+        return $connexion->query($requetedeletemed); 
     }
 
 

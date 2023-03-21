@@ -1,5 +1,5 @@
 <?php 
-    function getAllMedecins(){
+    function getAllMedecinswithspecialite(){
         $connexion=getConnect();
 
         $requeteMedecins='SELECT * FROM personnel natural join specialite where IDCAT=2';
