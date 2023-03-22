@@ -129,13 +129,21 @@
                         $idmotif = $resaddmotif[1];
                         if (isset($_POST["consignes"]) && count($_POST["consignes"]) > 0) {
                             foreach ($_POST["consignes"] as $idconsigne) {
+                                ajoutConsigne($idmotif,$idconsigne);
                                 // ajout dans la table comprend avec ajoutConsigne avec en parametre l'IDMO => $idmotif et avec l'id consigne = $idconsigne
                             }
                         }
                         // Faire pareil avec les pièces
+                        $idmotif = $resaddmotif[1];
+                        if (isset($_POST["pieces"]) && count($_POST["pieces"]) > 0) {
+                            foreach ($_POST["pieces"] as $idpiece) {
+                                ajoutpiece($idmotif,$idpiece);
+                                // ajout dans la table comprend avec ajoutConsigne avec en parametre l'IDMO => $idmotif et avec l'id consigne = $idconsigne
+                            }
+                        }
 
 
-                        // return reloadPage();
+                        return reloadPage();
                     }else {
                         return "<h2>Erreur dans l'ajout de motif<h2>";
                     }
@@ -146,10 +154,10 @@
             
         }
         elseif(isset($_POST["modif_prix"])){
-            // appel au Vue Modif prix motif 
+            
         }
         elseif(isset($_POST["modif_piece"])){
-            // appel au Vue Modif piece 
+            
         }
         elseif(isset($_POST["supprime_medecin"])){
             $idmeds=$_POST["supprime_medecin"];
@@ -190,7 +198,7 @@
                     }
                 }
             }   
-            $contenu = afficherAjoutMedecin($errors_message, $specialites);// TODO Passer les spécialités
+            $contenu = afficherAjoutMedecin($errors_message, $specialites);
             return  $contenu;
         }
         else {

@@ -55,6 +55,31 @@
 		return array($connexion->query($requetecreatemot), $connexion->lastInsertId());// return [TRUE, 56] => motif avec l'id 56 bien créé
 	
     }
+    function ajoutConsigne($codemotif,$codeconsigne){
+        $connexion=getConnect();
+
+        $requeteajoutco='INSERT INTO comprend(IDMO,IDCO) VALUES ("'.$codemotif.'","'.$codeconsigne.'")' ;
+        ;
+		return $connexion->query($requeteajoutco);
+    
+    }
+
+    function ajoutpiece($codemotif,$codepiece){
+        $connexion=getConnect();
+
+        $requeteajoutpi='INSERT INTO demande(IDMO,IDPI) VALUES ("'.$codemotif.'","'.$codepiece.'")' ;
+        ;
+		return $connexion->query($requeteajoutpi);
+    }
+
+    function CreatePrix($libelle,$prix){
+        $connexion=getConnect();
+
+        $requetecreatemot='INSERT INTO motif(LIBELLEMO,PRIXMO) VALUES ("'.$libelle.'","'.$prix.'")' ;
+        ;
+		return array($connexion->query($requetecreatemot), $connexion->lastInsertId());// return [TRUE, 56] => motif avec l'id 56 bien créé
+	
+    }
         
   ///Les suppressions
   

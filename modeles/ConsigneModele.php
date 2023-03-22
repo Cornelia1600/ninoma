@@ -26,9 +26,7 @@ function getAllConsignes(){
     return $consignes;    
 }
 
-function ajoutConsigne(){
-    
-}
+
 
 
 ?>
