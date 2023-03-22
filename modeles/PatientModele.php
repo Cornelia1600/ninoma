@@ -54,6 +54,26 @@
 		return $nss;
 	}
 
+	function depot($solde, $depot){
+		$connexion=getConnect();
+
+		$soldeApresDepot=$solde +$depot ;
+		$requete= 'INSERT INTO client (SOLDE) 
+		VALUES ("'. $soldeApresDepot . '")';
+		return $connexion->query($requete);
+
+	}
+
+
+	function payer($prix, $solde){
+		$connexion=getConnect();
+
+		$soldeApresPayement=$solde -$prix ;
+		$requete= 'INSERT INTO client (SOLDE) 
+		VALUES ("'. $soldeApresPayement . '")';
+		return $connexion->query($requete);
+
+	}
 	
 
 ?>
