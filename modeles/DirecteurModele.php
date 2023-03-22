@@ -68,9 +68,8 @@
     function DeleteMotif($nommedecin,$prenommedecin){
         $connexion=getConnect();
 
-        $requetecreatemed='INSERT INTO PERSONNEL(NOM,PRENOM) VALUES ($nommedecin,$prenommedecin)' ;
-        $resultatcreatemed=$connexion->query($requetecreatemed); 
-        $resultatcreatemed->closeCursor();
+        $requetederequetecreatemotif='INSERT INTO PERSONNEL(NOM,PRENOM) VALUES ($nommedecin,$prenommedecin)' ;
+        return $connexion->query($requetederequetecreatemotif); 
 
     }
 

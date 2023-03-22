@@ -28,6 +28,8 @@
         if (isset($_POST["ajout_acces"])) { 
             $errors_message ='';
             $personnel=getAllPersonnel(); 
+            $personnel=getAllPersonnel();
+            $titre = "Ajout";
             $cat=getAllCategories();
             if (isset($_POST['prenom'], $_POST['nom'], $_POST['login'], $_POST['MDP'])) {
                 if(empty($_POST['prenom'])||  strlen($_POST['prenom']) == 0){
@@ -43,7 +45,47 @@
                     $errors_message=$errors_message.='<p> Retapez le MDP</p>';
                 }
                 if(strlen($errors_message) > 0){
-                    $contenu = afficherAjoutAccess($errors_message, $cat);    
+                    $contenu = afficherformulaireAccess($errors_message, $cat, $personnel, $titre);    
+                }
+                else{
+                    $resCreation = Createlogin($_POST['prenom'], $_POST['nom'], $_POST["login"], $_POST["MDP"],($_POST["Categorie"]));
+                    if ($resCreation == TRUE) {
+                        return reloadPage();
+                    }else {
+                        return "<h2>Erreur dans creation d'access<h2>";
+                    }
+                }
+                }
+                   
+                $contenu = afficherformulaireAccess($errors_message, $cat, $personnel, $titre); 
+                return  $contenu;
+             }
+        elseif(isset($_POST["modifier_access"])){
+            $errors_message ='';
+            $personnel=getPersonnelByid($_POST['modifier_access']); 
+            if(isset($personnel->login)){
+                $_POST["nom"] = $personnel->NOM;
+                $_POST["prenom"] = $personnel->PRENOM;
+                $cat = getCategorieById($personnel->IDCAT);
+                $_POST["login"] = $personnel->login;
+                $_POST["mdp"] = $personnel->MDP;
+                $titre = "Modif";
+            }
+            if (isset($_POST['prenom'], $_POST['nom'], $_POST['login'], $_POST['MDP'])) {
+                if(empty($_POST['prenom'])||  strlen($_POST['prenom']) == 0){
+                    $errors_message=$errors_message.='<p> Retapez le prénom</p>';
+                }
+                if(empty($_POST['nom'])||  strlen($_POST['nom']) == 0){
+                    $errors_message=$errors_message.='<p> Retapez le nom</p>';
+                }
+                if(empty($_POST['login'])||  strlen($_POST['login']) == 0){
+                    $errors_message=$errors_message.='<p> Retapez le login</p>';
+                }
+                if(empty($_POST['MDP'])||  strlen($_POST['MDP']) == 0){
+                    $errors_message=$errors_message.='<p> Retapez le MDP</p>';
+                }
+                if(strlen($errors_message) > 0){
+                    $contenu = afficherformulaireAccess($errors_message, $cat, $personnel, $titre);    
                 }
                 else{
                     $resCreation = Createlogin($_POST['prenom'], $_POST['nom'], $_POST["login"], $_POST["MDP"],($_POST["Categorie"]));
@@ -54,14 +96,16 @@
                     }
                 }
             }    
-                $contenu = afficherAjoutAccess("", $cat); 
+                
+                $contenu = afficherformulaireAccess($errors_message, $cat, $personnel, $titre);
                 return  $contenu;
-             }
+
+            
+        }  
         elseif(isset($_POST["modif_acces"])) {
-            $errors_message ='';
             $personnel=getAllPersonnel();// getById => avec comme id $_POST["modif_acces"]
             $cat=getAllCategories();
-            $contenu = afficherAjoutAccess($$errors_message, $cat, $personnel); 
+            $contenu = afficherModificationAccess($personnel); 
             return  $contenu;
         }      
         elseif(isset($_POST["ajout_motif"])){
@@ -99,10 +143,7 @@
         }
         elseif(isset($_POST["supprime_medecin"])){
             $idmeds=$_POST["supprime_medecin"];
-            var_dump($idmeds);
             $resdeletemed = DeleteMedecin($idmeds);
-            var_dump($resdeletemed);
-            var_dump($idmeds);
             if ($resdeletemed == TRUE) {
                 return reloadPage();
             }else {

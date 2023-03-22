@@ -31,9 +31,15 @@ function afficherPageDirecteur(){
     return $form;
 }
 
-function afficherAjoutAccess($errors_message = "", $cat, $personnel = null){
-        //afficher les errors message s'il y en a
-        $contenu = '<form id="formu" method="POST"><fieldset><legend>Ajouter Acces</legend>';
+function afficherformulaireAccess($errors_message = "", $cat, $personnel = null, $titre){
+	if (isset($personnel->IDPERS)) {
+		$titre = "Modif";
+		$modif = true;
+	}else {
+		$titre = "Ajout";
+		$modif = false;
+	}
+        $contenu = '<form id="formu" method="POST"><fieldset><legend>"'.$titre.'" Acces</legend>';
 
 		if (strlen($errors_message) > 0) {
 			$contenu.= '<div>'. $errors_message . '</div>';
@@ -41,27 +47,48 @@ function afficherAjoutAccess($errors_message = "", $cat, $personnel = null){
 		else{
 				$contenu.='<p>
 				<label for="nom">Nom Personnel</label>
-				<input type="text" id="nom" name="nom"/>
-				</p>
+				<input type="text" id="nom" name="nom" value="';
+				
+				if ($modif) {
+					$contenu .= $personnel->NOM;
+				}
+
+				$contenu.='"/></p>
 				<p>
 				<label for="prenom">Prénom Personnel</label>
-				<input type="text" id="prenom" name="prenom" />
-				</p>
+				<input type="text" id="prenom" name="prenom" />';
+				if ($modif) {
+					$contenu .= $personnel->PRENOM;
+				}
+				$contenu.='</p>
 			
 				<p>
 				<label for="login">login</label>
-				<input type="text" id="login" name="login" />
-				</p>
+				<input type="text" id="login" name="login" />';
+				
+				if ($modif) {
+					$contenu .= $personnel->LOGIN;
+				}
+				$contenu.='</p>
 			
 				<p>
 				<label for="MDP">MDP</label>
-				<input type="text" id="MDP" name="MDP"/>
-				</p>
+				<input type="text" id="MDP" name="MDP"/>';
+
+				if ($modif) {
+					$contenu .= $personnel->MDP;
+				}
+
+				$contenu.='</p>
 
 				<div>
 				<label for="Categorie">Categorie de Personnel </label>
 				<select name="Categorie" required> 
 				<option value="" selected disabled hidden>-</option>';
+				
+				if ($modif) {
+					$contenu .= $personnel->IDCAT;
+				}
 		
 				for ($i=0; $i < count($cat) ; $i++) { 
 					// Pour chaque spécialité, on crée une option dans la liste
@@ -72,7 +99,11 @@ function afficherAjoutAccess($errors_message = "", $cat, $personnel = null){
 					}
 					$contenu.='>'. $cat[$i]->LIBELLECAT .'</option>'; // La valeur à afficher = libellé
 				}
-	
+				
+				if ($modif) {
+					$contenu .= '<button type="submit" name="changer_access"/>Modifier Access</button>';
+				}
+
 				$contenu.='</div></select><button type="submit" name="ajout_acces"/>Ajouter Acces</button>
 				</p></fieldset>
 				</form>';
@@ -89,7 +120,9 @@ function afficherAjoutAccess($errors_message = "", $cat, $personnel = null){
 			<form action= method="POST">
 			<table>
 			<th>Prénom Personnel</th>
-			<th>Nom Personnel</th>';
+			<th>Nom Personnel</th>
+			<th>Login</th>
+			<th>Mot de passe</th>';
 
 				for ($i=0; $i < count($personnel) ; $i++){
 					$contenu.=
@@ -98,7 +131,7 @@ function afficherAjoutAccess($errors_message = "", $cat, $personnel = null){
 					<td>"'. $personnel[$i]->NOM .'"</td>
 					<td>"'. $personnel[$i]->LOGIN .'"</td>
 					<td>"'. $personnel[$i]->MDP .'"</td>
-					<td><button type="submit" value="' . $personnel[$i]->IDPERS . '" name="changer_access">Modification Access</button></td></tr>';	
+					<td><button type="submit" value="' . $personnel[$i]->IDPERS . '" name="modifier_access">Modification Access</button></td></tr>';	
 				}
 			$contenu.='</table></form>
 			</fieldset>

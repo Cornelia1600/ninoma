@@ -11,6 +11,18 @@
         return $personnel;
     }
 
+    function getPersonnelByid($id){
+        $connexion=getConnect();
+
+        $requetelogin='SELECT * FROM personnel WHERE IDPERS="' . $id .'"';
+        $resultatlogin=$connexion->query($requetelogin); 
+        $resultatlogin->setFetchMode(PDO::FETCH_OBJ);
+        $personnel = $resultatlogin->fetch();
+        $resultatlogin->closeCursor();
+
+        return $personnel;
+    }
+
 
     function getCategorieById($id){
         $connexion=getConnect();
