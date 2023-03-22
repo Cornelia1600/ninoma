@@ -7,6 +7,8 @@
     require_once("./modeles/MotifModele.php");
     require_once("./modeles/SpecialiteModele.php");
     require_once("./modeles/PersonnelModele.php");
+    require_once("./modeles/ConsigneModele.php");
+    require_once("./modeles/PieceModele.php");
     require_once("./modeles/medecinModele.php");
 
     		
@@ -60,18 +62,11 @@
                 $contenu = afficherformulaireAccess($errors_message, $cat, $personnel, $titre); 
                 return  $contenu;
              }
-        elseif(isset($_POST["modifier_access"])){
+        elseif(isset($_POST["form_modif_acces"])){
             $errors_message ='';
-            $personnel=getPersonnelByid($_POST['modifier_access']); 
             $cat=getAllCategories();
-            if(isset($personnel->login)){
-                $_POST["nom"] = $personnel->NOM;
-                $_POST["prenom"] = $personnel->PRENOM;
-                $_POST["login"] = $personnel->login;
-                $_POST["mdp"] = $personnel->MDP;
-                $titre = "Modif";
-            }
-            if (isset($_POST['prenom'], $_POST['nom'], $_POST['login'], $_POST['MDP'])) {
+            $personnel=getPersonnelByid($_POST['form_modif_acces']); 
+            if (isset($_POST['prenom'], $_POST['nom'], $_POST['login'], $_POST['MDP'])) {// Enregistrer le formulaire de modif
                 if(empty($_POST['prenom'])||  strlen($_POST['prenom']) == 0){
                     $errors_message=$errors_message.='<p> Retapez le prénom</p>';
                 }
@@ -85,24 +80,29 @@
                     $errors_message=$errors_message.='<p> Retapez le MDP</p>';
                 }
                 if(strlen($errors_message) > 0){
-                    $contenu = afficherformulaireAccess($errors_message, $cat, $personnel, $titre);    
+                    $contenu = afficherformulaireAccess($errors_message, $cat, $personnel);    
                 }
                 else{
-                    $resCreation = Createlogin($_POST['prenom'], $_POST['nom'], $_POST["login"], $_POST["MDP"],($_POST["Categorie"]));
+                    $resCreation = UpdateAccess($_POST["form_modif_acces"], $_POST['prenom'], $_POST['nom'], $_POST["login"], $_POST["MDP"],$_POST["Categorie"]);
                     if ($resCreation == TRUE) {
                         return reloadPage();
                     }else {
                         return "<h2>Erreur dans creation d'access<h2>";
                     }
                 }
-            }    
+            } else { 
+                if(isset($personnel->login)){
+                    $contenu = afficherformulaireAccess($errors_message, $cat, $personnel);// Afficher le formulaire prérempli
+                }
+            }
+  
                 
-                $contenu = afficherformulaireAccess($errors_message, $cat, $personnel, $titre);
-                return  $contenu;
+            $contenu = afficherformulaireAccess($errors_message, $cat, $personnel);
+            return  $contenu;
 
             
-        }  
-        elseif(isset($_POST["modif_acces"])) {
+        }
+        elseif(isset($_POST["tableau_modif_acces"])) {
             $personnel=getAllPersonnel();// getById => avec comme id $_POST["modif_acces"]
             $cat=getAllCategories();
             $contenu = afficherModificationAccess($personnel); 
@@ -110,9 +110,10 @@
         }      
         elseif(isset($_POST["ajout_motif"])){
             // appel au Vue Modif motif 
+            $pieces = getAllPieces();
+            $consignes = getAllConsignes();
             $errors_message ='';
             if(isset($_POST["libelle"], $_POST["prix"])){
-
                 if(empty($_POST['libelle'])||  strlen($_POST['libelle']) == 0){
                 $errors_message=$errors_message.='<p> Retapez le libelle</p>';
                 }
@@ -120,18 +121,27 @@
                     $errors_message=$errors_message.='<p> Retapez le prix</p>';
                 }
                 if(strlen($errors_message) > 0){
-                    $contenu = afficherAjoutMotif($errors_message);    
+                    $contenu = afficherAjoutMotif($errors_message, $consignes, $pieces);    
                 }
                 else{
                     $resaddmotif = CreateMotif($_POST['libelle'],$_POST['prix']);
-                    if ($resaddmotif == TRUE) {
-                        return reloadPage();
+                    if ($resaddmotif[0] == TRUE) {
+                        $idmotif = $resaddmotif[1];
+                        if (isset($_POST["consignes"]) && count($_POST["consignes"]) > 0) {
+                            foreach ($_POST["consignes"] as $idconsigne) {
+                                // ajout dans la table comprend avec ajoutConsigne avec en parametre l'IDMO => $idmotif et avec l'id consigne = $idconsigne
+                            }
+                        }
+                        // Faire pareil avec les pièces
+
+
+                        // return reloadPage();
                     }else {
                         return "<h2>Erreur dans l'ajout de motif<h2>";
                     }
                 }
             }   
-            $contenu = afficherAjoutMotif($errors_message);
+            $contenu = afficherAjoutMotif($errors_message, $consignes, $pieces);
             return  $contenu;
             
         }

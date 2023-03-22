@@ -13,4 +13,16 @@ function getPiecesByMotif($motifId){
     return $pieces;    
 }
 
+function getAllPieces(){
+    $connexion=getConnect();
+
+    $requete='SELECT * FROM piece';
+    $resultat=$connexion->query($requete); 
+    $resultat->setFetchMode(PDO::FETCH_OBJ);
+    $pieces = $resultat->fetchAll();
+    $resultat->closeCursor();
+
+    return $pieces;    
+}
+
 ?>

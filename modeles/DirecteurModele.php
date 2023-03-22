@@ -2,11 +2,10 @@
 
 ///Les updates 
 
-    function UpdateAccess($prenom,$nom,$newlogin,$newMDP){
+    function UpdateAccess($idpersonnel,$prenom,$nom,$login,$MDP, $idcategorie){
         $connexion=getConnect();
 
-        $requetemodiflogin='UPDATE personnel SET LOGIN ="' .$newlogin.'", MDP= "' .$newMDP.'"
-        WHERE PRENOM="' .$prenom. '" AND NOM="' .$nom. '"';
+        $requetemodiflogin='UPDATE personnel SET IDCAT=' .$idcategorie.', NOM="' . $nom .'", PRENOM="' .$prenom.'", LOGIN="' . $login .'", MDP="' .$MDP . '" WHERE IDPERS='. $idpersonnel;
        return $resultatmodiflogin=$connexion->query($requetemodiflogin); 
     }
 
@@ -47,11 +46,13 @@
         VALUES ("'. $prenom . '", "' . $nom . '", "' . $login . '","' . $MDP . '",' . $Cat . ')';
 		return $connexion->query($requetecreatelogin);
 	}
+
     function CreateMotif($libelle,$prix){
         $connexion=getConnect();
 
         $requetecreatemot='INSERT INTO motif(LIBELLEMO,PRIXMO) VALUES ("'.$libelle.'","'.$prix.'")' ;
-		return $connexion->query($requetecreatemot);
+        ;
+		return array($connexion->query($requetecreatemot), $connexion->lastInsertId());// return [TRUE, 56] => motif avec l'id 56 bien créé
 	
     }
         

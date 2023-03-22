@@ -1,50 +1,48 @@
 <?php
 
-function afficherPageDirecteur(){
-    $form = '
-	<form id="directeur_form" method="post">
-        <fieldset> 
-        <legend> Création, Suppression ou Modification </legend>
-    <p>
-        <label for="acces">Login ou MDP</label>		
-		<input type="submit" Value="Ajouter Acces" name="ajout_acces"/>
-        <input type="submit" Value="Modifier Acces" name="modif_acces"/>
-    </p>
-    <p>
-        <label for="acces">Rendez-vous</label>		
-        <input type="submit" Value="Ajouter Motif" name="ajout_motif"/>
-		<input type="submit" Value="Modifier Motif" name="modif_motif"/>
-		<input type="submit" Value="Supprimer Motif" name="modif_motif"/>
-        <input type="submit" Value="Prix" name="modif_prix"/>
-        <input type="submit" Value="Pièce" name="modif_piece"/>
-    </p>
-    <p>
-        <label for="acces">Medecin</label>
-		<input type="submit" Value="Ajouter" name="ajout_medecin"/>		
-        <input type="submit" Value="Supprimer" name="delete_medecin"/>
-        
-    </p>
-  
-    </fieldset>
-    </form>';
+	function afficherPageDirecteur(){
+		$form = '
+		<form id="directeur_form" method="post">
+			<fieldset> 
+			<legend> Création, Suppression ou Modification </legend>
+		<p>
+			<label for="acces">Login ou MDP</label>		
+			<input type="submit" Value="Ajouter Acces" name="ajout_acces"/>
+			<input type="submit" Value="Modifier Acces" name="tableau_modif_acces"/>
+		</p>
+		<p>
+			<label for="acces">Rendez-vous</label>		
+			<input type="submit" value="Ajouter Motif" name="ajout_motif"/>
+			<input type="submit" value="Modifier Motif" name="modif_motif"/>
+			<input type="submit" value="Supprimer Motif" name="modif_motif"/>
+		</p>
+		<p>
+			<label for="acces">Medecin</label>
+			<input type="submit" Value="Ajouter" name="ajout_medecin"/>		
+			<input type="submit" Value="Supprimer" name="delete_medecin"/>
+			
+		</p>
+	
+		</fieldset>
+		</form>';
 
-    return $form;
-}
-
-function afficherformulaireAccess($errors_message = "", $cat, $personnel = null, $titre){
-	if (isset($personnel->IDPERS)) {
-		$titre = "Modif";
-		$modif = true;
-	}else {
-		$titre = "Ajout";
-		$modif = false;
+		return $form;
 	}
-        $contenu = '<form id="formu" method="POST"><fieldset><legend>"'.$titre.'" Acces</legend>';
 
-		if (strlen($errors_message) > 0) {
-			$contenu.= '<div>'. $errors_message . '</div>';
+	function afficherformulaireAccess($errors_message = "", $cat, $personnel = null){
+		if (isset($personnel->IDPERS)) {
+			$titre = "Modification";
+			$modif = true;
+		}else {
+			$titre = "Ajout";
+			$modif = false;
 		}
-		else{
+			$contenu = '<form id="formu" method="POST"><fieldset><legend>'.$titre.' Accès</legend>';
+
+			if (strlen($errors_message) > 0) {
+				$contenu.= '<div>'. $errors_message . '</div>';
+			}
+			else{
 				$contenu.='<p>
 				<label for="nom">Nom Personnel</label>
 				<input type="text" id="nom" name="nom" value="';
@@ -81,7 +79,7 @@ function afficherformulaireAccess($errors_message = "", $cat, $personnel = null,
 
 				$contenu.='"/></p>
 
-				<div>
+				<p>
 				<label for="Categorie">Categorie de Personnel </label>
 				<select name="Categorie" required> 
 				<option value="" selected disabled hidden>-</option>';
@@ -94,25 +92,27 @@ function afficherformulaireAccess($errors_message = "", $cat, $personnel = null,
 					// Pour chaque spécialité, on crée une option dans la liste
 					$contenu.='<option value="' . $cat[$i]->IDCAT .'"';// la valeur renvoyée = IDSPE
 
-					if(isset($_POST["Categorie"]) && $_POST["Categorie"] == $cat[$i]->IDCAT) {
+					if(isset($personnel->IDCAT) && $personnel->IDCAT == $cat[$i]->IDCAT) {
 						$contenu.=' selected="selected"'; 
 					}
 					$contenu.='>'. $cat[$i]->LIBELLECAT .'</option>'; // La valeur à afficher = libellé
 				}
 				
+				$contenu.='</select></p><p>';
+
 				if ($modif) {
-					$contenu .= '<button type="submit" name="changer_access"/>Modifier Access</button>';
+					$contenu .= '<button type="submit" name="form_modif_acces" value="' . $personnel->IDPERS . '"/>Modifier Acces</button>';
+				} else {
+					$contenu .= '<button type="submit" name="ajout_acces"/>Ajouter Acces</button>';
 				}
 
-				$contenu.='</div></select><button type="submit" name="ajout_acces"/>Ajouter Acces</button>
-				</p></fieldset>
+				
+				$contenu .= '</p></fieldset>
 				</form>';
 			return $contenu;
 
 		}		
 	}
-		
-
 
 	function afficherModificationAccess($personnel){
         
@@ -127,39 +127,18 @@ function afficherformulaireAccess($errors_message = "", $cat, $personnel = null,
 				for ($i=0; $i < count($personnel) ; $i++){
 					$contenu.=
 					'<tr>
-					<td>"'. $personnel[$i]->PRENOM .'"</td>
-					<td>"'. $personnel[$i]->NOM .'"</td>
-					<td>"'. $personnel[$i]->LOGIN .'"</td>
-					<td>"'. $personnel[$i]->MDP .'"</td>
-					<td><button type="submit" value="' . $personnel[$i]->IDPERS . '" name="modifier_access">Modification Access</button></td></tr>';	
+					<td>'. $personnel[$i]->PRENOM .'</td>
+					<td>'. $personnel[$i]->NOM .'</td>
+					<td>'. $personnel[$i]->LOGIN .'</td>
+					<td>'. $personnel[$i]->MDP .'</td>
+					<td><button type="submit" value="' . $personnel[$i]->IDPERS . '" name="form_modif_acces">Modification Access</button></td></tr>';	
 				}
-			$contenu.='</table></form>
-			</fieldset>
-			</form>';
-			return $contenu;
-		} 
-		function NewChangedAccess($personnel){
-        
-			$contenu = '<form id="formu" method="POST"><fieldset><legend>Ajouter Access</legend>
-				<form action= method="POST">
-				<table>
-				<th>Prénom Personnel</th>
-				<th>Nom Personnel</th>';
-	
-					for ($i=0; $i < count($personnel) ; $i++){
-						$contenu.=
-						'<tr>
-						<td>"'. $personnel[$i]->PRENOM .'"</td>
-						<td>"'. $personnel[$i]->NOM .'"</td>
-						<td>"'. $personnel[$i]->LOGIN .'"</td>
-						<td>"'. $personnel[$i]->MDP .'"</td>
-						<td><button type="submit" value="' . $personnel[$i]->IDPERS . '" name="changer_access">Modification Access</button></td></tr>';	
-					}
-				$contenu.='</table></form>
-				</fieldset>
-				</form>';
-				return $contenu;
-			} 
+		$contenu.='</table></form>
+		</fieldset>
+		</form>';
+		return $contenu;
+	} 
+
 
 	function afficherAjoutMedecin($errors_message = "", $specialites){
         //afficher les errors message s'il y en a
@@ -191,15 +170,15 @@ function afficherformulaireAccess($errors_message = "", $cat, $personnel = null,
 					$contenu.='>'. $specialites[$i]->LIBELLESP .'</option>'; // La valeur à afficher = libellé
 				}
 	
-			$contenu.= '</select></div>
-				<p>
-				<button type="submit" name="ajout_medecin"/>Ajouter Medécin</button>
-				</p>
-			</fieldset>
-			</form>';
+		$contenu.= '</select></div>
+			<p>
+			<button type="submit" name="ajout_medecin"/>Ajouter Medécin</button>
+			</p>
+		</fieldset>
+		</form>';
 
-			return $contenu;
-		}
+		return $contenu;
+	}
 				
 
 
@@ -220,23 +199,23 @@ function afficherformulaireAccess($errors_message = "", $cat, $personnel = null,
 					<td>"'. $Medecins[$i]->LIBELLESP .'"</td>
 					<td><button type="submit" value="' . $Medecins[$i]->IDPERS . '" name="supprime_medecin">Supprimer Médecin</button></td></tr>';	
 				}
-			$contenu.='</table></form>
-			</fieldset>
-			</form>';
-			return $contenu;
-			}
+		$contenu.='</table></form>
+		</fieldset>
+		</form>';
+		return $contenu;
+	}
 		
 
 
-
-	function afficherAjoutMotif($errors_message = ""){
+	function afficherAjoutMotif($errors_message = "", $consignes, $pieces){
 		//afficher les errors message s'il y en a
 		$contenu = '<form id="formu" method="POST"><fieldset><legend>Ajouter Motif</legend>';
 
 		if (strlen($errors_message) > 0) {
 			$contenu.= '<div>'. $errors_message . '</div>';
-		}			
-				$contenu.='<p>
+		}
+		
+		$contenu.='<p>
 				<label for="libelle">Libelle Motif</label>
 				<input type="text" id="libelle" name="libelle"/>
 				</p>
@@ -244,7 +223,24 @@ function afficherformulaireAccess($errors_message = "", $cat, $personnel = null,
 				<label for="prix">Prix motif</label>
 				<input type="number" id="prix" name="prix" />
 				</p>
-				<p>
+				<div> Consignes : ';
+				
+		foreach ($consignes as $consigne) {
+			$contenu.='<p>
+				<input type="checkbox" name="consignes[]" value="'. $consigne->IDCO .'" />
+				<label>' . $consigne->LIBELLECO .'</label>
+			</p>';
+		}
+
+		$contenu.= '</div><div>Pièces : ';						
+		foreach ($pieces as $piece) {
+			$contenu.='<p>
+				<input type="checkbox" name="pieces[]" value="'. $piece->IDPI .'" />
+				<label>' . $piece->LIBELLEPI .'</label>
+			</p>';
+		}
+				
+		$contenu.='</div><p>
 				<button type="submit" name="ajout_motif"/>Ajouter Motif</button>
 				</p>
 			</fieldset>
