@@ -63,10 +63,10 @@
         elseif(isset($_POST["modifier_access"])){
             $errors_message ='';
             $personnel=getPersonnelByid($_POST['modifier_access']); 
+            $cat=getAllCategories();
             if(isset($personnel->login)){
                 $_POST["nom"] = $personnel->NOM;
                 $_POST["prenom"] = $personnel->PRENOM;
-                $cat = getCategorieById($personnel->IDCAT);
                 $_POST["login"] = $personnel->login;
                 $_POST["mdp"] = $personnel->MDP;
                 $titre = "Modif";

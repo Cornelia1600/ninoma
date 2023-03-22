@@ -56,30 +56,30 @@ function afficherformulaireAccess($errors_message = "", $cat, $personnel = null,
 				$contenu.='"/></p>
 				<p>
 				<label for="prenom">Prénom Personnel</label>
-				<input type="text" id="prenom" name="prenom" />';
+				<input type="text" id="prenom" name="prenom" value="';
 				if ($modif) {
 					$contenu .= $personnel->PRENOM;
 				}
-				$contenu.='</p>
+				$contenu.='"/></p>
 			
 				<p>
 				<label for="login">login</label>
-				<input type="text" id="login" name="login" />';
+				<input type="text" id="login" name="login" value="';
 				
 				if ($modif) {
 					$contenu .= $personnel->LOGIN;
 				}
-				$contenu.='</p>
+				$contenu.='"/></p>
 			
 				<p>
 				<label for="MDP">MDP</label>
-				<input type="text" id="MDP" name="MDP"/>';
+				<input type="text" id="MDP" name="MDP" value="';
 
 				if ($modif) {
 					$contenu .= $personnel->MDP;
 				}
 
-				$contenu.='</p>
+				$contenu.='"/></p>
 
 				<div>
 				<label for="Categorie">Categorie de Personnel </label>
