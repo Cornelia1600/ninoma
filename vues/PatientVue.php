@@ -108,9 +108,25 @@
 				}
 					
 				$contenu.='"/>
-			</p>
-			
-			<p>';
+			</p>';
+
+			if(isset([$_rechercher_patient])){
+			$contenu.= '<p> Solde :</p>' . $patient->SOLDE.'<p><table>
+			<tr><td>Nom médecin</td>
+			<td>Date de rendez-vous</td>
+			<td>Prix de la consultation</td>
+			<td>Depôt argent / Payer la consutation</td></tr>
+			<tr><td>'.$rdv->DATERDV.'</td>
+			<td><button type="submit" name="depot"/>Dépôt</button>
+			<button type="submit" name="payer"/>payer</button></td></tr>
+			</p>'
+			;
+			}
+
+			if(isset([$_depot])){
+				$contenu.='<p><label for="montant">Montant à ajouter</label></p>';	
+			}
+			'<p>';
 			if ($modif) {
 				$contenu.= '
 				<button type="submit" name="modifier_patient" value="'. $patient->IDCL . '"/>Modifier patient</button>
