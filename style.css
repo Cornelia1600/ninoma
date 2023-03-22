@@ -2,36 +2,25 @@
     box-sizing: border-box;
 }
 
-body,
 html {
-    padding: 0;
-    margin: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
-img,
-nav,
-ul,
-li {
-    vertical-align: middle;
-
-}
-
-img {
-    width: 100%;
+#login_form{
+    width: 350px;
     height: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    border-style : inset;
+    background-color: rgb(245, 222, 157);
 }
 
-body {
-    background: #F1F4F9;
-    
-    min-height: 100vh;
+#login_form fieldset {
+    border: none;
 }
-
-header,
-footer {
-    background-color: #C1E1C1;
-}
-
 
 
 /***** HEADER  ******/
@@ -122,6 +111,13 @@ footer {
 .rs-img {
     height: 40px;
     width: 160px;
+}
+
+
+p.login{
+    color : blue;
+    border-style: solid;
+
 }
  
 

@@ -1,6 +1,6 @@
 <?php
 
-    function afficherFormCreationPatient($errors_message = "", $patient = null){
+    function afficherFormCreationPatient($errors_message = "", $patient = null, $rdvs = []){
 
 
 		if (isset($patient->IDCL)) {
@@ -110,23 +110,53 @@
 				$contenu.='"/>
 			</p>';
 
-			if(isset([$_rechercher_patient])){
-			$contenu.= '<p> Solde :</p>' . $patient->SOLDE.'<p><table>
-			<tr><td>Nom médecin</td>
-			<td>Date de rendez-vous</td>
-			<td>Prix de la consultation</td>
-			<td>Depôt argent / Payer la consutation</td></tr>
-			<tr><td>'.$rdv->DATERDV.'</td>
-			<td><button type="submit" name="depot"/>Dépôt</button>
-			<button type="submit" name="payer"/>payer</button></td></tr>
-			</p>'
-			;
-			}
+			if ($modif) {
+				$contenu.= '<p> Solde : ' . $patient->SOLDE.'€</p>
+				<form method="POST">
+					<input type="number" min="1" name="solde_a_ajouter"/>	
+					<button type="submit" name="ajouter_solde" value="' . $patient->IDCL .'">Ajouter le solde</button>	
+				</form>
+				';
 
-			if(isset([$_depot])){
-				$contenu.='<p><label for="montant">Montant à ajouter</label></p>';	
+
+				if(count($rdvs) > 0){ 
+					$contenu .= '
+					<form method="POST"><table>
+
+						<thead>
+							<tr>
+								<th>Médecin</th>
+								<th>Date</th>
+								<th>Prix</th>
+								<th>Paiement</th>
+							</tr>
+						</thead>
+						<tbody>';
+
+					foreach ($rdvs as $rdv) {
+						$contenu.='
+							<tr>
+								<td> Dr ' . $rdv->NOM . '</td>
+								<td>' .  date_format(new DateTime($rdv->DATERDV), "d/m/Y h:m") .'</td>
+								<td>' . $rdv->PRIXMO . '€</td>
+								<td>';
+						if ($rdv->ETATRDV=="PENDING") {
+							$contenu.='
+								<button type="submit" name="payer_rdv" value="' . $rdv->IDRDV .'">Payer ce rdv</button>
+							';
+						} else {
+							$contenu .= 'Payé';
+						}
+							
+						$contenu.='</td></tr>
+						
+						';
+					}
+
+					$contenu.='</tbody></table></form>';
+				}
 			}
-			'<p>';
+			$contenu.='<p>';
 			if ($modif) {
 				$contenu.= '
 				<button type="submit" name="modifier_patient" value="'. $patient->IDCL . '"/>Modifier patient</button>
@@ -135,16 +165,12 @@
 			} else {
 				$contenu.= '<button type="submit" name="ajouter_patient"/>Ajouter patient</button>';
 			}
-			$contenu .='</p>
-			
-            </fieldset>';
-			
+			$contenu .='</p>';
 			if ($modif) {
-				$contenu .= '<button type="submit" name="retour_accueil"/>Créer un nouveau patient</button>';
+				$contenu .= '<button type="submit" name="retour_accueil">Créer un nouveau patient</button>';
 			}
-
-
-            $contenu.='</form><script src="./scripts/creationPatient.js"></script>'; 
+			
+            $contenu.='</fieldset></form><script src="./scripts/creationPatient.js"></script>'; 
 			return $contenu;
     }
 

@@ -54,12 +54,12 @@
 		return $nss;
 	}
 
-	function depot($solde, $depot){
+	function ajouterSolde($idcl, $montant){
 		$connexion=getConnect();
+		$patient = getPatientById($idcl);
 
-		$soldeApresDepot=$solde +$depot ;
-		$requete= 'INSERT INTO client (SOLDE) 
-		VALUES ("'. $soldeApresDepot . '")';
+		$soldeApresDepot= $patient->SOLDE + $montant;
+		$requete= 'UPDATE client SET SOLDE='.$soldeApresDepot . ' WHERE IDCL='. $idcl;
 		return $connexion->query($requete);
 
 	}

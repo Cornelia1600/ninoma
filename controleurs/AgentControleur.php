@@ -30,6 +30,24 @@
             }
         }
 
+        if (isset($_POST["ajouter_solde"])) {
+            $ressolde = ajouterSolde($_POST["ajouter_solde"], $_POST["solde_a_ajouter"]);
+            if ($ressolde == TRUE) {
+                $patientaafficher=getPatientById($_POST["ajouter_solde"]);
+            }else  {
+                return "<h2>Erreur dans l'ajout de solde du patient<h2>";
+            }
+        }
+
+        if (isset($_POST["payer_rdv"])) {
+            $resPaiement = payerRdv($_POST["payer_rdv"]);
+            if ($resPaiement[0] == TRUE) {
+                $patientaafficher=getPatientById($resPaiement[1]);
+            }else {
+                $patientsoldeinsuffisant = getPatientById($resPaiement[1]);
+            }
+        }
+
         if (isset($_POST["rechercher_patient"])) {
             // recherche avec nss 
             // requete vers modele patient soit nss (getPatientByNSS) 
@@ -129,8 +147,14 @@
                 }
             }
         } 
-        if (isset($patientaafficher)) {
-            $contenu = afficherFormCreationPatient("", $patientaafficher);
+        
+        if (isset($patientsoldeinsuffisant)) {
+            $rdvs = getRdvsOfClient($patientsoldeinsuffisant->IDCL);
+            $msgSolde = '<p>Solde insuffisant</p>';
+            $contenu = afficherFormCreationPatient($msgSolde, $patientsoldeinsuffisant, $rdvs);
+        } elseif (isset($patientaafficher)) {
+            $rdvs = getRdvsOfClient($patientaafficher->IDCL);
+            $contenu = afficherFormCreationPatient("", $patientaafficher, $rdvs);
         } else {
             $contenu = afficherFormCreationPatient();
         }
@@ -162,6 +186,7 @@
 
                 if (isset($_POST['medecin'], $_POST['date_rdv'], $_POST['heure_rdv'])) {
                     $rdvDejaPris = getRdvByDate($_POST['medecin'], $_POST['date_rdv'], $_POST['heure_rdv']);
+                    // tachedéja prise
 
                     if(isset($rdvDejaPris->IDRDV)) { // si rdv existe (donc qu'il a un id)
                         // on affiche un message + le patient rentre une autre date (on remet le formulaire de prise de rdv)
