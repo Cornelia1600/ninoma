@@ -1,5 +1,5 @@
 <?php
-    function formatDate($date, $heure){
+    function formatDateTache($date, $heure){
         $dateTime = new DateTime($date); 
         $dateTime->setTime($heure, 0);
         return $dateTime->format('Y-m-d H:i:s');
@@ -8,15 +8,15 @@
     function creerTache($libelleTache, $heureTache, $dateTache, $idMedecin) {
         $connexion=getConnect();
 
-        $dateTime = formatDate($dateTache, $heureTache); 
+        $dateTime = formatDateTache($dateTache, $heureTache); 
         $requeteinsert='INSERT INTO tacheadmin(IDPERS,LIBELLETA,DATETA) VALUES (' . $idMedecin . ', "' . $libelleTache . '", "' . $dateTime . '")';
         return $connexion->query($requeteinsert);
     }
 
-    function getTache($dateTache, $heureTache, $idMedecin) {
+    function getTache($idMedecin, $dateTache, $heureTache) {
         $connexion=getConnect();
 
-        $dateTime = formatDate($dateTache, $heureTache); 
+        $dateTime = formatDateTache($dateTache, $heureTache); 
 
         $requete='SELECT * FROM tacheadmin WHERE IDPERS="'. $idMedecin. '" AND DATETA="' . $dateTime . '"';
         $resultat=$connexion->query($requete); 

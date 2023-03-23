@@ -17,7 +17,7 @@ function ctlMedecin() {
             $idMedecin = $_SESSION["id_personnel"];
 
             // Vérifier si une tache n'existe pas déjà à ce créneau là pour ce médecin
-            $creneauDejaPris = getTache($dateCreneau, $heureCreneau, $idMedecin);
+            $creneauDejaPris = getTache($idMedecin, $dateCreneau, $heureCreneau);
 
             $date =  date_format(new DateTime($dateCreneau), "d/m/Y");
 

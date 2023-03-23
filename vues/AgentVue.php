@@ -3,7 +3,7 @@
 function afficherFormPriseRdv($idpatientrdv, $specialites, $medecins = [], $rdvDejaPris = false, $motifs = []){
     $contenu = '<form method="POST"><fieldset><legend>Prise de rendez-vous</legend>';
         if ($rdvDejaPris) {
-            $contenu.= '<h3 style="color:red;">RDV déjà pris. Choisissez une autre date</h3>';
+            $contenu.= '<h3 style="color:red;">Créneau déjà pris. Choisissez une autre date.</h3>';
         }
         $contenu.='<input type="hidden" name="idpatientrdv" value="' . $idpatientrdv .'">
         <div>

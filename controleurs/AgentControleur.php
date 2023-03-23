@@ -6,6 +6,7 @@
     require_once("./modeles/RdvModele.php");
     require_once("./modeles/MotifModele.php");
     require_once("./modeles/ConsigneModele.php");
+    require_once("./modeles/TacheModele.php");
     require_once("./modeles/PieceModele.php");
     require_once("./modeles/PatientModele.php");
     require_once("./vues/PatientVue.php");
@@ -78,6 +79,7 @@
 
         if (isset($_POST["modifier_patient"])) {
             $errors_message ='';
+            $patient = getPatientById($_POST["modifier_patient"]);
         
             if(empty($_POST['datenais']) || $_POST['datenais'] > date("Y-m-d")){
                 $errors_message=$errors_message.='<p> Retapez votre date de naissance</p>';
@@ -95,7 +97,7 @@
                 $errors_message=$errors_message.='<p> Retapez votre numéro de téléphone</p>';
             }
             if(strlen($errors_message) > 0){
-                $contenu = afficherFormCreationPatient($errors_message, $patient);
+                $patienterrors = array($patient,$errors_message);
             }else{
                 // Appeler la function modifierPatient du modele qui modifie le patient 
                 if (isset($_POST["paysnais"]) && strlen($_POST["paysnais"]) > 0){
@@ -103,6 +105,7 @@
                 } else {
                     $pays = "FRANCE";
                 }
+                echo "modif";
                 $resModification = modifierPatient($_POST["modifier_patient"], $_POST['nss'], $_POST['nom'], $_POST["adresse"], $_POST["prenom"], $_POST["numtel"], $_POST["dptnais"], $pays, $_POST["datenais"]);
                 if ($resModification == TRUE) {
                     $patientaafficher=getPatientByNSS($_POST["nss"]);
@@ -131,7 +134,7 @@
                 $errors_message=$errors_message.='<p> Retapez votre numéro de téléphone</p>';
             }
             if(strlen($errors_message) > 0){
-                $contenu = afficherFormCreationPatient($errors_message);
+                $patienterrors = array($errors_message);
             }else{
                 // Appeler la function creerPatient du modele qui ajoute le patient 
                 if (isset($_POST["paysnais"]) && strlen($_POST["paysnais"]) > 0){
@@ -152,6 +155,13 @@
             $rdvs = getRdvsOfClient($patientsoldeinsuffisant->IDCL);
             $msgSolde = '<p>Solde insuffisant</p>';
             $contenu = afficherFormCreationPatient($msgSolde, $patientsoldeinsuffisant, $rdvs);
+        } elseif (isset($patienterrors)) {// [msg_erreurs, obj_patient] pour une modif ou [msg_erreurs] pour un ajout;
+            if (isset($patienterrors[1])) {
+                $rdvs = getRdvsOfClient($patienterrors[1]->IDCL);
+                $contenu = afficherFormCreationPatient($patienterrors[0], $patienterrors[1], $rdvs);
+            }else {
+                $contenu = afficherFormCreationPatient($patienterrors[0]);
+            }
         } elseif (isset($patientaafficher)) {
             $rdvs = getRdvsOfClient($patientaafficher->IDCL);
             $contenu = afficherFormCreationPatient("", $patientaafficher, $rdvs);
@@ -185,10 +195,10 @@
                 $medecins = getMedecinBySpecialite($_POST["specialite"]);
 
                 if (isset($_POST['medecin'], $_POST['date_rdv'], $_POST['heure_rdv'])) {
+                    $tacheDejaPrise = getTache($_POST['medecin'], $_POST['date_rdv'], $_POST['heure_rdv']);
                     $rdvDejaPris = getRdvByDate($_POST['medecin'], $_POST['date_rdv'], $_POST['heure_rdv']);
-                    // tachedéja prise
 
-                    if(isset($rdvDejaPris->IDRDV)) { // si rdv existe (donc qu'il a un id)
+                    if(isset($tacheDejaPrise->IDTA) || isset($rdvDejaPris->IDRDV)) { // si tache ou rdv existe (donc qu'il a un id) 
                         // on affiche un message + le patient rentre une autre date (on remet le formulaire de prise de rdv)
                         $vueFormRdv = afficherFormPriseRdv($idpatientrdv, $specialites, $medecins, true);// 2e bis : message rdv déjà pris + étape 2 
                     }else {
