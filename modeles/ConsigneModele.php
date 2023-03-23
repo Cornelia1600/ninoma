@@ -26,6 +26,15 @@ function getAllConsignes(){
     return $consignes;    
 }
 
+function ajoutConsigne($codemotif,$codeconsigne){
+    $connexion=getConnect();
+
+    $requeteajoutco='INSERT INTO comprend(IDMO,IDCO) VALUES ("'.$codemotif.'","'.$codeconsigne.'")' ;
+    ;
+    return $connexion->query($requeteajoutco);
+
+}
+
 
 
 

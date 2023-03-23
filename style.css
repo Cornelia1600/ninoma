@@ -6,6 +6,35 @@ html {
     font-family: 'Poppins', sans-serif;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+
+/**** General block ***/
+table, table td, table th {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+table td, table th {
+    padding: 20px;
+}
+
+button, input[type="button"], input[type="submit"] {
+    border-radius: 7px;
+    border: solid 1px black;
+    background-color: rgb(245, 222, 157);
+    padding: 5px;
+}
+
+button:hover, input[type="button"]:hover, input[type="submit"]:hover {
+    background-color: rgb(245,245,245);
+}
+
+/***** LOGIN  ******/
+
 #login_form{
     width: 350px;
     height: auto;
@@ -18,81 +47,59 @@ html {
     background-color: rgb(245, 222, 157);
 }
 
+#login_form input[type="submit"] {
+    background-color: white;
+}
+#login_form input[type="submit"]:hover {
+    background-color: rgb(245, 222, 157);
+}
+
 #login_form fieldset {
     border: none;
+}
+
+#login_form h2 {
+    margin-bottom: 2px;
 }
 
 
 /***** HEADER  ******/
 header {
     width: 100%;
-    min-height: 17vh;
     padding: 10px;
+    background-color: rgb(245, 222, 157);
 }
-.logo {
-    max-width: 150px;
+
+header h1 {
     display: inline-block;
+    margin-left: 2%;
 }
 
-nav {
-    display: inline-block;
+header form{
+    float: right;
+    margin-top: 25px;
+    margin-right: 2%;
 }
 
-ul {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    margin-left: 8%;
+header form button {
+    background-color: white;
 }
 
-li {
-    
-    display:inline-block;
-    color: #FFF;
-    font-family: "Comic Sans MS";
-    font-size: 14px;
-    margin-left: 40px;
-
-
-}
-
-li:hover {
-    color: #2D3E4A;
+header form button:hover {
+    background-color: rgb(245, 222, 157);
 }
 
 /****** MAIN *****/
 main {
-    min-height: 69vh;
-    width: 100%;
+    width: 95%;
+    margin: auto;
+    padding-top: 25px;
 }
 
-main>section{
-	margin: auto;
-	
+.error {
+    color: rgb(230, 53, 53);
+    font-weight: bold;
 }
-
-.specialites{
-	margin: auto;
-	width: fit-content;
-	margin-top: 150px;
-	
-}
-
-.specialiteContainer{
-	display: inline-block;
-	margin-left: 40px;
-	
-}
-
-table, table td, table th {
-    border-collapse: collapse;
-    border: 1px solid black;
-}
-
-table td, table th {
-    padding: 20px;
-}
-
 
 /****** FOOTER *****/
 footer {

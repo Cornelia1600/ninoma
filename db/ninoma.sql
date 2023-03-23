@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 18 mars 2023 à 22:09
+-- Généré le : jeu. 23 mars 2023 à 02:11
 -- Version du serveur : 10.4.21-MariaDB
 -- Version de PHP : 7.4.24
 
@@ -59,14 +59,6 @@ CREATE TABLE `client` (
   `SOLDE` float DEFAULT 0,
   `DATENAISSCL` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `client`
---
-
-INSERT INTO `client` (`IDCL`, `PRENOMCL`, `NOMCL`, `NUMTELCL`, `ADRESSECL`, `DEPARTNAISSCL`, `PAYSNAISSCL`, `NSS`, `SOLDE`, `DATENAISSCL`) VALUES
-(1, 'John', 'Doe', '0123456789', '123 rue ici', 99, 'TUNISIE', '2012352353456', 0, '2023-03-01'),
-(3, 'Jane', 'Doe', '0123456789', '123 rue ici', 45, 'FRANCE', '2012352353457', 0, '2023-03-15');
 
 -- --------------------------------------------------------
 
@@ -170,9 +162,7 @@ CREATE TABLE `personnel` (
 INSERT INTO `personnel` (`IDPERS`, `IDCAT`, `NOM`, `PRENOM`, `LOGIN`, `MDP`, `IDSP`) VALUES
 (2, 1, 'SINIKELY', 'Marion', 'marion.sinikely', 'marion.sinikely', NULL),
 (3, 3, 'AZIMISEDGHI', 'Niki', 'niki.azimi', 'niki.azimi', NULL),
-(4, 2, 'ELHOUDA', 'Nour', 'nour.elhouda', 'nour.elhouda', 1),
-(5, 2, 'GONZALES', 'Louis', 'louis.gonzales', 'louis.gonzales', 1),
-(6, 2, 'Doe', 'John', NULL, NULL, 2);
+(4, 2, 'ELHOUDA', 'Nour', 'nour.elhouda', 'nour.elhouda', 1);
 
 -- --------------------------------------------------------
 
@@ -208,17 +198,6 @@ CREATE TABLE `rdv` (
   `ETATRDV` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Déchargement des données de la table `rdv`
---
-
-INSERT INTO `rdv` (`IDRDV`, `IDCL`, `IDMO`, `IDPERS`, `DATERDV`, `ETATRDV`) VALUES
-(1, 1, 1, 4, '2023-03-02 16:00:00', 'PENDING'),
-(2, 1, 1, 4, '2023-03-11 08:00:00', 'PENDING'),
-(3, 1, 2, 4, '2023-03-22 08:00:00', 'PENDING'),
-(4, 1, 1, 4, '2023-03-14 09:00:00', 'PENDING'),
-(5, 1, 1, 4, '2023-03-16 10:00:00', 'PENDING');
-
 -- --------------------------------------------------------
 
 --
@@ -237,7 +216,8 @@ CREATE TABLE `specialite` (
 INSERT INTO `specialite` (`IDSP`, `LIBELLESP`) VALUES
 (1, 'CARDIOLOGUE'),
 (2, 'STOMATOLOGUE'),
-(3, 'OPHTALMOLOGUE');
+(3, 'OPHTALMOLOGUE'),
+(4, 'RADIOLOGUE');
 
 -- --------------------------------------------------------
 
@@ -344,7 +324,7 @@ ALTER TABLE `categorie`
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `IDCL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `IDCL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `consigne`
@@ -356,19 +336,19 @@ ALTER TABLE `consigne`
 -- AUTO_INCREMENT pour la table `demande`
 --
 ALTER TABLE `demande`
-  MODIFY `IDMO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `IDMO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `motif`
 --
 ALTER TABLE `motif`
-  MODIFY `IDMO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `IDMO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `personnel`
 --
 ALTER TABLE `personnel`
-  MODIFY `IDPERS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `IDPERS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `piece`
@@ -380,19 +360,19 @@ ALTER TABLE `piece`
 -- AUTO_INCREMENT pour la table `rdv`
 --
 ALTER TABLE `rdv`
-  MODIFY `IDRDV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `IDRDV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `specialite`
 --
 ALTER TABLE `specialite`
-  MODIFY `IDSP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `IDSP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `tacheadmin`
 --
 ALTER TABLE `tacheadmin`
-  MODIFY `IDTA` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDTA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

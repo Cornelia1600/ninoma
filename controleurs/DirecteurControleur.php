@@ -3,13 +3,12 @@
     require_once("./vues/DirecteurVue.php");
     
     // on appelle le modele
-    require_once("./modeles/DirecteurModele.php");
     require_once("./modeles/MotifModele.php");
     require_once("./modeles/SpecialiteModele.php");
     require_once("./modeles/PersonnelModele.php");
     require_once("./modeles/ConsigneModele.php");
     require_once("./modeles/PieceModele.php");
-    require_once("./modeles/medecinModele.php");
+    require_once("./modeles/MotifModele.php");
 
     		
 
@@ -177,7 +176,6 @@
             // appel au Vue Modif medecin 
             $errors_message ='';
             $specialites = getAllSpecialites();
-            // TODO récupérer les spécialités
 
             if(isset($_POST["prenom"], $_POST["nom"], $_POST["specialite"])){
                 if(empty($_POST['prenom'])||  strlen($_POST['prenom']) == 0){

@@ -40,7 +40,7 @@
 			$contenu = '<form id="formu" method="POST"><fieldset><legend>'.$titre.' Accès</legend>';
 
 			if (strlen($errors_message) > 0) {
-				$contenu.= '<div>'. $errors_message . '</div>';
+				$contenu.= '<div class="error">'. $errors_message . '</div>';
 			}
 			else{
 				$contenu.='<p>
@@ -145,7 +145,7 @@
         $contenu = '<form id="formu" method="POST"><fieldset><legend>Ajouter Médecin</legend>';
 
 		if (strlen($errors_message) > 0) {
-			$contenu.= '<div>'. $errors_message . '</div>';
+			$contenu.= '<div class="error">'. $errors_message . '</div>';
 		}			
 				$contenu.='<p>
 				<label for="nom">Nom Médecin</label>
@@ -212,7 +212,7 @@
 		$contenu = '<form id="formu" method="POST"><fieldset><legend>Ajouter Motif</legend>';
 
 		if (strlen($errors_message) > 0) {
-			$contenu.= '<div>'. $errors_message . '</div>';
+			$contenu.= '<div class="error">'. $errors_message . '</div>';
 		}
 		
 		$contenu.='<p>

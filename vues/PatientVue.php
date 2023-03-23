@@ -13,7 +13,7 @@
         $contenu = '<form id="formu" method="POST"><fieldset><legend>' . $titre . ' Patient</legend>';
 
 		if (strlen($errors_message) > 0) {
-			$contenu.= '<div>'. $errors_message . '</div>';
+			$contenu.= '<div class="error">'. $errors_message . '</div>';
 		}
 
 		$contenu.='<p>
@@ -178,7 +178,7 @@
 		
 		$contenu = '<form method="POST"><fieldset><legend>Rechercher Patient</legend>';
 		if (strlen($errors_message) > 0) {
-			$contenu.= '<div>'. $errors_message . '</div>';
+			$contenu.= '<div class="error">'. $errors_message . '</div>';
 		}
 
 		$contenu .= '
@@ -196,7 +196,7 @@
 		$contenu = '<form method="POST"><fieldset><legend>Rechercher Numéro de Sécurité Sociale</legend>';
 
 		if (strlen($errors_message) > 0) {
-			$contenu.= '<div>'. $errors_message . '</div>';
+			$contenu.= '<div class="error">'. $errors_message . '</div>';
 		}
 
 		if (strlen($nss) > 0) {

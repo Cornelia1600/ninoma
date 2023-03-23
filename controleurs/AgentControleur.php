@@ -73,7 +73,7 @@
                 // afficher le nss
                 $affichernss = $patient->NSS;
             }else {
-                $erroraffichernss = 'Pas de numéro de sécurité de sociale pour ses informations';
+                $erroraffichernss = 'Pas de numéro de sécurité de sociale pour ces informations';
             }
         }
 
@@ -97,7 +97,7 @@
                 $errors_message=$errors_message.='<p> Retapez votre numéro de téléphone</p>';
             }
             if(strlen($errors_message) > 0){
-                $patienterrors = array($patient,$errors_message);
+                $patienterrors = array($errors_message,$patient);
             }else{
                 // Appeler la function modifierPatient du modele qui modifie le patient 
                 if (isset($_POST["paysnais"]) && strlen($_POST["paysnais"]) > 0){
@@ -105,7 +105,6 @@
                 } else {
                     $pays = "FRANCE";
                 }
-                echo "modif";
                 $resModification = modifierPatient($_POST["modifier_patient"], $_POST['nss'], $_POST['nom'], $_POST["adresse"], $_POST["prenom"], $_POST["numtel"], $_POST["dptnais"], $pays, $_POST["datenais"]);
                 if ($resModification == TRUE) {
                     $patientaafficher=getPatientByNSS($_POST["nss"]);

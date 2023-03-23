@@ -1,7 +1,7 @@
 <?php
 
 // import des utilitaires
-require_once('./utils/gestionErreur.php');
+require_once('./vues/gestionErreur.php');
 require_once("./vues/gabarit.php");
 require_once("./modeles/connect.php");
 
@@ -10,9 +10,8 @@ $contenu = '<p>Page vide</p>';
 
 try {
 
-    var_dump($_POST);
     if (isset($_POST["deconnexion"])) {// tue la session == déconnexion
-        session_destroy();// TODO recharger la page;
+        session_destroy();
         $contenu = reloadPage();
     } else {
         if (isset($_SESSION["nom_personnel"])) {// Si qlqn est connecté

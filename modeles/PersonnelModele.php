@@ -1,29 +1,5 @@
 <?php 
-    function getPersonnelByUsername($name, $mdp){
-        $connexion=getConnect();
-
-        $requetelogin='SELECT * FROM personnel WHERE LOGIN="' . $name . '"AND MDP="' . $mdp. '"';
-        $resultatlogin=$connexion->query($requetelogin); 
-        $resultatlogin->setFetchMode(PDO::FETCH_OBJ);
-        $personnel = $resultatlogin->fetch();
-        $resultatlogin->closeCursor();
-
-        return $personnel;
-    }
-
-    function getPersonnelByid($id){
-        $connexion=getConnect();
-
-        $requetelogin='SELECT * FROM personnel WHERE IDPERS="' . $id .'"';
-        $resultatlogin=$connexion->query($requetelogin); 
-        $resultatlogin->setFetchMode(PDO::FETCH_OBJ);
-        $personnel = $resultatlogin->fetch();
-        $resultatlogin->closeCursor();
-
-        return $personnel;
-    }
-
-
+    // Catégories
     function getCategorieById($id){
         $connexion=getConnect();
 
@@ -48,6 +24,60 @@
         return $categories;    
     }
 
+    // Personnels
+    function getPersonnelByUsername($name, $mdp){
+        $connexion=getConnect();
+
+        $requetelogin='SELECT * FROM personnel WHERE LOGIN="' . $name . '"AND MDP="' . $mdp. '"';
+        $resultatlogin=$connexion->query($requetelogin); 
+        $resultatlogin->setFetchMode(PDO::FETCH_OBJ);
+        $personnel = $resultatlogin->fetch();
+        $resultatlogin->closeCursor();
+
+        return $personnel;
+    }
+
+    function getPersonnelByid($id){
+        $connexion=getConnect();
+
+        $requetelogin='SELECT * FROM personnel WHERE IDPERS="' . $id .'"';
+        $resultatlogin=$connexion->query($requetelogin); 
+        $resultatlogin->setFetchMode(PDO::FETCH_OBJ);
+        $personnel = $resultatlogin->fetch();
+        $resultatlogin->closeCursor();
+
+        return $personnel;
+    }
+    
+    function getAllPersonnel(){
+        $connexion=getConnect();
+
+        $requetepers='SELECT * FROM personnel';
+        $resultatpers=$connexion->query($requetepers); 
+        $resultatpers->setFetchMode(PDO::FETCH_OBJ);
+        $personnels = $resultatpers->fetchAll();
+        $resultatpers->closeCursor();
+
+        return $personnels;
+    }
+
+        
+    function Createlogin($prenom,$nom,$login,$MDP,$Cat){
+		$connexion=getConnect();
+
+		$requetecreatelogin= 'INSERT INTO PERSONNEL(PRENOM,NOM,LOGIN,MDP,IDCAT)
+        VALUES ("'. $prenom . '", "' . $nom . '", "' . $login . '","' . $MDP . '",' . $Cat . ')';
+		return $connexion->query($requetecreatelogin);
+	}  
+    
+    function UpdateAccess($idpersonnel,$prenom,$nom,$login,$MDP, $idcategorie){
+        $connexion=getConnect();
+
+        $requetemodiflogin='UPDATE personnel SET IDCAT=' .$idcategorie.', NOM="' . $nom .'", PRENOM="' .$prenom.'", LOGIN="' . $login .'", MDP="' .$MDP . '" WHERE IDPERS='. $idpersonnel;
+       return $resultatmodiflogin=$connexion->query($requetemodiflogin); 
+    }
+
+    // Médecins
     function getMedecinBySpecialite($idspecialite){
         $connexion=getConnect();
 
@@ -71,4 +101,32 @@
 
         return $medecin;    
     }
+
+    function getAllMedecinswithspecialite(){
+        $connexion=getConnect();
+
+        $requeteMedecins='SELECT * FROM personnel natural join specialite where IDCAT=2';
+        $resultatMedecins=$connexion->query($requeteMedecins); 
+        $resultatMedecins->setFetchMode(PDO::FETCH_OBJ);
+        $Medecins = $resultatMedecins->fetchAll();
+        $resultatMedecins->closeCursor();
+
+        return $Medecins;
+    }
+
+    function DeleteMedecin($idmeds){
+        $connexion=getConnect();
+
+        $requetedeletemed='DELETE from PERSONNEL WHERE IDPERS="'.$idmeds.'"';
+        return $connexion->query($requetedeletemed); 
+    }
+
+    function CreateMedecin($nommedecin,$prenommedecin, $idspemedecin){
+        $connexion=getConnect();
+
+        $requetecreatemed='INSERT INTO personnel(NOM,PRENOM,IDSP,IDCAT) VALUES ("'.$nommedecin.'","'.$prenommedecin.'", ' . $idspemedecin .', 2)' ;
+		return $connexion->query($requetecreatemed);
+
+    }
+
 ?>

@@ -4,10 +4,10 @@ function afficherFormulaireConnexion($erreurMdpLogin = false){
     $form = '
 	<form id="login_form" action="#" method="post">
         <fieldset> 
-            <legend> Connectez-Vous </legend>';
+            <legend><h2>Connectez-Vous</h2></legend>';
 
     if ($erreurMdpLogin) {
-        $form.="<p>Erreur dans le login ou le mot de passe</p>";
+        $form.='<p class="error">Erreur dans le login ou le mot de passe</p>';
     }
 
     $form.= '

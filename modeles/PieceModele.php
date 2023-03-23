@@ -25,4 +25,13 @@ function getAllPieces(){
     return $pieces;    
 }
 
+
+function ajoutpiece($codemotif,$codepiece){
+    $connexion=getConnect();
+
+    $requeteajoutpi='INSERT INTO demande(IDMO,IDPI) VALUES ("'.$codemotif.'","'.$codepiece.'")' ;
+    ;
+    return $connexion->query($requeteajoutpi);
+}
+
 ?>

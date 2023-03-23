@@ -22,4 +22,14 @@
 
         return $motif;    
     }
+
+    
+    function CreateMotif($libelle,$prix){
+        $connexion=getConnect();
+
+        $requetecreatemot='INSERT INTO motif(LIBELLEMO,PRIXMO) VALUES ("'.$libelle.'","'.$prix.'")' ;
+        ;
+		return array($connexion->query($requetecreatemot), $connexion->lastInsertId());// return [TRUE, 56] => motif avec l'id 56 bien créé
+	
+    }
 ?>

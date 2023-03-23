@@ -15,17 +15,20 @@
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
         </head>
-        <body>'.
-        $contenu;
-        
+        <body>';
+                
+                
+                
+                if (isset($_SESSION["nom_personnel"])) {
+                    $html.= '<header><h1>NINOMA SANTÉ</h1>
+                        <form method="post">
+                            <button type="submit" name="deconnexion">Déconnexion</button>
+                        </form>
+                    </header>';
+                } 
 
-        if (isset($_SESSION["nom_personnel"])) {
-            $html.= ' 
-            <form method="post">
-                <button type="submit" name="deconnexion">Déconnexion</button>
-            </form>
-            ';
-        }
+                $html.='<main>'. $contenu . '</main>';
+                
         
         $html .= '</body></html>';
         echo $html;
