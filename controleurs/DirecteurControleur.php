@@ -188,7 +188,7 @@
                     $contenu = afficherAjoutMedecin($errors_message, $specialites);    
                 }
                 else{
-                    $resaddmed = CreateMedecin($_POST['nom'],$_POST['prenom'], 2);
+                    $resaddmed = CreateMedecin($_POST['nom'],$_POST['prenom'],$_POST["specialite"]);
                     if ($resaddmed == TRUE) {
                         return reloadPage();
                     }else {
